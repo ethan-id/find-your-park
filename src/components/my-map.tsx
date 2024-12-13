@@ -22,6 +22,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude}) => {
             <div>
                 Latitude: {latitude}, Longitude: {longitude}
             </div>
+
             <Map
                 mapId={'testing-id'}
                 style={{width: '80vw', height: '80vh'}}

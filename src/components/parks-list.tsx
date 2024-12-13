@@ -11,7 +11,7 @@ export const ParksList: FunctionComponent = () => {
     return (
         <ul>
             {parks.map((park) => (
-                <li>{park}</li>
+                <li key={park}>{park}</li>
             ))}
         </ul>
     );
