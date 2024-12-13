@@ -4,6 +4,7 @@ import {FunctionComponent} from 'react';
 import {APIProvider} from '@vis.gl/react-google-maps';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
+import {ParksList} from '@/components/parks-list';
 
 const Home: FunctionComponent = () => {
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
@@ -20,12 +21,16 @@ const Home: FunctionComponent = () => {
 
     return (
         <APIProvider apiKey={API_KEY}>
-            <div className='flex justify-center align-center py-16 px-16'>
+            <div className='flex flex-row justify-center align-center py-16 px-16'>
                 {!loading ? (
                     <>
-                        <p className='px-8 pb-4 pt-8 text-xl font-bold'>
-                            Hmmmm, where is that national park? 🤔
-                        </p>
+                        <div className='flex flex-col'>
+                            <p className='py-8 text-xl font-bold'>
+                                Hmmmm, where is that national park? 🤔
+                            </p>
+
+                            <ParksList />
+                        </div>
 
                         <MyMap
                             longitude={longitude as number}
