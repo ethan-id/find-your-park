@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@uidotdev/usehooks": "^2.4.1",
         "@vis.gl/react-google-maps": "^1.4.2",
         "next": "15.1.0",
         "react": "^19.0.0",
