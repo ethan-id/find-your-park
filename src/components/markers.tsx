@@ -1,10 +1,6 @@
 import {AdvancedMarker, Pin} from '@vis.gl/react-google-maps';
 import {FunctionComponent} from 'react';
-
-interface Poi {
-    key: string;
-    location: google.maps.LatLngLiteral;
-}
+import type {Poi} from '@/types/location-types';
 
 interface MarkersProps {
     markers: Poi[];
