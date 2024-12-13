@@ -20,15 +20,18 @@ const Home: FunctionComponent = () => {
 
     return (
         <APIProvider apiKey={API_KEY}>
-            <p className='px-8 pb-4 pt-8 text-xl font-bold'>
-                Hmmmm, where is that national park? 🤔
-            </p>
             <div className='flex justify-center align-center py-16 px-16'>
                 {!loading ? (
-                    <MyMap
-                        longitude={longitude as number}
-                        latitude={latitude as number}
-                    />
+                    <>
+                        <p className='px-8 pb-4 pt-8 text-xl font-bold'>
+                            Hmmmm, where is that national park? 🤔
+                        </p>
+
+                        <MyMap
+                            longitude={longitude as number}
+                            latitude={latitude as number}
+                        />
+                    </>
                 ) : (
                     <div className='flex justify-center text-bold w-[80vw] h-[80vh] text-3xl'>
                         Waiting on those location permissions pookie 😘
