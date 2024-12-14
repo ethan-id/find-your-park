@@ -1,62 +1,45 @@
 'use client';
 
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
 
 interface ReverseGeocodeResult {
     stateCode?: string;
-    // You could add more properties as needed (city, country, etc.)
 }
 
-interface UseReverseGeocodeOptions {
+interface UseReverseGeocodeProps {
     latitude?: number;
     longitude?: number;
+    mapsLoaded: boolean; // We’ll pass this in
 }
 
-export function useReverseGeocode({latitude, longitude}: UseReverseGeocodeOptions) {
+export function useReverseGeocode({latitude, longitude, mapsLoaded}: UseReverseGeocodeProps) {
     const [result, setResult] = useState<ReverseGeocodeResult | null>(null);
     const [error, setError] = useState<Error | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    // Create geocoder instance once Google Maps is loaded
-    const geocoder = useMemo(() => {
-        if (typeof window !== 'undefined' && window.google && window.google.maps) {
-            return new google.maps.Geocoder();
-        }
-        return null;
-    }, []);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Only run if we have coordinates and geocoder is ready
-        if (!geocoder || latitude === undefined || longitude === undefined) {
-            // If we have no geocoder but have coordinates, we might still be loading
-            // If we have no coords, we might be waiting on geolocation
-            // Handle these states as you wish
-            if (latitude === undefined || longitude === undefined) {
+        if (!mapsLoaded || latitude === undefined || longitude === undefined) {
+            // If maps not loaded or coords not ready, still "loading"
+            if (!mapsLoaded || latitude === undefined || longitude === undefined) {
                 setLoading(true);
-            } else {
-                setLoading(false);
             }
             return;
         }
 
-        // We have geocoder and coordinates now, fetch data
         setLoading(true);
+        const geocoder = new google.maps.Geocoder();
         geocoder.geocode({location: {lat: latitude, lng: longitude}}, (results, status) => {
             if (status === 'OK' && results && results.length > 0) {
                 const addrComponents = results[0].address_components;
                 const state = addrComponents.find((comp) => comp.types.includes('administrative_area_level_1'));
-
-                setResult({
-                    stateCode: state?.short_name
-                });
-                console.log(state?.short_name);
+                setResult({stateCode: state?.short_name});
                 setLoading(false);
             } else {
                 setError(new Error(`Geocoding failed: ${status}`));
                 setLoading(false);
             }
         });
-    }, [geocoder, latitude, longitude]);
+    }, [mapsLoaded, latitude, longitude]);
 
     return {result, error, loading};
 }
