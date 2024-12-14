@@ -52,11 +52,11 @@ const Home: FunctionComponent = () => {
 
     return (
         <APIProvider apiKey={API_KEY} onLoad={() => setMapsLoaded(true)}>
-            <div className='flex flex-row justify-center align-center py-16 px-16'>
+            <div className='flex flex-row justify-center align-center gap-12'>
                 {!loading ? (
                     <>
-                        <div className='flex flex-col'>
-                            <p className='py-8 text-xl font-bold'>Hmmmm, where is that national park? 🤔</p>
+                        <div className='flex flex-col px-8 py-8'>
+                            <p className='text-xl font-bold pb-4'>Hmmmm, where is that national park? 🤔</p>
                             {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
                             <ParksList parks={parks} loading={parksLoading} error={parksErr} />
                         </div>

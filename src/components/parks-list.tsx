@@ -23,9 +23,6 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
             {parks?.data.map((park) => (
                 <li key={park.id}>
                     <h2> - {park.fullName}</h2>
-                    <h2>
-                        Lat: {park.latitude}, Lng: {park.longitude}
-                    </h2>
                 </li>
             ))}
         </ul>
