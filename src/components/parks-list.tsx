@@ -37,7 +37,7 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
                     ) : null}
 
                     <a
-                        className='flex flex-row justify-between items-center text-lg py-2'
+                        className='flex flex-row justify-between items-center text-lg font-semibold py-2'
                         target='_blank'
                         href={park.url}
                     >
