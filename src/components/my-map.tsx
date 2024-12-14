@@ -22,13 +22,13 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
         <div className=''>
             <Map
                 mapId={'testing-id'}
-                style={{width: '80vw', height: '100vh'}}
+                style={{position: 'sticky', right: '0', top: '0', width: '70vw', height: '100vh'}}
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
                     lat: latitude as number,
                     lng: longitude as number
                 }}
-                defaultZoom={5}
+                defaultZoom={7}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
                 reuseMaps
