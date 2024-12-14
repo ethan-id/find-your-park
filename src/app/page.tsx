@@ -11,6 +11,7 @@ import {useParks} from '@/hooks/use-parks';
 
 const Home: FunctionComponent = () => {
     const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
+
     const [mapsLoaded, setMapsLoaded] = useState(false);
     const [parkMarkers, setParkMarkers] = useState<Poi[]>([]);
 
@@ -39,6 +40,7 @@ const Home: FunctionComponent = () => {
 
     useEffect(() => {
         const markers: Poi[] = [];
+
         if (parks && parks?.data.length > 0) {
             for (const park of parks?.data) {
                 markers.push({
@@ -47,6 +49,7 @@ const Home: FunctionComponent = () => {
                 });
             }
         }
+
         setParkMarkers(markers);
     }, [parks, parksLoading]);
 
@@ -60,6 +63,7 @@ const Home: FunctionComponent = () => {
                             {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
                             <ParksList parks={parks} loading={parksLoading} error={parksErr} />
                         </div>
+
                         {typeof longitude === 'number' && typeof latitude === 'number' && (
                             <MyMap parkMarkers={parkMarkers} longitude={longitude} latitude={latitude} />
                         )}

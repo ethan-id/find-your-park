@@ -18,10 +18,6 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
         }
     };
 
-    if (parkMarkers) {
-        console.log(parkMarkers);
-    }
-
     return (
         <div className=''>
             <Map

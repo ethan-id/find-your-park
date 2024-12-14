@@ -117,6 +117,3 @@ export const parksResponseSchema = z.object({
 
 // Infer TypeScript type from the schema
 export type ParksResponse = z.infer<typeof parksResponseSchema>;
-
-// Example usage
-// const parsed = parksResponseSchema.parse(json); // runtime validation
