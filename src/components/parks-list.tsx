@@ -1,7 +1,7 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {useParks} from '@/hooks/useParks';
+import {useParks} from '@/hooks/use-parks';
 
 interface ParksListProps {
     state: string;
