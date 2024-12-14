@@ -27,7 +27,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
             <Map
                 mapId={'testing-id'}
                 style={{width: '80vw', height: '100vh'}}
-                colorScheme={'DARK'}
+                colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
                     lat: latitude as number,
                     lng: longitude as number
