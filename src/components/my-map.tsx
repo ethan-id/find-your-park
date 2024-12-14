@@ -6,9 +6,10 @@ import {Poi} from '@/types/location-types';
 interface MyMapProps {
     longitude: number;
     latitude: number;
+    parkMarkers?: Poi[];
 }
 
-export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude}) => {
+export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkMarkers}) => {
     const userLocation: Poi = {
         key: 'Your Position',
         location: {
@@ -16,6 +17,10 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude}) => {
             lng: longitude
         }
     };
+
+    if (parkMarkers) {
+        console.log(parkMarkers);
+    }
 
     return (
         <div className=''>
@@ -31,12 +36,14 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude}) => {
                     lat: latitude as number,
                     lng: longitude as number
                 }}
-                defaultZoom={15}
+                defaultZoom={5}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
                 reuseMaps
             >
-                <Markers markers={[userLocation]} />
+                <Markers
+                    markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers, userLocation] : [userLocation]}
+                />
             </Map>
         </div>
     );
