@@ -1,15 +1,15 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {useParks} from '@/hooks/use-parks';
+import {ParksResponse} from '@/types/park-types';
 
 interface ParksListProps {
-    state: string;
+    parks: ParksResponse | null;
+    loading: boolean;
+    error: Error | null;
 }
 
-export const ParksList: FunctionComponent<ParksListProps> = ({state}) => {
-    const {parks, loading, error} = useParks(state);
-
+export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, error}) => {
     if (loading) {
         return <p>Loading parks...</p>;
     }
@@ -23,6 +23,9 @@ export const ParksList: FunctionComponent<ParksListProps> = ({state}) => {
             {parks?.data.map((park) => (
                 <li key={park.id}>
                     <h2> - {park.fullName}</h2>
+                    <h2>
+                        Lat: {park.latitude}, Lng: {park.longitude}
+                    </h2>
                 </li>
             ))}
         </ul>

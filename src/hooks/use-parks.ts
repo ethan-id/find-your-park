@@ -19,6 +19,12 @@ export function useParks(stateCode?: string) {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
+        if (!stateCode) {
+            setParks(null);
+            setLoading(false);
+            return;
+        }
+
         let isMounted = true;
         setLoading(true);
 
@@ -39,7 +45,7 @@ export function useParks(stateCode?: string) {
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [stateCode]);
 
     return {parks, loading, error};
 }
