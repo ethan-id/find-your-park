@@ -14,8 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: 'National Park Finder',
-    description:
-        'Want to know which national park is closest to you? Check out this site!'
+    description: 'Want to know which national park is closest to you? Check out this site!'
 };
 
 export default function RootLayout({
@@ -25,11 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-            >
-                {children}
-            </body>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
         </html>
     );
 }

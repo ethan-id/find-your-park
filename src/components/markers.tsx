@@ -11,11 +11,7 @@ export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
         <>
             {markers.map((poi: Poi) => (
                 <AdvancedMarker key={poi.key} position={poi.location}>
-                    <Pin
-                        background={'#FBBC04'}
-                        glyphColor={'#000'}
-                        borderColor={'#000'}
-                    />
+                    <Pin background={'#FBBC04'} glyphColor={'#000'} borderColor={'#000'} />
                 </AdvancedMarker>
             ))}
         </>
