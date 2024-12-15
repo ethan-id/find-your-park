@@ -1,7 +1,8 @@
 'use client';
 
-import {FunctionComponent} from 'react';
+import {FunctionComponent, Suspense} from 'react';
 import {ParksResponse} from '@/types/park-types';
+import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 interface ParksListProps {
@@ -19,6 +20,17 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
         return <p>Uh oh! We couldn't fetch the parks ☹️</p>;
     }
 
+    /*
+     *                              <img
+                                        key={image.title}
+                                        src={image.url}
+                                        alt={image.altText ?? ''}
+                                        className={'max-h-30 rounded-xl object-cover snap-always snap-center'}
+                                    />
+
+     *
+    */
+
     return (
         <ul>
             {parks?.data.map((park) => (
@@ -26,12 +38,9 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
                     {park.images ? (
                         <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
                             {park.images.map((image) => (
-                                <img
-                                    key={image.title}
-                                    src={image.url}
-                                    alt={image.altText ?? ''}
-                                    className={'max-h-30 rounded-xl object-cover snap-always snap-center'}
-                                />
+                                <Suspense fallback={<ImgFallback />} key={image.title}>
+                                    <SuspenseImage src={image.url} alt={image.altText ?? ''} />
+                                </Suspense>
                             ))}
                         </div>
                     ) : null}
@@ -50,4 +59,8 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
             ))}
         </ul>
     );
+};
+
+const ImgFallback = () => {
+    return <div className='h-[30]'>Loading...</div>;
 };
