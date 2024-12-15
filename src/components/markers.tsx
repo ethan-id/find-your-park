@@ -1,17 +1,17 @@
 import {AdvancedMarker, Pin} from '@vis.gl/react-google-maps';
 import {FunctionComponent} from 'react';
 import Image from 'next/image';
-import type {Poi} from '@/types/location-types';
+import type {MarkerData} from '@/types/location-types';
 
 interface MarkersProps {
-    markers: Poi[];
+    markers: MarkerData[];
 }
 
 export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
     return (
         <>
-            {markers.map((poi: Poi) => (
-                <AdvancedMarker key={poi.key} position={poi.location}>
+            {markers.map((marker) => (
+                <AdvancedMarker key={marker.park.id} position={marker.location}>
                     <Image
                         src={'https://utfs.io/f/vWKtdZl81f5UMw786LSheYiJSk1D7b5FHUv9Oo62BQNZLAIs'}
                         alt={'Cat'}

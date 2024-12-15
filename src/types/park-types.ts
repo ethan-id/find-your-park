@@ -107,6 +107,7 @@ const parkSchema = z.object({
     multimedia: z.array(z.unknown()).optional(),
     relevanceScore: z.number().optional()
 });
+export type Park = z.infer<typeof parkSchema>;
 
 export const parksResponseSchema = z.object({
     total: z.string(),

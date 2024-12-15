@@ -1,17 +1,21 @@
 import {FunctionComponent} from 'react';
 import {Map} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
-import {Poi} from '@/types/location-types';
+import {MarkerData} from '@/types/location-types';
+import {Park} from '@/types/park-types';
 
 interface MyMapProps {
     longitude: number;
     latitude: number;
-    parkMarkers?: Poi[];
+    parkMarkers?: MarkerData[];
 }
 
 export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkMarkers}) => {
-    const userLocation: Poi = {
-        key: 'Your Position',
+    const userLocation: MarkerData = {
+        park: {
+            id: 'your-location-id',
+            fullName: 'Your Position'
+        } as Park,
         location: {
             lat: latitude,
             lng: longitude
