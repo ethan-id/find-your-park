@@ -20,17 +20,6 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
         return <p>Uh oh! We couldn't fetch the parks ☹️</p>;
     }
 
-    /*
-     *                              <img
-                                        key={image.title}
-                                        src={image.url}
-                                        alt={image.altText ?? ''}
-                                        className={'max-h-30 rounded-xl object-cover snap-always snap-center'}
-                                    />
-
-     *
-    */
-
     return (
         <ul>
             {parks?.data.map((park) => (
@@ -62,5 +51,9 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
 };
 
 const ImgFallback = () => {
-    return <div className='h-[30]'>Loading...</div>;
+    return (
+        <div className='min-h-52 min-w-full border border-x-white rounded-lg flex items-center justify-center'>
+            Loading image
+        </div>
+    );
 };
