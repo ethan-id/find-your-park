@@ -21,7 +21,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
     return (
         <div className=''>
             <Map
-                mapId={'testing-id'}
+                mapId={'17b67c316f835bbf'}
                 style={{position: 'sticky', right: '0', top: '0', width: '70vw', height: '100vh'}}
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
@@ -31,7 +31,8 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
                 defaultZoom={7}
                 gestureHandling={'greedy'}
                 disableDefaultUI={true}
-                reuseMaps
+                reuseMaps={true}
+                renderingType={'VECTOR'}
             >
                 <Markers
                     markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers, userLocation] : [userLocation]}

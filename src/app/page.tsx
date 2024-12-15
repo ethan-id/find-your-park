@@ -55,7 +55,7 @@ const Home: FunctionComponent = () => {
 
     return (
         <APIProvider apiKey={API_KEY} onLoad={() => setMapsLoaded(true)}>
-            <div className='flex flex-row justify-center align-center'>
+            <div className='flex flex-row justify-center align-center bg-[#05080d]'>
                 {!loading ? (
                     <>
                         <div className='flex flex-col px-12 py-8'>
@@ -71,7 +71,7 @@ const Home: FunctionComponent = () => {
                         )}
                     </>
                 ) : (
-                    <div className='flex justify-center text-bold w-[80vw] h-[80vh] text-3xl'>
+                    <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
                         Waiting on those location permissions pookie 😘
                     </div>
                 )}
