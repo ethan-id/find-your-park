@@ -2,7 +2,7 @@
 
 import {FunctionComponent, useState, useEffect} from 'react';
 import {APIProvider} from '@vis.gl/react-google-maps';
-import {MarkerData, Poi} from '@/types/location-types';
+import {MarkerData} from '@/types/location-types';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
 import {ParksList} from '@/components/parks-list';
@@ -17,7 +17,6 @@ const Home: FunctionComponent = () => {
 
     const {error: geoError, loading: geoLoading, latitude, longitude} = useGeolocation();
 
-    // Only call useReverseGeocode if we actually have latitude and longitude.
     const {
         result,
         error: geoCodeError,

@@ -25,16 +25,17 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
     return (
         <div className=''>
             <Map
-                mapId={'17b67c316f835bbf'}
-                style={{position: 'sticky', right: '0', top: '0', width: '70vw', height: '100vh'}}
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
                     lat: latitude as number,
                     lng: longitude as number
                 }}
+                defaultTilt={30}
                 defaultZoom={7}
-                gestureHandling={'greedy'}
                 disableDefaultUI={true}
+                gestureHandling={'greedy'}
+                mapId={'17b67c316f835bbf'}
+                style={{position: 'sticky', right: '0', top: '0', width: '70vw', height: '100vh'}}
                 reuseMaps={true}
                 renderingType={'VECTOR'}
             >
