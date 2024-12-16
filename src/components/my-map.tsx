@@ -1,5 +1,5 @@
 import {FunctionComponent} from 'react';
-import {Map} from '@vis.gl/react-google-maps';
+import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {MarkerData} from '@/types/location-types';
 import {Park} from '@/types/park-types';
@@ -42,6 +42,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
                 <Markers
                     markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers, userLocation] : [userLocation]}
                 />
+                <MapControl position={ControlPosition.TOP_LEFT}>Hello, map control!</MapControl>
             </Map>
         </div>
     );

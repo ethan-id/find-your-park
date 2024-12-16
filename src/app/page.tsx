@@ -1,7 +1,7 @@
 'use client';
 
 import {FunctionComponent, useState, useEffect} from 'react';
-import {APIProvider} from '@vis.gl/react-google-maps';
+import {useApiIsLoaded} from '@vis.gl/react-google-maps';
 import {MarkerData} from '@/types/location-types';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
@@ -10,10 +10,8 @@ import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
 
 const Home: FunctionComponent = () => {
-    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string;
-
-    const [mapsLoaded, setMapsLoaded] = useState(false);
     const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
+    const mapsLoaded = useApiIsLoaded();
 
     const {error: geoError, loading: geoLoading, latitude, longitude} = useGeolocation();
 
@@ -53,29 +51,27 @@ const Home: FunctionComponent = () => {
     }, [parks, parksLoading]);
 
     return (
-        <APIProvider apiKey={API_KEY} onLoad={() => setMapsLoaded(true)}>
-            <div className='flex flex-row justify-center align-center bg-[#05080d]'>
-                {!loading ? (
-                    <>
-                        <div className='flex flex-col px-12 py-8'>
-                            <p className='text-3xl font-bold pb-4'>Here are some landmarks, those nearest to you.</p>
+        <div className='flex flex-row justify-center align-center bg-[#05080d]'>
+            {!loading ? (
+                <>
+                    <div className='flex flex-col px-12 py-8'>
+                        <p className='text-3xl font-bold pb-4'>Here are some landmarks, those nearest to you.</p>
 
-                            {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
+                        {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
 
-                            <ParksList parks={parks} loading={parksLoading} error={parksErr} />
-                        </div>
-
-                        {typeof longitude === 'number' && typeof latitude === 'number' && (
-                            <MyMap parkMarkers={parkMarkers} longitude={longitude} latitude={latitude} />
-                        )}
-                    </>
-                ) : (
-                    <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
-                        Waiting on those location permissions pookie 😘
+                        <ParksList parks={parks} loading={parksLoading} error={parksErr} />
                     </div>
-                )}
-            </div>
-        </APIProvider>
+
+                    {typeof longitude === 'number' && typeof latitude === 'number' && (
+                        <MyMap parkMarkers={parkMarkers} longitude={longitude} latitude={latitude} />
+                    )}
+                </>
+            ) : (
+                <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
+                    Waiting on those location permissions pookie 😘
+                </div>
+            )}
+        </div>
     );
 };
 
