@@ -11,7 +11,7 @@ export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
     return (
         <>
             {markers.map((marker) => (
-                <MarkerWithInfoWindow key={marker.park.id} markerData={marker} />
+                <MarkerWithInfoWindow key={`${marker.park.fullName}${marker.park.id}`} markerData={marker} />
             ))}
         </>
     );
@@ -32,7 +32,7 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
         <>
             <AdvancedMarker
                 ref={markerRef}
-                key={markerData.park.id}
+                key={`${markerData.park.latitude}${markerData.park.longitude}`}
                 position={markerData.location}
                 onClick={handleMarkerClick}
             >

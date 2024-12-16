@@ -24,11 +24,11 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
     return (
         <ul>
             {parks?.data.map((park) => (
-                <li key={park.id} className={'gap-2 py-2'}>
+                <li key={`${park.id}${park.fullName}`} className={'gap-2 py-2'}>
                     {park.images ? (
                         <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
-                            {park.images.map((image) => (
-                                <Suspense fallback={<ImgFallback />} key={image.title}>
+                            {park.images.map((image, i) => (
+                                <Suspense fallback={<ImgFallback />} key={`${image.title}${i}`}>
                                     <SuspenseImage src={image.url} alt={image.altText ?? ''} />
                                 </Suspense>
                             ))}
