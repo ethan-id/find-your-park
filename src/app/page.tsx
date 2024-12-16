@@ -51,15 +51,19 @@ const Home: FunctionComponent = () => {
     }, [parks, parksLoading]);
 
     return (
-        <div className='flex flex-row justify-center align-center bg-[#05080d]'>
+        <div className='flex flex-row justify-center align-center bg-[#05080d] w-screen h-screen'>
             {!loading ? (
                 <>
                     <div className='flex flex-col px-12 py-8'>
-                        <p className='text-3xl font-bold pb-4'>Here are some landmarks, those nearest to you.</p>
+                        <p className='text-3xl font-bold pb-4 flex-none'>
+                            Here are some landmarks, those nearest to you.
+                        </p>
 
                         {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
 
-                        <ParksList parks={parks} loading={parksLoading} error={parksErr} />
+                        <div className='overflow-auto flex-grow'>
+                            <ParksList parks={parks} loading={parksLoading} error={parksErr} />
+                        </div>
                     </div>
 
                     {typeof longitude === 'number' && typeof latitude === 'number' && (

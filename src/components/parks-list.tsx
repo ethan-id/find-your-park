@@ -2,6 +2,7 @@
 
 import {FunctionComponent, Suspense} from 'react';
 import {ParksResponse} from '@/types/park-types';
+import {Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
@@ -52,8 +53,8 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
 
 const ImgFallback = () => {
     return (
-        <div className='min-h-52 min-w-full border border-x-white rounded-lg flex items-center justify-center'>
-            Loading image
-        </div>
+        <Skeleton className='min-w-full rounded-lg'>
+            <div className='min-h-52' />
+        </Skeleton>
     );
 };
