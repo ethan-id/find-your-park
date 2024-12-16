@@ -41,3 +41,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [ ] Add more info to `<InfoWindow/>`'s
 - [ ] Collect more data to map from NPS.gov API
 - [ ] Add toggles to display certain markers, hold state in `my-map.tsx`, pass callbacks to `<MapControl/>` components with `<Switch/>` from `@next-ui`
+- [ ] Make `use-parks.ts` fetch all parks, not just first 50
