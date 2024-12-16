@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import {ParksResponse, parksResponseSchema} from '@/types/park-types';
 
 async function fetchParks(stateCode?: string): Promise<ParksResponse> {
-    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&stateCode=${stateCode ? stateCode : ''}`;
+    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&stateCode=${stateCode ? '' : ''}`;
 
     const res = await fetch(url);
     const json = await res.json();

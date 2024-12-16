@@ -2,16 +2,21 @@
 
 import {FunctionComponent} from 'react';
 
+interface ImageState {
+    success: boolean;
+    error?: Error;
+}
+
 const loadImage = (src: string) => {
     return new Promise((resolve, reject) => {
         const img = new Image();
         img.src = src;
         img.onload = () => resolve(src);
-        img.onerror = reject;
+        img.onerror = (err) => reject(new Error(`Failed to load image: ${src}, Erorr: ${err}`));
     });
 };
 
-let imageCache = new Map();
+let imageCache = new Map<string, ImageState>();
 
 interface SuspenseImageProps {
     src: string;
@@ -19,16 +24,28 @@ interface SuspenseImageProps {
 }
 
 const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt}) => {
-    if (!imageCache.has(src)) {
-        let promise = loadImage(src).then(() => {
-            imageCache.set(src, true);
-        });
-        throw promise;
-    } else {
-        console.log('Found image in cache!');
+    const cached = imageCache.get(src);
+
+    // If we have cached success, just render the image
+    if (cached?.success) {
+        return <img src={src} alt={alt} className='max-h-30 rounded-xl object-cover snap-always snap-center' />;
     }
 
-    return <img src={src} alt={alt} className={'max-h-30 rounded-xl object-cover snap-always snap-center'} />;
+    // If we have cached failure, return a fallback without retrying
+    if (cached && !cached.success) {
+        return <div className='min-h-52 min-w-full rounde-lg border border-white'>Image not available</div>;
+    }
+
+    // If not cached at all, start loading and throw the promise
+    const promise = loadImage(src)
+        .then(() => {
+            imageCache.set(src, {success: true});
+        })
+        .catch((err) => {
+            imageCache.set(src, {success: false, error: err as Error});
+        });
+
+    throw promise;
 };
 
 export default SuspenseImage;
