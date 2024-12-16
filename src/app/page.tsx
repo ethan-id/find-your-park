@@ -4,7 +4,6 @@ import {FunctionComponent, useState, useEffect} from 'react';
 import {useApiIsLoaded} from '@vis.gl/react-google-maps';
 import {MarkerData} from '@/types/location-types';
 import {MyMap} from '@/components/my-map';
-import {StateSelect} from '@/components/state-select';
 import {useGeolocation} from '@uidotdev/usehooks';
 import {ParksList} from '@/components/parks-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';

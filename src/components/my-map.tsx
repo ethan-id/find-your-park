@@ -1,5 +1,5 @@
 import {FunctionComponent} from 'react';
-import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
+import {Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {MarkerData} from '@/types/location-types';
 import {Park} from '@/types/park-types';

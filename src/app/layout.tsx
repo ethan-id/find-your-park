@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: 'Nat. Parks Finder',
+    title: "Nat'l Parks Finder",
     description: 'Want to know which national park is closest to you? Check out this site!'
 };
 
