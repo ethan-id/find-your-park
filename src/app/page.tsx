@@ -9,6 +9,7 @@ import {ParksList} from '@/components/parks-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
 
+// TODO: Figure out if more of this can be SSR'd
 const Home: FunctionComponent = () => {
     const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
     const mapsLoaded = useApiIsLoaded();
@@ -35,6 +36,7 @@ const Home: FunctionComponent = () => {
 
     const {parks, loading: parksLoading, error: parksErr} = useParks(stateCode);
 
+    // TODO: Can probably be a custom hook, use-markers.ts
     useEffect(() => {
         const markers: MarkerData[] = [];
 
