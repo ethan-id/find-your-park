@@ -34,11 +34,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## To-Do
-
-- [ ] Add `<MapControl/>` to set state code to search for.
-- [ ] Add more info to `<InfoWindow/>`'s
-- [ ] Collect more data to map from NPS.gov API
-- [ ] Add toggles to display certain markers, hold state in `my-map.tsx`, pass callbacks to `<MapControl/>` components with `<Switch/>` from `@next-ui`
-- [ ] Make `use-parks.ts` fetch all parks, not just first 50

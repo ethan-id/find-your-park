@@ -1,9 +1,8 @@
 import {FunctionComponent} from 'react';
-import {Map, MapControl} from '@vis.gl/react-google-maps';
+import {Map} from '@vis.gl/react-google-maps'; // <MapControl/>
 import {Markers} from '@/components/markers';
 import {MarkerData} from '@/types/location-types';
 import {Park} from '@/types/park-types';
-import {StateSelect} from '@/components/state-select';
 
 interface MyMapProps {
     longitude: number;
@@ -23,8 +22,9 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
         }
     };
 
-    // Map Control using <StateSelect/>
-    //<MapControl position={ControlPosition.TOP_LEFT}>{/*<StateSelect />*/}</MapControl>
+    // TODO: Implement <MapControl/> to refine visible markers
+    //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
+    // TODO: Add <Switch/> map controls that toggle <Markers/> with other data from API
     return (
         <div className=''>
             <Map

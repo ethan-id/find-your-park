@@ -14,6 +14,11 @@ async function fetchParks(stateCode?: string): Promise<ParksResponse> {
     return parsedData;
 }
 
+// TODO: Implement other fetch to hit other NPS.gov endpoints, maybe put in a diff hook
+async function fetchOtherData(): Promise<unknown> {
+    return new Promise((res, _rej) => res(200));
+}
+
 export function useParks(stateCode?: string) {
     const [parks, setParks] = useState<ParksResponse | null>(null);
     const [loading, setLoading] = useState(true);

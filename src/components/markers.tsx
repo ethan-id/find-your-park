@@ -21,6 +21,7 @@ interface MarkerWithInfoWindowProps {
     markerData: MarkerData;
 }
 
+// TODO: Render more info about marker in <InfoWindow/>
 const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({markerData}) => {
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [infoWindowShown, setInfoWindowShown] = useState(false);
