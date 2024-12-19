@@ -1,5 +1,3 @@
-'use client';
-
 import {FunctionComponent, Suspense} from 'react';
 import {ParksResponse} from '@/types/park-types';
 import {Skeleton} from '@nextui-org/react';

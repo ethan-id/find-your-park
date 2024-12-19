@@ -3,6 +3,7 @@
 import {useState, useEffect} from 'react';
 import {ParksResponse, parksResponseSchema} from '@/types/park-types';
 
+// TODO: Add ability to fetch more data, current fetch gets max of 50 items, but has "total" property in json you can use.
 async function fetchParks(stateCode?: string): Promise<ParksResponse> {
     const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&stateCode=${stateCode ? '' : ''}`;
 

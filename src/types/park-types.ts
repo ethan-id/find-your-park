@@ -1,8 +1,5 @@
 import {z} from 'zod';
 
-// This is a simplified example; you'll likely need to expand these schemas
-// to match the entire structure of the API response.
-
 const activitySchema = z.object({
     id: z.string(),
     name: z.string()
@@ -115,6 +112,4 @@ export const parksResponseSchema = z.object({
     start: z.string(),
     data: z.array(parkSchema)
 });
-
-// Infer TypeScript type from the schema
 export type ParksResponse = z.infer<typeof parksResponseSchema>;
