@@ -23,7 +23,7 @@ export const ArticleList: FunctionComponent<ArticleListProps> = ({articles, load
         <ul>
             {articles?.map((article) => (
                 <li key={`${article.id}${article.title}`} className={'gap-2 py-2'}>
-                    {article.listingImage ? (
+                    {article.listingImage.url !== '' ? (
                         <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
                             <Suspense fallback={<ImgFallback />}>
                                 <SuspenseImage
