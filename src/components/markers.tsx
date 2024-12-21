@@ -1,5 +1,5 @@
 import {AdvancedMarker, InfoWindow, useAdvancedMarkerRef} from '@vis.gl/react-google-maps';
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useState, useCallback} from 'react';
 import Image from 'next/image';
 import type {MarkerData} from '@/types/location-types';
 import {useHover} from '@uidotdev/usehooks';
@@ -26,6 +26,10 @@ interface MarkerWithInfoWindowProps {
 const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({markerData}) => {
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [hoverRef, hovering] = useHover();
+    const [_, setInfoWindowShown] = useState(false);
+
+    const handleMarkerClick = useCallback(() => setInfoWindowShown((isShown) => !isShown), []);
+    const handleClose = useCallback(() => setInfoWindowShown(false), []);
 
     return (
         <>
@@ -33,6 +37,7 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
                 ref={markerRef}
                 key={`${markerData.park.latitude}${markerData.park.longitude}`}
                 position={markerData.location}
+                onClick={handleMarkerClick}
             >
                 <Image
                     ref={hoverRef}
@@ -45,7 +50,7 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
 
             {hovering && (
                 <div className='bg-slate-900'>
-                    <InfoWindow anchor={marker} headerDisabled={true}>
+                    <InfoWindow anchor={marker} onClose={handleClose} headerDisabled={true}>
                         <div className='flex flex-col justify-center items-center text-black font-bold'>
                             <h2>{markerData.park.fullName}</h2>
                         </div>
