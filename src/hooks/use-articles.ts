@@ -26,6 +26,7 @@ export function useArticles() {
             .then((response) => {
                 console.log('fetched articles!');
                 setArticles(response?.data);
+                setLoading(false);
             })
             .catch((err) => {
                 setError(err);

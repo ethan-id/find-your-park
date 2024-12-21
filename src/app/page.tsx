@@ -4,7 +4,7 @@ import {FunctionComponent} from 'react';
 import {useApiIsLoaded} from '@vis.gl/react-google-maps';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
-import {ArticleList} from '@/components/parks-list';
+import {ArticleList} from '@/components/article-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
 import {Spinner} from '@nextui-org/spinner';
@@ -41,12 +41,8 @@ const Home: FunctionComponent = () => {
             {!loading ? (
                 <>
                     <div className='flex flex-col px-12 py-8'>
-                        <p className='text-3xl font-bold pb-4 flex-none'>
-                            Here are some landmarks, those nearest to you.
-                        </p>
-
                         {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
-
+                        <p className='text-3xl font-bold pb-4 flex-none'>Articles</p>
                         <div className='overflow-auto flex-grow'>
                             <ArticleList articles={articles} loading={articlesLoading} error={articlesErr} />
                         </div>
