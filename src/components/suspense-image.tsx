@@ -28,12 +28,12 @@ const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt}) => {
 
     // If we have cached success, just render the image
     if (cached?.success) {
-        return <img src={src} alt={alt} className='max-h-30 rounded-xl object-cover snap-always snap-center' />;
+        return <img src={src} alt={alt} className='rounded-xl object-cover snap-always snap-center' />;
     }
 
     // If we have cached failure, return a fallback without retrying
     if (cached && !cached.success) {
-        return <div className='min-h-52 min-w-full rounde-lg border border-white'>Image not available</div>;
+        return <div className='min-h-52 rounded-lg border border-white'>Image not available</div>;
     }
 
     // If not cached at all, start loading and throw the promise

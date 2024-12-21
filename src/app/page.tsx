@@ -7,6 +7,7 @@ import {useGeolocation} from '@uidotdev/usehooks';
 import {ParksList} from '@/components/parks-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
+import {Spinner} from '@nextui-org/spinner';
 import {useMarkers} from '@/hooks/use-markers';
 
 // TODO: Figure out if more of this can be SSR'd
@@ -54,7 +55,7 @@ const Home: FunctionComponent = () => {
                 </>
             ) : (
                 <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
-                    Waiting on those location permissions pookie 😘
+                    <Spinner />
                 </div>
             )}
         </div>

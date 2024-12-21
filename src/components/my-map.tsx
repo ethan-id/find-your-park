@@ -34,7 +34,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
                     lng: -94.8430405088294
                 }}
                 defaultTilt={30}
-                defaultZoom={4.75}
+                defaultZoom={4.35}
                 disableDefaultUI={true}
                 gestureHandling={'greedy'}
                 mapId={'17b67c316f835bbf'}
@@ -42,9 +42,7 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
                 reuseMaps={true}
                 renderingType={'VECTOR'}
             >
-                <Markers
-                    markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers, userLocation] : [userLocation]}
-                />
+                <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} />
             </Map>
         </div>
     );

@@ -18,8 +18,10 @@ export function ParksProvider({children}: {children: React.ReactNode}) {
 
 export function useParksContext() {
     const context = useContext(ParksContext);
+
     if (!context) {
         throw new Error('useParksContext must be used within a ParksProvider');
     }
+
     return context;
 }
