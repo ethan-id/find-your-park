@@ -43,7 +43,7 @@ export function useParks(stateCode?: string) {
         setLoading(true);
 
         fetchOtherData().then((data) => {
-            console.log(data);
+            console.log('Articles', data);
         });
         fetchParks(stateCode)
             .then((response) => {

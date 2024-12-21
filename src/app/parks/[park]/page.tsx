@@ -1,5 +1,7 @@
-export default async function Page({params}: {params: Promise<{park: string}>}) {
-    const park = (await params).park;
+import {ParkInfo} from '@/components/park-info';
 
-    return <div>My Park: {park}</div>;
+export default async function Page({params}: {params: Promise<{park: string}>}) {
+    const parkID = (await params).park;
+
+    return <ParkInfo parkID={parkID} />;
 }

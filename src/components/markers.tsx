@@ -1,6 +1,7 @@
 import {AdvancedMarker, InfoWindow, useAdvancedMarkerRef} from '@vis.gl/react-google-maps';
 import {FunctionComponent, useState, useCallback} from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type {MarkerData} from '@/types/location-types';
 import {useHover} from '@uidotdev/usehooks';
 
@@ -39,13 +40,15 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
                 position={markerData.location}
                 onClick={handleMarkerClick}
             >
-                <Image
-                    ref={hoverRef}
-                    src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
-                    alt={'Cat'}
-                    width={30}
-                    height={30}
-                />
+                <Link href={`/parks/${markerData.park.id}`}>
+                    <Image
+                        ref={hoverRef}
+                        src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
+                        alt={'Cat'}
+                        width={30}
+                        height={30}
+                    />
+                </Link>
             </AdvancedMarker>
 
             {hovering && (
