@@ -1,20 +1,22 @@
 'use client';
 
-import {FunctionComponent, useState, useEffect} from 'react';
+import {FunctionComponent} from 'react';
 import {useApiIsLoaded} from '@vis.gl/react-google-maps';
-import {MarkerData} from '@/types/location-types';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
 import {ParksList} from '@/components/parks-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
+import {useMarkers} from '@/hooks/use-markers';
 
 // TODO: Figure out if more of this can be SSR'd
 const Home: FunctionComponent = () => {
-    const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
     const mapsLoaded = useApiIsLoaded();
-
     const {error: geoError, loading: geoLoading, latitude, longitude} = useGeolocation();
+
+    if (geoError) {
+        return <div className='flex m-24 justify-center text-3xl'>Please give me permissions 😔</div>;
+    }
 
     const {
         result,
@@ -25,32 +27,10 @@ const Home: FunctionComponent = () => {
         longitude: typeof longitude === 'number' ? longitude : undefined,
         mapsLoaded
     });
-
     const loading = geoLoading || geoCodeLoading;
-
-    if (geoError) {
-        return <div className='flex m-24 justify-center text-3xl'>Please give me permissions 😔</div>;
-    }
-
     const stateCode = result?.stateCode ?? '';
-
     const {parks, loading: parksLoading, error: parksErr} = useParks(stateCode);
-
-    // TODO: Can probably be a custom hook, use-markers.ts
-    useEffect(() => {
-        const markers: MarkerData[] = [];
-
-        if (parks && parks?.data.length > 0) {
-            for (const park of parks?.data) {
-                markers.push({
-                    park: park,
-                    location: {lat: Number(park.latitude), lng: Number(park.longitude)}
-                });
-            }
-        }
-
-        setParkMarkers(markers);
-    }, [parks, parksLoading]);
+    const {parkMarkers} = useMarkers(parks, parksLoading);
 
     return (
         <div className='flex flex-row justify-center align-center bg-[#05080d] w-screen h-screen'>
