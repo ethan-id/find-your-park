@@ -46,9 +46,9 @@ export function useParks(stateCode?: string) {
             console.log(data);
         });
         fetchParks(stateCode)
-            .then((data) => {
+            .then((response) => {
                 if (isMounted) {
-                    setParks(data);
+                    setParks(response.data);
                     setLoading(false);
                 }
             })

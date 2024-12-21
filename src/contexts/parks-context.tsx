@@ -1,17 +1,17 @@
 'use client';
 
 import {createContext, useContext, useState} from 'react';
-import {ParksAPIResponse} from '../types/park-types';
+import {Park} from '../types/park-types';
 
 interface ParksContextType {
-    parks: ParksAPIResponse | null;
-    setParks: (parks: ParksAPIResponse | null) => void;
+    parks: Park[] | null;
+    setParks: (parks: Park[] | null) => void;
 }
 
 const ParksContext = createContext<ParksContextType | undefined>(undefined);
 
 export function ParksProvider({children}: {children: React.ReactNode}) {
-    const [parks, setParks] = useState<ParksAPIResponse | null>(null);
+    const [parks, setParks] = useState<Park[] | null>(null);
 
     return <ParksContext.Provider value={{parks, setParks}}>{children}</ParksContext.Provider>;
 }

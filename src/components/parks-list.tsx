@@ -1,11 +1,11 @@
 import {FunctionComponent, Suspense} from 'react';
-import {ParksAPIResponse} from '@/types/park-types';
+import {Park} from '@/types/park-types';
 import {Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 interface ParksListProps {
-    parks: ParksAPIResponse | null;
+    parks: Park[] | null;
     loading: boolean;
     error: Error | null;
 }
@@ -21,7 +21,7 @@ export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, er
 
     return (
         <ul>
-            {parks?.data.map((park) => (
+            {parks?.map((park) => (
                 <li key={`${park.id}${park.fullName}`} className={'gap-2 py-2'}>
                     {park.images ? (
                         <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
