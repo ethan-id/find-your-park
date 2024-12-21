@@ -1,48 +1,49 @@
 import {FunctionComponent, Suspense} from 'react';
-import {Park} from '@/types/park-types';
+import {Article} from '@/types/articles-types';
 import {Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-interface ParksListProps {
-    parks: Park[] | null;
+interface ArticleListProps {
+    articles: Article[] | null;
     loading: boolean;
     error: Error | null;
 }
 
-export const ParksList: FunctionComponent<ParksListProps> = ({parks, loading, error}) => {
+export const ArticleList: FunctionComponent<ArticleListProps> = ({articles, loading, error}) => {
     if (loading) {
-        return <p>Loading parks...</p>;
+        return <p>Loading articles...</p>;
     }
 
     if (error) {
-        return <p>Uh oh! We couldn't fetch the parks ☹️</p>;
+        return <p>Uh oh! We couldn't fetch the articles ☹️</p>;
     }
 
     return (
         <ul>
-            {parks?.map((park) => (
-                <li key={`${park.id}${park.fullName}`} className={'gap-2 py-2'}>
-                    {park.images ? (
+            {articles?.map((article) => (
+                <li key={`${article.id}${article.title}`} className={'gap-2 py-2'}>
+                    {article.listingImage ? (
                         <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
-                            {park.images.map((image, i) => (
-                                <Suspense fallback={<ImgFallback />} key={`${image.title}${i}`}>
-                                    <SuspenseImage src={image.url} alt={image.altText ?? ''} />
-                                </Suspense>
-                            ))}
+                            <Suspense fallback={<ImgFallback />}>
+                                <SuspenseImage
+                                    src={article.listingImage.url}
+                                    alt={article.listingImage.altText ?? ''}
+                                />
+                            </Suspense>
                         </div>
                     ) : null}
 
                     <a
                         className='flex flex-row justify-between items-center text-xl font-semibold py-2'
                         target='_blank'
-                        href={park.url}
+                        href={article.url}
                     >
                         {' '}
-                        {park.fullName}
+                        {article.title}
                         <OpenInNewIcon />
                     </a>
-                    {park.description}
+                    {article.listingDescription}
                 </li>
             ))}
         </ul>

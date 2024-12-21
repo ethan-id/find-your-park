@@ -4,11 +4,12 @@ import {FunctionComponent} from 'react';
 import {useApiIsLoaded} from '@vis.gl/react-google-maps';
 import {MyMap} from '@/components/my-map';
 import {useGeolocation} from '@uidotdev/usehooks';
-import {ParksList} from '@/components/parks-list';
+import {ArticleList} from '@/components/parks-list';
 import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
 import {Spinner} from '@nextui-org/spinner';
 import {useMarkers} from '@/hooks/use-markers';
+import {useArticles} from '@/hooks/use-articles';
 
 // TODO: Figure out if more of this can be SSR'd
 const Home: FunctionComponent = () => {
@@ -30,7 +31,9 @@ const Home: FunctionComponent = () => {
     });
     const loading = geoLoading || geoCodeLoading;
     const stateCode = result?.stateCode ?? '';
-    const {parks, loading: parksLoading, error: parksErr} = useParks(stateCode);
+    const {parks, loading: parksLoading} = useParks(stateCode);
+    const {articles, loading: articlesLoading, error: articlesErr} = useArticles();
+
     const {parkMarkers} = useMarkers(parks, parksLoading);
 
     return (
@@ -45,7 +48,7 @@ const Home: FunctionComponent = () => {
                         {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
 
                         <div className='overflow-auto flex-grow'>
-                            <ParksList parks={parks} loading={parksLoading} error={parksErr} />
+                            <ArticleList articles={articles} loading={articlesLoading} error={articlesErr} />
                         </div>
                     </div>
 
