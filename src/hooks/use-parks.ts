@@ -1,26 +1,34 @@
 'use client';
 
 import {useState, useEffect} from 'react';
-import {ParksResponse, parksResponseSchema} from '@/types/park-types';
+import {ParksAPIResponse, npsResponseSchema} from '@/types/park-types';
+import {articleResponseSchema, ArticlesAPIResponse} from '@/types/articles-types';
+import {useParksContext} from '@/contexts/parks-context';
 
 // TODO: Add ability to fetch more data, current fetch gets max of 50 items, but has "total" property in json you can use.
-async function fetchParks(stateCode?: string): Promise<ParksResponse> {
+async function fetchParks(stateCode?: string): Promise<ParksAPIResponse> {
     const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&stateCode=${stateCode ? '' : ''}`;
 
     const res = await fetch(url);
     const json = await res.json();
 
-    const parsedData = parksResponseSchema.parse(json);
+    const parsedData = npsResponseSchema.parse(json);
     return parsedData;
 }
 
 // TODO: Implement other fetch to hit other NPS.gov endpoints, maybe put in a diff hook
-async function fetchOtherData(): Promise<unknown> {
-    return new Promise((res, _rej) => res(200));
+async function fetchOtherData(): Promise<ArticlesAPIResponse> {
+    const url = `https://developer.nps.gov/api/v1/articles?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}`;
+
+    const res = await fetch(url);
+    const json = await res.json();
+
+    const parsedData = articleResponseSchema.parse(json);
+    return parsedData;
 }
 
 export function useParks(stateCode?: string) {
-    const [parks, setParks] = useState<ParksResponse | null>(null);
+    const {parks, setParks} = useParksContext();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -34,6 +42,9 @@ export function useParks(stateCode?: string) {
         let isMounted = true;
         setLoading(true);
 
+        fetchOtherData().then((data) => {
+            console.log(data);
+        });
         fetchParks(stateCode)
             .then((data) => {
                 if (isMounted) {

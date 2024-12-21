@@ -1,11 +1,11 @@
 import {FunctionComponent, Suspense} from 'react';
-import {ParksResponse} from '@/types/park-types';
+import {ParksAPIResponse} from '@/types/park-types';
 import {Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 interface ParksListProps {
-    parks: ParksResponse | null;
+    parks: ParksAPIResponse | null;
     loading: boolean;
     error: Error | null;
 }

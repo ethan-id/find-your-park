@@ -41,7 +41,7 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
             >
                 <Image
                     ref={hoverRef}
-                    src={'https://utfs.io/f/vWKtdZl81f5UMw786LSheYiJSk1D7b5FHUv9Oo62BQNZLAIs'}
+                    src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
                     alt={'Cat'}
                     width={30}
                     height={30}

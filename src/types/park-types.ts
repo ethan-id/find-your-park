@@ -106,10 +106,10 @@ const parkSchema = z.object({
 });
 export type Park = z.infer<typeof parkSchema>;
 
-export const parksResponseSchema = z.object({
+export const npsResponseSchema = z.object({
     total: z.string(),
     limit: z.string(),
     start: z.string(),
     data: z.array(parkSchema)
 });
-export type ParksResponse = z.infer<typeof parksResponseSchema>;
+export type ParksAPIResponse = z.infer<typeof npsResponseSchema>;

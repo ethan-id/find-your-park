@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {MarkerData} from '@/types/location-types';
-import {ParksResponse} from '@/types/park-types';
+import {ParksAPIResponse} from '@/types/park-types';
 
-export const useMarkers = (parks: ParksResponse | null, parksLoading: boolean) => {
+export const useMarkers = (parks: ParksAPIResponse | null, parksLoading: boolean) => {
     const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
 
     useEffect(() => {
