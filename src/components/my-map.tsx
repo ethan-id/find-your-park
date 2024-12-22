@@ -1,16 +1,13 @@
+'use client';
+
 import {FunctionComponent} from 'react';
 import {Map} from '@vis.gl/react-google-maps'; // <MapControl/>
 import {Markers} from '@/components/markers';
-import {MarkerData} from '@/types/location-types';
-import {Park} from '@/types/park-types';
+import {useParks} from '@/hooks/use-parks';
+import {useMarkers} from '@/hooks/use-markers';
 
-interface MyMapProps {
-    longitude: number;
-    latitude: number;
-    parkMarkers?: MarkerData[];
-}
-
-export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkMarkers}) => {
+export const MyMap: FunctionComponent = () => {
+    /*
     const userLocation: MarkerData = {
         park: {
             id: 'your-location-id',
@@ -21,6 +18,11 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
             lng: longitude
         }
     };
+    */
+
+    const {parks, loading: parksLoading} = useParks();
+
+    const {parkMarkers} = useMarkers(parks, parksLoading);
 
     // TODO: Implement <MapControl/> to refine visible markers
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
@@ -47,3 +49,9 @@ export const MyMap: FunctionComponent<MyMapProps> = ({longitude, latitude, parkM
         </div>
     );
 };
+
+/*
+ <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
+    <Spinner />
+</div>
+ * */
