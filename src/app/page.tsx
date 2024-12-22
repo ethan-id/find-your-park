@@ -9,7 +9,6 @@ import {useReverseGeocode} from '@/hooks/use-reverse-geocode';
 import {useParks} from '@/hooks/use-parks';
 import {Spinner} from '@nextui-org/spinner';
 import {useMarkers} from '@/hooks/use-markers';
-import {useArticles} from '@/hooks/use-articles';
 
 // TODO: Figure out if more of this can be SSR'd
 const Home: FunctionComponent = () => {
@@ -31,8 +30,8 @@ const Home: FunctionComponent = () => {
     });
     const loading = geoLoading || geoCodeLoading;
     const stateCode = result?.stateCode ?? '';
+
     const {parks, loading: parksLoading} = useParks(stateCode);
-    const {articles, loading: articlesLoading, error: articlesErr} = useArticles();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);
 
@@ -44,7 +43,7 @@ const Home: FunctionComponent = () => {
                         {geoCodeError && <p className='text-red-500'>Error: {geoCodeError.message}</p>}
                         <p className='text-3xl font-bold pb-4 flex-none'>Articles</p>
                         <div className='overflow-auto flex-grow'>
-                            <ArticleList articles={articles} loading={articlesLoading} error={articlesErr} />
+                            <ArticleList />
                         </div>
                     </div>
 

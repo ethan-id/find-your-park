@@ -1,16 +1,12 @@
 import {FunctionComponent, Suspense} from 'react';
-import {Article} from '@/types/articles-types';
+import {useArticles} from '@/hooks/use-articles';
 import {Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-interface ArticleListProps {
-    articles: Article[] | null;
-    loading: boolean;
-    error: Error | null;
-}
+export const ArticleList: FunctionComponent = () => {
+    const {articles, loading, error} = useArticles();
 
-export const ArticleList: FunctionComponent<ArticleListProps> = ({articles, loading, error}) => {
     if (loading) {
         return <p>Loading articles...</p>;
     }
