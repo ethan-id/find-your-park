@@ -15,3 +15,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [ ] Make `/parks/[park]` route actually show lots of useful info
 - [ ] Improve `/` root route
 - [ ] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
+- [ ] Look into NextJS caching stuff for `fetch` requests from NPS and `src/app/.tsx`
