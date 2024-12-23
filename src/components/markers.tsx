@@ -9,6 +9,7 @@ interface MarkersProps {
     markers: MarkerData[];
 }
 
+// TODO: Update this so that it works for more than just park markers
 export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
     return (
         <>

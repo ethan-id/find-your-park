@@ -9,6 +9,8 @@ import {useCampgrounds} from '@/hooks/use-campgrounds';
 
 export const MyMap: FunctionComponent = () => {
     const {parks, loading: parksLoading} = useParks();
+
+    // TODO: Add markers for campgrounds ??
     const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);

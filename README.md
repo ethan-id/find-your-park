@@ -12,8 +12,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 - [x] Replace list of parks with list from `/articles` endpoint
 - [x] Make `/park` route & page for specific parks to show all their info
-- [ ] Make `/parks/[park]` route actually show lots of useful info
-    - [ ] Add more zoomed in map for just the park the page is about
-- [ ] Improve `/` root route
+- [x] Look into NextJS caching stuff for `fetch` requests from NPS and `src/app/.tsx`
+- [x] Improve `/` root route
 - [ ] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
-- [ ] Look into NextJS caching stuff for `fetch` requests from NPS and `src/app/.tsx`
+- [ ] Deploy it!

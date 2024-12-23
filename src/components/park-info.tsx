@@ -14,7 +14,11 @@ interface ParkInfoProps {
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
     const {parks} = useParksContext();
 
+    // TODO: Replace with fetch to `/parks?parkCode=${parkID}`???
     const park = parks?.find((park) => park.id === parkID);
+
+    // TODO: Add useAlerts() hook that hits `/alerts?parkCode=${park}`
+    // const {alerts} = useAlerts(park);
 
     if (!park) {
         return (
@@ -24,6 +28,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
         );
     }
 
+    // TODO: Add zoomed in map on park location
     return (
         <div className='flex flex-col items-center min-h-screen py-24 gap-32'>
             <div className='flex flex-col items-center justify-center px-4'>
@@ -43,11 +48,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
                                     src={park.images[0].url}
                                     alt={park.images[0].altText ?? 'Park Image'}
                                     className='w-full aspect-square rounded-lg object-cover'
+                                    key={park.images[0].url}
                                 />
                             </Suspense>
-                        ) : (
-                            <ImgFallback />
-                        )}
+                        ) : null}
                     </div>
 
                     <div className='flex flex-col w-full md:w-2/3 text-left'>
@@ -58,20 +62,18 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
             </div>
 
             <div className='flex flex-row gap-4 max-w-[50vw] max-h-[70vh] snap-x snap-mandatory overflow-x-scroll'>
-                {park.images && park.images.length > 0 ? (
-                    park.images.slice(1).map((image) => (
-                        <Suspense fallback={<ImgFallback className='min-w-[50vw] min-h-[50vh]' />}>
-                            <SuspenseImage
-                                src={image.url}
-                                alt={image.altText ?? 'Park Image'}
-                                className='rounded-xl object-cover snap-always snap-center w-full aspect-square'
-                                key={`${image.url}${image.title}`}
-                            />
-                        </Suspense>
-                    ))
-                ) : (
-                    <ImgFallback />
-                )}
+                {park.images && park.images.length > 0
+                    ? park.images.slice(1).map((image) => (
+                          <Suspense fallback={<ImgFallback className='min-w-[50vw] min-h-[50vh]' />}>
+                              <SuspenseImage
+                                  src={image.url}
+                                  alt={image.altText ?? 'Park Image'}
+                                  className='rounded-xl object-cover snap-always snap-center w-full aspect-square'
+                                  key={`${image.url}${image.title}`}
+                              />
+                          </Suspense>
+                      ))
+                    : null}
             </div>
         </div>
     );
