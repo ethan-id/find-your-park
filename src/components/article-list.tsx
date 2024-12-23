@@ -1,3 +1,5 @@
+'use client';
+
 import {FunctionComponent, Suspense} from 'react';
 import {useArticles} from '@/hooks/use-articles';
 import {Card, Skeleton, Spinner} from '@nextui-org/react';

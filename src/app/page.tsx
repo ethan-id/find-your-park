@@ -1,10 +1,7 @@
-'use client';
-
 import {FunctionComponent} from 'react';
 import {MyMap} from '@/components/my-map';
 import {ArticleList} from '@/components/article-list';
 
-// TODO: Figure out if more of this can be SSR'd
 const Home: FunctionComponent = () => {
     return (
         <div className='flex flex-row justify-between align-center bg-[#05080d] w-screen h-screen'>
