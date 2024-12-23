@@ -15,7 +15,7 @@ export const MyMap: FunctionComponent = () => {
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
     // TODO: Add <Switch/> map controls that toggle <Markers/> with other data from API
     return (
-        <div className=''>
+        <div className='map-container h-[100vh] w-[70vw]'>
             <Map
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
@@ -36,9 +36,3 @@ export const MyMap: FunctionComponent = () => {
         </div>
     );
 };
-
-/*
- <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
-    <Spinner />
-</div>
- * */

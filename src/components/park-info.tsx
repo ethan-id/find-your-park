@@ -18,43 +18,74 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
 
     if (!park) {
         return (
-            <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
+            <div className='flex justify-center items-center font-bold w-screen h-screen text-4xl'>
                 <Spinner />
             </div>
         );
     }
 
     return (
-        <div className='flex flex-col m-auto min-h-[100vh] max-w-[60vw]'>
-            <a
-                className='flex flex-row justify-between items-center text-3xl font-semibold py-2'
-                target='_blank'
-                href={park.url}
-            >
-                {' '}
-                {park.fullName}
-                <OpenInNewIcon />
-            </a>
+        <div className='flex flex-col items-center min-h-screen py-24 gap-32'>
+            <div className='flex flex-col items-center justify-center px-4'>
+                <a
+                    className='text-3xl font-semibold text-blue-600 hover:underline flex items-center gap-2 mb-6'
+                    target='_blank'
+                    href={park.url}
+                >
+                    {park.name}
+                    <OpenInNewIcon />
+                </a>
+                <div className='flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-6xl'>
+                    {/* Left Section: Image */}
+                    <div className='flex-shrink-0 w-full md:w-1/3'>
+                        {park.images && park.images.length > 0 ? (
+                            <Suspense fallback={<ImgFallback />}>
+                                <SuspenseImage
+                                    src={park.images[0].url}
+                                    alt={park.images[0].altText ?? 'Park Image'}
+                                    className='w-full aspect-square rounded-lg object-cover'
+                                />
+                            </Suspense>
+                        ) : (
+                            <ImgFallback />
+                        )}
+                    </div>
 
-            {park.images ? (
-                <div className='flex flex-row gap-4 justify-between min-h-72 max-w-72 snap-x snap-mandatory overflow-x-scroll'>
-                    {park.images.map((image, i) => (
-                        <Suspense fallback={<ImgFallback />} key={`${image.title}${i}`}>
-                            <SuspenseImage src={image.url} alt={image.altText ?? ''} />
-                        </Suspense>
-                    ))}
+                    {/* Right Section: Title and Description */}
+                    <div className='flex flex-col w-full md:w-2/3 text-left'>
+                        <h2 className='text-xl font-semibold mb-4'>{park.fullName}</h2>
+                        <p className='text-base leading-relaxed'>{park.description}</p>
+                    </div>
                 </div>
-            ) : null}
+            </div>
 
-            {park.description}
+            <div className='flex flex-row gap-4 max-w-[50vw] max-h-[70vh] snap-x snap-mandatory overflow-x-scroll'>
+                {park.images && park.images.length > 0 ? (
+                    park.images.slice(1).map((image) => (
+                        <Suspense fallback={<ImgFallback className='min-w-[50vw] min-h-[50vh]' />}>
+                            <SuspenseImage
+                                src={image.url}
+                                alt={image.altText ?? 'Park Image'}
+                                className='rounded-xl object-cover snap-always snap-center w-full aspect-square'
+                            />
+                        </Suspense>
+                    ))
+                ) : (
+                    <ImgFallback />
+                )}
+            </div>
         </div>
     );
 };
 
-const ImgFallback = () => {
+interface ImgFallbackProps {
+    className?: string;
+}
+
+const ImgFallback: FunctionComponent<ImgFallbackProps> = ({className}) => {
     return (
-        <Skeleton className='min-w-full rounded-lg'>
-            <div className='min-h-52' />
+        <Skeleton className={`w-full aspect-square rounded-lg ${className}`}>
+            <div className='h-full' />
         </Skeleton>
     );
 };

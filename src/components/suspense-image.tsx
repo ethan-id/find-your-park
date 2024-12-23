@@ -21,14 +21,15 @@ let imageCache = new Map<string, ImageState>();
 interface SuspenseImageProps {
     src: string;
     alt: string;
+    className: string;
 }
 
-const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt}) => {
+const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, className}) => {
     const cached = imageCache.get(src);
 
     // If we have cached success, just render the image
     if (cached?.success) {
-        return <img src={src} alt={alt} className='rounded-xl object-cover snap-always snap-center' />;
+        return <img src={src} alt={alt} className={className} />;
     }
 
     // If we have cached failure, return a fallback without retrying
