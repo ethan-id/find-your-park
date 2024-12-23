@@ -104,7 +104,6 @@ const parkSchema = z.object({
     multimedia: z.array(z.unknown()).optional(),
     relevanceScore: z.number().optional()
 });
-export type Park = z.infer<typeof parkSchema>;
 
 export const npsResponseSchema = z.object({
     total: z.string(),
@@ -112,4 +111,6 @@ export const npsResponseSchema = z.object({
     start: z.string(),
     data: z.array(parkSchema)
 });
+
+export type Park = z.infer<typeof parkSchema>;
 export type ParksAPIResponse = z.infer<typeof npsResponseSchema>;

@@ -2,7 +2,7 @@
 
 import {useParksContext} from '@/contexts/parks-context';
 import {FunctionComponent} from 'react';
-import {Skeleton} from '@nextui-org/react';
+import {Skeleton, Spinner} from '@nextui-org/react';
 import {Suspense} from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SuspenseImage from '@/components/suspense-image';
@@ -17,7 +17,11 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
     const park = parks?.find((park) => park.id === parkID);
 
     if (!park) {
-        return <div>Park is still loading...</div>;
+        return (
+            <div className='flex justify-center items-center text-bold w-[100vw] h-[100vh] text-4xl'>
+                <Spinner />
+            </div>
+        );
     }
 
     return (

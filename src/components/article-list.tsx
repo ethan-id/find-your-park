@@ -2,7 +2,7 @@
 
 import {FunctionComponent, Suspense} from 'react';
 import {useArticles} from '@/hooks/use-articles';
-import {Card, Skeleton, Spinner} from '@nextui-org/react';
+import {Card, Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 

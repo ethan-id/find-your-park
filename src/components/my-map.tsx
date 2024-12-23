@@ -1,25 +1,12 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {Map} from '@vis.gl/react-google-maps'; // <MapControl/>
+import {Map} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
 
 export const MyMap: FunctionComponent = () => {
-    /*
-    const userLocation: MarkerData = {
-        park: {
-            id: 'your-location-id',
-            fullName: 'Your Position'
-        } as Park,
-        location: {
-            lat: latitude,
-            lng: longitude
-        }
-    };
-    */
-
     const {parks, loading: parksLoading} = useParks();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);
