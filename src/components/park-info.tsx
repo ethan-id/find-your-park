@@ -65,6 +65,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
                                 src={image.url}
                                 alt={image.altText ?? 'Park Image'}
                                 className='rounded-xl object-cover snap-always snap-center w-full aspect-square'
+                                key={`${image.url}${image.title}`}
                             />
                         </Suspense>
                     ))
