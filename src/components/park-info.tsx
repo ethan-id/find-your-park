@@ -36,7 +36,6 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
                     <OpenInNewIcon />
                 </a>
                 <div className='flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-6xl'>
-                    {/* Left Section: Image */}
                     <div className='flex-shrink-0 w-full md:w-1/3'>
                         {park.images && park.images.length > 0 ? (
                             <Suspense fallback={<ImgFallback />}>
@@ -51,7 +50,6 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
                         )}
                     </div>
 
-                    {/* Right Section: Title and Description */}
                     <div className='flex flex-col w-full md:w-2/3 text-left'>
                         <h2 className='text-xl font-semibold mb-4'>{park.fullName}</h2>
                         <p className='text-base leading-relaxed'>{park.description}</p>

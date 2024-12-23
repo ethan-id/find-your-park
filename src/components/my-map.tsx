@@ -5,9 +5,11 @@ import {Map} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
+import {useCampgrounds} from '@/hooks/use-campgrounds';
 
 export const MyMap: FunctionComponent = () => {
     const {parks, loading: parksLoading} = useParks();
+    const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);
 

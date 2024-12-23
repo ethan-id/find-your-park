@@ -21,7 +21,7 @@ let imageCache = new Map<string, ImageState>();
 interface SuspenseImageProps {
     src: string;
     alt: string;
-    className: string;
+    className?: string;
 }
 
 const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, className}) => {
