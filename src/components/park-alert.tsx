@@ -10,12 +10,14 @@ export const ParkAlert: FunctionComponent<ParkAlertProps> = ({alert}) => {
     const [alertVisible, setAlertVisible] = useState(true);
 
     return (
-        <AlertComponent
-            isVisible={alertVisible}
-            color='warning'
-            title={new Date(alert.lastIndexedDate).toLocaleString()}
-            description={alert.description}
-            onClose={() => setAlertVisible(false)}
-        />
+        <li>
+            <AlertComponent
+                isVisible={alertVisible}
+                color='warning'
+                title={new Date(alert.lastIndexedDate).toLocaleString()}
+                description={alert.description}
+                onClose={() => setAlertVisible(false)}
+            />
+        </li>
     );
 };

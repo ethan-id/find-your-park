@@ -12,24 +12,13 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SuspenseImage from '@/components/suspense-image';
 import {MarkerData} from '@/types/location-types';
 import {ParkAlert} from './park-alert';
-
-const filterAlerts = (alerts: AlertType[]): AlertType[] => {
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    return alerts.filter((alert) => {
-        const eventDate = new Date(alert.lastIndexedDate);
-        return eventDate >= sevenDaysAgo;
-    });
-};
+import {AlertList} from './alert-list';
 
 interface ParkInfoProps {
     parkCode: string;
 }
 
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
-    const [alertVisible, setAlertVisible] = useState(true);
-
     // TODO: Replace with fetch to `/parks?parkCode=park.parkCode`??
     const {parks} = useParksContext();
     const park = parks?.find((park) => park.parkCode === parkCode);
@@ -50,18 +39,9 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
         }
     };
 
-    const {alerts} = useAlerts(park.parkCode, filterAlerts);
-
     return (
         <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
-            {/* Alerts */}
-            {alerts.length > 0 && (
-                <div className='flex flex-col gap-3 w-full max-w-6xl pb-3'>
-                    {alerts.map((alert) => (
-                        <ParkAlert alert={alert} />
-                    ))}
-                </div>
-            )}
+            <AlertList parkCode={park.parkCode} />
 
             {/* Map, Title, and Description */}
             <div className='flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-6xl'>
