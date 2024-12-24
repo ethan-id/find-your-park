@@ -2,7 +2,7 @@
 
 import {FunctionComponent, Suspense} from 'react';
 import {useArticles} from '@/hooks/use-articles';
-import {Card, Skeleton} from '@nextui-org/react';
+import {Card, CardBody, CardHeader, Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
@@ -31,28 +31,31 @@ export const ArticleList: FunctionComponent = () => {
         <ul>
             {articles?.map((article) => (
                 <li key={`${article.id}${article.title}`} className={'gap-2 py-2'}>
-                    <Card className='min-w-96 bg-[#2b2c2e] space-y-5 p-4' radius='lg'>
-                        {article.listingImage.url !== '' ? (
-                            <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
-                                <Suspense fallback={<ImgFallback />}>
-                                    <SuspenseImage
-                                        src={article.listingImage.url}
-                                        alt={article.listingImage.altText ?? ''}
-                                    />
-                                </Suspense>
-                            </div>
-                        ) : null}
+                    <Card className='min-w-96 bg-[#18181b] p-4' radius='lg'>
+                        <CardHeader className='flex flex-col gap-3'>
+                            {article.listingImage.url !== '' ? (
+                                <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
+                                    <Suspense fallback={<ImgFallback />}>
+                                        <SuspenseImage
+                                            src={article.listingImage.url}
+                                            alt={article.listingImage.altText ?? ''}
+                                            className='rounded-lg object-cover'
+                                        />
+                                    </Suspense>
+                                </div>
+                            ) : null}
 
-                        <a
-                            className='flex flex-row justify-between items-center text-xl font-semibold py-2'
-                            target='_blank'
-                            href={article.url}
-                        >
-                            {' '}
-                            {article.title}
-                            <OpenInNewIcon />
-                        </a>
-                        {article.listingDescription}
+                            <a
+                                className='flex flex-row justify-between items-center text-xl font-semibold py-2'
+                                target='_blank'
+                                href={article.url}
+                            >
+                                {' '}
+                                {article.title}
+                                <OpenInNewIcon />
+                            </a>
+                        </CardHeader>
+                        <CardBody>{article.listingDescription}</CardBody>
                     </Card>
                 </li>
             ))}
