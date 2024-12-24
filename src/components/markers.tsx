@@ -41,7 +41,7 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
                 position={markerData.location}
                 onClick={handleMarkerClick}
             >
-                <Link href={`/parks/${markerData.park.id}`}>
+                <Link href={`/parks/${markerData.park.parkCode}`}>
                     <Image
                         ref={hoverRef}
                         src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}

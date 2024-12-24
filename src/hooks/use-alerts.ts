@@ -11,7 +11,7 @@ async function fetchAlerts(parkCode: string): Promise<AlertsAPIResponse> {
 }
 
 // TODO: Add return type to all hooks!
-export function useAlerts(parkCode: string) {
+export function useAlerts(parkCode: string, filter?: (alerts: Alert[]) => Alert[]) {
     const [alerts, setAlerts] = useState<Alert[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -35,6 +35,11 @@ export function useAlerts(parkCode: string) {
             isMounted = false;
         };
     }, []);
+
+    if (filter) {
+        const filteredAlerts = filter(alerts);
+        return {alerts: filteredAlerts, loading, error};
+    }
 
     return {alerts, loading, error};
 }

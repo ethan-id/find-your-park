@@ -12,15 +12,26 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SuspenseImage from '@/components/suspense-image';
 import {MarkerData} from '@/types/location-types';
 
+const filterAlerts = (alerts: AlertType[]): AlertType[] => {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    return alerts.filter((alert) => {
+        const eventDate = new Date(alert.lastIndexedDate);
+        return eventDate >= sevenDaysAgo;
+    });
+};
+
 interface ParkInfoProps {
-    parkID: string;
+    parkCode: string;
 }
 
-export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
+export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const [alertVisible, setAlertVisible] = useState(true);
-    const {parks} = useParksContext();
 
-    const park = parks?.find((park) => park.id === parkID);
+    // TODO: Replace with fetch to `/parks?parkCode=park.parkCode`??
+    const {parks} = useParksContext();
+    const park = parks?.find((park) => park.parkCode === parkCode);
 
     if (!park) {
         return (
@@ -38,26 +49,14 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkID}) => {
         }
     };
 
-    const {alerts} = useAlerts(park.parkCode);
-
-    const filterRecentEvents = (alerts: AlertType[]) => {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-        return alerts.filter((alert) => {
-            const eventDate = new Date(alert.lastIndexedDate);
-            return eventDate >= sevenDaysAgo;
-        });
-    };
-
-    const filteredAlerts = filterRecentEvents(alerts);
+    const {alerts} = useAlerts(park.parkCode, filterAlerts);
 
     return (
         <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
             {/* Alerts */}
-            {filteredAlerts.length > 0 && (
+            {alerts.length > 0 && (
                 <div className='w-full max-w-6xl pb-3'>
-                    {filteredAlerts.map((alert, i) => (
+                    {alerts.map((alert, i) => (
                         <Alert
                             key={`alert-${i}`}
                             isVisible={alertVisible}
