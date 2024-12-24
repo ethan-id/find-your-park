@@ -11,6 +11,7 @@ import {Markers} from '@/components/markers';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SuspenseImage from '@/components/suspense-image';
 import {MarkerData} from '@/types/location-types';
+import {ParkAlert} from './park-alert';
 
 const filterAlerts = (alerts: AlertType[]): AlertType[] => {
     const sevenDaysAgo = new Date();
@@ -55,16 +56,9 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
         <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
             {/* Alerts */}
             {alerts.length > 0 && (
-                <div className='w-full max-w-6xl pb-3'>
-                    {alerts.map((alert, i) => (
-                        <Alert
-                            key={`alert-${i}`}
-                            isVisible={alertVisible}
-                            color='warning'
-                            title={new Date(alert.lastIndexedDate).toLocaleString()}
-                            description={alert.description}
-                            onClose={() => setAlertVisible(false)}
-                        />
+                <div className='flex flex-col gap-3 w-full max-w-6xl pb-3'>
+                    {alerts.map((alert) => (
+                        <ParkAlert alert={alert} />
                     ))}
                 </div>
             )}
