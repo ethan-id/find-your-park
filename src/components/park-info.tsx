@@ -1,27 +1,26 @@
 'use client';
 
-import {useParksContext} from '@/contexts/parks-context';
-import {FunctionComponent, useState} from 'react';
-import {Skeleton, Spinner, Alert} from '@nextui-org/react';
-import {Alert as AlertType} from '@/types/alert-types';
+import {FunctionComponent} from 'react';
+import {Skeleton, Spinner} from '@nextui-org/react';
 import {Map} from '@vis.gl/react-google-maps';
 import {Suspense} from 'react';
-import {useAlerts} from '@/hooks/use-alerts';
 import {Markers} from '@/components/markers';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SuspenseImage from '@/components/suspense-image';
-import {MarkerData} from '@/types/location-types';
-import {ParkAlert} from './park-alert';
-import {AlertList} from './alert-list';
+import {AlertList} from '@/components/alert-list';
+import {useEvents} from '@/hooks/use-events';
+import {useParks} from '@/hooks/use-parks';
+import type {MarkerData} from '@/types/location-types';
 
 interface ParkInfoProps {
     parkCode: string;
 }
 
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
-    // TODO: Replace with fetch to `/parks?parkCode=park.parkCode`??
-    const {parks} = useParksContext();
-    const park = parks?.find((park) => park.parkCode === parkCode);
+    const {parks, loading, error} = useParks(parkCode);
+
+    const park = parks?.[0];
+    const {events} = useEvents(parkCode);
 
     if (!park) {
         return (
@@ -86,14 +85,17 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     ? park.images.map((image, i) => (
                           <Suspense
                               fallback={
-                                  <ImgFallback key={`img-fallback-${i}`} className='min-w-[300px] min-h-[300px]' />
+                                  <ImgFallback
+                                      key={`${image.title}-fallback-${i}`}
+                                      className='min-w-[300px] min-h-[300px]'
+                                  />
                               }
                           >
                               <SuspenseImage
                                   src={image.url}
                                   alt={image.altText ?? 'Park Image'}
                                   className='rounded-xl object-cover snap-always snap-center w-[300px] aspect-square'
-                                  key={`${image.url}${image.title}-${i}`}
+                                  key={`${image.title}-${i}`}
                               />
                           </Suspense>
                       ))
