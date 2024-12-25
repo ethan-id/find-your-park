@@ -1,14 +1,14 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {Skeleton, Spinner} from '@nextui-org/react';
+import {Alert, Chip, cn, Spinner} from '@nextui-org/react';
 import {Map} from '@vis.gl/react-google-maps';
-import {Suspense} from 'react';
+import Link from 'next/link';
 import {Markers} from '@/components/markers';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import SuspenseImage from '@/components/suspense-image';
+import {ParkImageRow} from './park-image-row';
 import {AlertList} from '@/components/alert-list';
-import {useEvents} from '@/hooks/use-events';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+// import {useEvents} from '@/hooks/use-events';
 import {useParks} from '@/hooks/use-parks';
 import type {MarkerData} from '@/types/location-types';
 
@@ -18,14 +18,30 @@ interface ParkInfoProps {
 
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const {parks, loading, error} = useParks(parkCode);
+    // const {events} = useEvents(parkCode);
 
     const park = parks?.[0];
-    const {events} = useEvents(parkCode);
 
-    if (!park) {
+    if (loading) {
         return (
             <div className='flex justify-center items-center font-bold w-screen h-screen text-4xl'>
                 <Spinner />
+            </div>
+        );
+    }
+
+    if (!park || error) {
+        return (
+            <div className='flex justify-center items-center font-bold w-screen h-screen'>
+                <div className='flex flex-col justify-center items-center gap-4'>
+                    <Alert
+                        color={'danger'}
+                        classNames={{base: cn(['text-3xl'])}}
+                        title={"Couldn't load park information, sorry 😕"}
+                        variant={'solid'}
+                    />
+                    <Link href={'/'}>Head back home</Link>
+                </div>
             </div>
         );
     }
@@ -68,51 +84,28 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                 {/* Title and Description */}
                 <div className='flex flex-col w-full md:w-2/3 text-left'>
                     <a
-                        className='text-3xl font-semibold text-blue-600 hover:underline flex items-center gap-2 mb-4'
+                        className='text-3xl font-semibold text-blue-600 hover:underline flex items-center gap-2'
                         target='_blank'
                         href={park.url}
                     >
                         {park.fullName}
                         <OpenInNewIcon />
                     </a>
+                    <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
+                        {park.activities.map((activity) => (
+                            <li className=''>
+                                <Chip key={`${park.name}-${activity.name}`} size={'sm'}>
+                                    {activity.name}
+                                </Chip>
+                            </li>
+                        ))}
+                    </ul>
+
                     <p className='text-base leading-relaxed'>{park.description}</p>
                 </div>
             </div>
 
-            {/* Images */}
-            <div className='flex flex-row gap-4 w-full max-w-6xl overflow-x-auto snap-x snap-mandatory'>
-                {park.images && park.images.length > 0
-                    ? park.images.map((image, i) => (
-                          <Suspense
-                              fallback={
-                                  <ImgFallback
-                                      key={`${image.title}-fallback-${i}`}
-                                      className='min-w-[300px] min-h-[300px]'
-                                  />
-                              }
-                          >
-                              <SuspenseImage
-                                  src={image.url}
-                                  alt={image.altText ?? 'Park Image'}
-                                  className='rounded-xl object-cover snap-always snap-center w-[300px] aspect-square'
-                                  key={`${image.title}-${i}`}
-                              />
-                          </Suspense>
-                      ))
-                    : null}
-            </div>
+            <ParkImageRow images={park.images} />
         </div>
-    );
-};
-
-interface ImgFallbackProps {
-    className?: string;
-}
-
-const ImgFallback: FunctionComponent<ImgFallbackProps> = ({className}) => {
-    return (
-        <Skeleton className={`w-full aspect-square rounded-lg ${className}`}>
-            <div className='h-full' />
-        </Skeleton>
     );
 };
