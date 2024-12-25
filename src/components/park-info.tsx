@@ -1,7 +1,7 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {Alert, Chip, cn, Spinner} from '@nextui-org/react';
+import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
 import {Map} from '@vis.gl/react-google-maps';
 import Link from 'next/link';
 import {Markers} from '@/components/markers';
@@ -34,12 +34,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
         return (
             <div className='flex justify-center items-center font-bold w-screen h-screen'>
                 <div className='flex flex-col justify-center items-center gap-4'>
-                    <Alert
-                        color={'danger'}
-                        classNames={{base: cn(['text-3xl'])}}
-                        title={"Couldn't load park information, sorry 😕"}
-                        variant={'solid'}
-                    />
+                    <Alert color={'danger'} title={"Couldn't load park information, sorry 😕"} variant={'solid'} />
                     <Link href={'/'}>Head back home</Link>
                 </div>
             </div>
@@ -93,8 +88,8 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     </a>
                     <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
                         {park.activities.map((activity) => (
-                            <li className=''>
-                                <Chip key={`${park.name}-${activity.name}`} size={'sm'}>
+                            <li key={`${park.name}-${activity.id}`}>
+                                <Chip key={`${park.name}-${activity.id}`} size={'sm'}>
                                     {activity.name}
                                 </Chip>
                             </li>
@@ -106,6 +101,87 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
             </div>
 
             <ParkImageRow images={park.images} />
+
+            <div className='flex flex-col w-full md:w-2/3'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 justify-around'>
+                    {park.entranceFees && park.entranceFees.length > 0 && (
+                        <Card className='w-auto/12 bg-[#18181b] row-span-3'>
+                            <CardHeader>
+                                <p className='text-2xl'>Entrance Fees</p>
+                            </CardHeader>
+                            <CardBody>
+                                <ul className='space-y-8'>
+                                    {park.entranceFees.map((fee) => (
+                                        <li className='flex flex-col gap-2'>
+                                            <p>{`${fee.title} (${fee.cost})`}</p>
+                                            <p>{fee.description}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardBody>
+                        </Card>
+                    )}
+
+                    <Card className='w-auto bg-[#18181b]'>
+                        <CardHeader>
+                            <p className='text-2xl'>Contact Info.</p>
+                        </CardHeader>
+                        <CardBody>
+                            <ul>
+                                {park.contacts.phoneNumbers.map((number) => (
+                                    <li>
+                                        {number.type}
+                                        {': '}
+                                        {number.phoneNumber}
+                                    </li>
+                                ))}
+                            </ul>
+                            <ul>
+                                {park.contacts.emailAddresses.map((email) => (
+                                    <li>
+                                        {email.emailAddress}
+                                        {email.description ? `(${email.description})` : ''}
+                                    </li>
+                                ))}
+                            </ul>
+                        </CardBody>
+                    </Card>
+
+                    {park.weatherInfo && (
+                        <Card className='w-auto bg-[#18181b]'>
+                            <CardHeader>
+                                <p className='text-2xl'>Weather</p>
+                            </CardHeader>
+                            <CardBody>{park.weatherInfo}</CardBody>
+                        </Card>
+                    )}
+
+                    {park.operatingHours && park.operatingHours.length > 0 && (
+                        <Card className='w-auto/12 bg-[#18181b] row-span-3'>
+                            <CardHeader>
+                                <p className='text-2xl'>Operating Hours</p>
+                            </CardHeader>
+                            <CardBody>
+                                <ul className='space-y-8'>
+                                    {park.operatingHours.map((hour) => (
+                                        <li className=''>
+                                            <p className='text-lg'>{hour.name}</p>
+                                            <p className='pb-2'>{hour.description}</p>
+                                            <ul>
+                                                {Object.entries(hour.standardHours).map(([day, hours]) => (
+                                                    <li>
+                                                        <p className='capitalize'>{`${day}: ${hours}`}</p>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardBody>
+                        </Card>
+                    )}
+                </div>
+            </div>
         </div>
     );
 };

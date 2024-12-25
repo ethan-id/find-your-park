@@ -17,6 +17,7 @@ interface AlertListProps {
     parkCode: string;
 }
 
+// TODO: Figure out how to hide this if no alerts are visible (User closes them)
 export const AlertList: FunctionComponent<AlertListProps> = ({parkCode}) => {
     const {alerts} = useAlerts(parkCode, filterAlerts);
 

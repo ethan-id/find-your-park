@@ -13,6 +13,7 @@ export const ParkImageRow: FunctionComponent<ParkImageRow> = ({images}) => {
             {images && images.length > 0
                 ? images.map((image, i) => (
                       <Suspense
+                          key={`${image.title}-suspense-${i}`}
                           fallback={
                               <ImgFallback
                                   key={`${image.title}-fallback-${i}`}
