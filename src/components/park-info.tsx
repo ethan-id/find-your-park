@@ -1,6 +1,6 @@
 'use client';
 
-import {FunctionComponent, useEffect} from 'react';
+import {FunctionComponent} from 'react';
 import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
 import {Map, useMap} from '@vis.gl/react-google-maps';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {useParks} from '@/hooks/use-parks';
 import {usePeople} from '@/hooks/use-people';
 import type {MarkerData} from '@/types/location-types';
+import {useBounds} from '@/hooks/use-bounds';
 
 interface ParkInfoProps {
     parkCode: string;
@@ -22,36 +23,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     // const {events} = useEvents(parkCode);
     const {people} = usePeople(parkCode);
     const map = useMap();
+    const parkBounds = useBounds(parkCode);
+    console.log(parkBounds);
 
     const park = parks?.[0];
-
-    useEffect(() => {
-        if (!map) return;
-
-        // TODO: Write hook that fetches `/mapdata/parkboundaries/{parkCode}` coordinates and draws them on the map of each
-        // const parkBounds = useBoundaries(parkCode);
-
-        // Example Polygon
-        // Define the LatLng coordinates for the polygon's path.
-        const triangleCoords = [
-            {lat: 25.774, lng: -80.19},
-            {lat: 18.466, lng: -66.118},
-            {lat: 32.321, lng: -64.757},
-            {lat: 25.774, lng: -80.19}
-        ];
-
-        // Construct the polygon.
-        const bermudaTriangle = new google.maps.Polygon({
-            paths: triangleCoords,
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35
-        });
-
-        bermudaTriangle.setMap(map);
-    }, [map]);
 
     if (loading) {
         return (

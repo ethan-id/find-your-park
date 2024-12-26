@@ -1,0 +1,57 @@
+'use client';
+
+import {BoundsAPIResponse, BoundsAPIResponseSchema} from '@/types/bounds-types';
+import {useMap} from '@vis.gl/react-google-maps';
+import {useState, useEffect} from 'react';
+
+async function fetchBounds(parkCode: string): Promise<BoundsAPIResponse> {
+    const url = `https://developer.nps.gov/api/v1/mapdata/parkboundaries/${parkCode}?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return BoundsAPIResponseSchema.parse(json);
+}
+
+// TODO: Add return type to all hooks!
+export function useBounds(parkCode: string) {
+    const [polygons, setPolygons] = useState<google.maps.LatLng[][]>([]);
+    const map = useMap();
+
+    useEffect(() => {
+        fetchBounds(parkCode)
+            .then((response) => {
+                setPolygons(
+                    // TODO: Fix TS Error
+                    response?.features[0]?.geometry?.coordinates.map((coordsArray) =>
+                        coordsArray.map((arrOfLatLngs) =>
+                            arrOfLatLngs.map(([lng, lat]) => ({
+                                lat,
+                                lng
+                            }))
+                        )
+                    )
+                );
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, []);
+
+    useEffect(() => {
+        if (!map) return;
+
+        polygons.map((polygon) => {
+            const polygonShape = new google.maps.Polygon({
+                paths: polygon,
+                strokeColor: '#11e087',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#11e087',
+                fillOpacity: 0.35
+            });
+
+            polygonShape.setMap(map);
+        });
+
+        // Construct the polygon.
+    }, [map, polygons]);
+}
