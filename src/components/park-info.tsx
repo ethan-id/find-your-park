@@ -5,7 +5,7 @@ import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/reac
 import {Map} from '@vis.gl/react-google-maps';
 import Link from 'next/link';
 import {Markers} from '@/components/markers';
-import {ParkImageRow} from './park-image-row';
+import {ImageRow} from './park-image-row';
 import {AlertList} from '@/components/alert-list';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 // import {useEvents} from '@/hooks/use-events';
@@ -103,7 +103,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                 </div>
             </div>
 
-            <ParkImageRow images={park.images} />
+            <ImageRow images={park.images} title={'Images'} />
+            {people && people.length > 0 && (
+                <ImageRow images={people.map((person) => person.images[0])} title={'Related Figures'} />
+            )}
 
             <div className='flex flex-col w-full md:w-2/3'>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 justify-around'>
@@ -115,7 +118,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                             <CardBody>
                                 <ul className='space-y-8'>
                                     {park.entranceFees.map((fee) => (
-                                        <li className='flex flex-col gap-2'>
+                                        <li className='flex flex-col gap-2' key={fee.title}>
                                             <p>{`${fee.title} (${fee.cost})`}</p>
                                             <p>{fee.description}</p>
                                         </li>
@@ -125,12 +128,13 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                         </Card>
                     )}
 
-                    <Card className='w-auto bg-[#18181b]'>
+                    <Card className='w-auto bg-[#18181b] row-span-1'>
                         <CardHeader>
                             <p className='text-2xl'>Contact Information</p>
                         </CardHeader>
                         <CardBody>
-                            <ul>
+                            <p className='text-lg'>Phone Number(s)</p>
+                            <ul className='pb-4'>
                                 {park.contacts.phoneNumbers.map((number) => (
                                     <li key={number.phoneNumber}>
                                         {number.type}
@@ -140,9 +144,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                                 ))}
                             </ul>
 
+                            <p className='text-lg'>Email(s)</p>
                             <ul>
                                 {park.contacts.emailAddresses.map((email) => (
-                                    <li>
+                                    <li key={email.emailAddress}>
                                         {email.emailAddress}
                                         {email.description ? `(${email.description})` : ''}
                                     </li>
@@ -163,7 +168,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     {park.operatingHours &&
                         park.operatingHours.length > 0 &&
                         park.operatingHours.map((location) => (
-                            <Card className='w-auto/12 bg-[#18181b]'>
+                            <Card
+                                className='w-auto/12 bg-[#18181b]'
+                                key={`${location.name}-card-${location.description}`}
+                            >
                                 <CardHeader>
                                     <p className='text-2xl'>{location.name}</p>
                                 </CardHeader>
@@ -171,7 +179,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                                     <p className='pb-2'>{location.description}</p>
                                     <ul>
                                         {Object.entries(location.standardHours).map(([day, hours]) => (
-                                            <li>
+                                            <li key={`${park.name}-${location.name}-${day}-${hours}`}>
                                                 <p className='capitalize'>{`${day}: ${hours}`}</p>
                                             </li>
                                         ))}

@@ -112,5 +112,6 @@ export const npsResponseSchema = z.object({
     data: z.array(parkSchema)
 });
 
+export type ParkImage = z.infer<typeof imageSchema>;
 export type Park = z.infer<typeof parkSchema>;
 export type ParksAPIResponse = z.infer<typeof npsResponseSchema>;

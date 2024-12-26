@@ -1,11 +1,16 @@
 import {z} from 'zod';
 
+const cropSchema = z.object({
+    aspectRatio: z.string(),
+    url: z.string().url()
+});
+
 const imageSchema = z.object({
-    credit: z.string(),
-    crops: z.string(),
-    altText: z.string(),
-    title: z.string(),
-    caption: z.string(),
+    credit: z.string().optional(),
+    crops: z.array(cropSchema).optional(),
+    altText: z.string().optional(),
+    title: z.string().optional(),
+    caption: z.string().optional(),
     url: z.string().url()
 });
 
@@ -16,31 +21,33 @@ const quickFactSchema = z.object({
 });
 
 const relatedParkSchema = z.object({
-    states: z.array(z.string()),
+    states: z.string(),
     fullName: z.string(),
     url: z.string().url(),
     parkCode: z.string(),
-    designation: z.string(),
+    designation: z.string().optional(),
     name: z.string()
 });
 
 const personSchema = z.object({
-    bodyText: z.string(),
     id: z.string(),
-    geometryPoiId: z.string(),
-    firstName: z.string(),
-    middleName: z.string().optional(), // Optional in case it's not always present
-    lastName: z.string(),
-    images: z.array(imageSchema),
-    latLong: z.string(),
-    latitude: z.string().optional(),
-    listingDescription: z.string(),
-    longitude: z.string().optional(),
-    quickFacts: z.array(quickFactSchema),
-    relatedOrganizations: z.string().optional(), // Assuming it's a stringified JSON array
-    relatedParks: z.array(relatedParkSchema),
+    url: z.string().url(),
     title: z.string(),
-    url: z.string()
+    listingDescription: z.string(),
+    images: z.array(imageSchema),
+    relatedParks: z.array(relatedParkSchema),
+    relatedOrganizations: z.array(z.unknown()).optional(),
+    tags: z.array(z.string()),
+    latitude: z.string().optional(),
+    longitude: z.string().optional(),
+    latLong: z.string().optional(),
+    bodyText: z.string(),
+    geometryPoiId: z.string().optional(),
+    firstName: z.string(),
+    middleName: z.string().optional(),
+    lastName: z.string(),
+    quickFacts: z.array(quickFactSchema),
+    credit: z.string().optional()
 });
 
 export const peopleAPISchema = z.object({
@@ -50,7 +57,7 @@ export const peopleAPISchema = z.object({
     start: z.string()
 });
 
-export type Image = z.infer<typeof imageSchema>;
+export type PersonImage = z.infer<typeof imageSchema>;
 export type QuickFact = z.infer<typeof quickFactSchema>;
 export type RelatedPark = z.infer<typeof relatedParkSchema>;
 export type Person = z.infer<typeof personSchema>;
