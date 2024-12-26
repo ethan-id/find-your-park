@@ -5,7 +5,7 @@ import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/reac
 import {Map} from '@vis.gl/react-google-maps';
 import Link from 'next/link';
 import {Markers} from '@/components/markers';
-import {ImageRow} from './park-image-row';
+import {ImageRow} from './image-row';
 import {AlertList} from '@/components/alert-list';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 // import {useEvents} from '@/hooks/use-events';

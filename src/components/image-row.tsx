@@ -9,6 +9,7 @@ interface ImageRow {
     title: string;
 }
 
+// TODO: Make Image clickable for <Link href={`/people/person-name`}/>
 export const ImageRow: FunctionComponent<ImageRow> = ({images, title}) => {
     return (
         <div className='flex flex-col justify-center text-xl gap-3'>

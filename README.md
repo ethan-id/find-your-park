@@ -14,6 +14,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [x] Make `/park` route & page for specific parks to show all their info
 - [x] Look into NextJS caching stuff for `fetch` requests from NPS and `src/app/.tsx`
 - [x] Improve `/` root route
+- [x] Improve `/parks/pardCode` route
+- [ ] Add `/people/person` route
 - [ ] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
 - [ ] Deploy it!
 - [ ] Add ability to select parks and plan a road trip!
