@@ -13,7 +13,9 @@ async function fetchBounds(parkCode: string): Promise<BoundsAPIResponse> {
 
 // TODO: Add return type to all hooks!
 export function useBounds(parkCode: string) {
+    const [which, setWhich] = useState<'polygon' | 'polyline'>('polygon');
     const [polygons, setPolygons] = useState<google.maps.LatLng[][]>([]);
+    const [polylines, setPolylines] = useState<google.maps.LatLng[][]>([]);
     const map = useMap();
 
     useEffect(() => {
@@ -38,8 +40,9 @@ export function useBounds(parkCode: string) {
                         )
                     );
                 } else if (geo.type === 'MultiLineString') {
+                    setWhich('polyline');
                     // handle [[{lng, lat}]]
-                    setPolygons(
+                    setPolylines(
                         geo.coordinates.map((coordsArray) =>
                             coordsArray.map(
                                 ([lng, lat]: [number, number]) =>
@@ -60,17 +63,31 @@ export function useBounds(parkCode: string) {
     useEffect(() => {
         if (!map) return;
 
-        polygons.map((polygon) => {
-            const polygonShape = new google.maps.Polygon({
-                paths: polygon,
-                strokeColor: '#11e087',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#11e087',
-                fillOpacity: 0.35
-            });
+        if (which === 'polyline') {
+            polylines.map((polyline) => {
+                const line = new google.maps.Polyline({
+                    path: polyline,
+                    geodesic: true,
+                    strokeColor: '#11e087',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2
+                });
 
-            polygonShape.setMap(map);
-        });
-    }, [map, polygons]);
+                line.setMap(map);
+            });
+        } else {
+            polygons.map((polygon) => {
+                const polygonShape = new google.maps.Polygon({
+                    paths: polygon,
+                    strokeColor: '#11e087',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#11e087',
+                    fillOpacity: 0.35
+                });
+
+                polygonShape.setMap(map);
+            });
+        }
+    }, [map, polygons, polylines]);
 }
