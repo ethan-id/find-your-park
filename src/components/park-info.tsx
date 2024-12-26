@@ -10,6 +10,7 @@ import {AlertList} from '@/components/alert-list';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 // import {useEvents} from '@/hooks/use-events';
 import {useParks} from '@/hooks/use-parks';
+import {usePeople} from '@/hooks/use-people';
 import type {MarkerData} from '@/types/location-types';
 
 interface ParkInfoProps {
@@ -19,6 +20,8 @@ interface ParkInfoProps {
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const {parks, loading, error} = useParks(parkCode);
     // const {events} = useEvents(parkCode);
+    const {people} = usePeople(parkCode);
+    console.log(people);
 
     const park = parks?.[0];
 
@@ -124,18 +127,19 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
 
                     <Card className='w-auto bg-[#18181b]'>
                         <CardHeader>
-                            <p className='text-2xl'>Contact Info.</p>
+                            <p className='text-2xl'>Contact Information</p>
                         </CardHeader>
                         <CardBody>
                             <ul>
                                 {park.contacts.phoneNumbers.map((number) => (
-                                    <li>
+                                    <li key={number.phoneNumber}>
                                         {number.type}
                                         {': '}
                                         {number.phoneNumber}
                                     </li>
                                 ))}
                             </ul>
+
                             <ul>
                                 {park.contacts.emailAddresses.map((email) => (
                                     <li>
@@ -156,30 +160,25 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                         </Card>
                     )}
 
-                    {park.operatingHours && park.operatingHours.length > 0 && (
-                        <Card className='w-auto/12 bg-[#18181b] row-span-3'>
-                            <CardHeader>
-                                <p className='text-2xl'>Operating Hours</p>
-                            </CardHeader>
-                            <CardBody>
-                                <ul className='space-y-8'>
-                                    {park.operatingHours.map((hour) => (
-                                        <li className=''>
-                                            <p className='text-lg'>{hour.name}</p>
-                                            <p className='pb-2'>{hour.description}</p>
-                                            <ul>
-                                                {Object.entries(hour.standardHours).map(([day, hours]) => (
-                                                    <li>
-                                                        <p className='capitalize'>{`${day}: ${hours}`}</p>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardBody>
-                        </Card>
-                    )}
+                    {park.operatingHours &&
+                        park.operatingHours.length > 0 &&
+                        park.operatingHours.map((location) => (
+                            <Card className='w-auto/12 bg-[#18181b]'>
+                                <CardHeader>
+                                    <p className='text-2xl'>{location.name}</p>
+                                </CardHeader>
+                                <CardBody>
+                                    <p className='pb-2'>{location.description}</p>
+                                    <ul>
+                                        {Object.entries(location.standardHours).map(([day, hours]) => (
+                                            <li>
+                                                <p className='capitalize'>{`${day}: ${hours}`}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardBody>
+                            </Card>
+                        ))}
                 </div>
             </div>
         </div>
