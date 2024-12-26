@@ -19,12 +19,11 @@ interface ParkInfoProps {
 }
 
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
+    useBounds(parkCode);
     const {parks, loading, error} = useParks(parkCode);
     // const {events} = useEvents(parkCode);
     const {people} = usePeople(parkCode);
     const map = useMap();
-    const parkBounds = useBounds(parkCode);
-    console.log(parkBounds);
 
     const park = parks?.[0];
 
