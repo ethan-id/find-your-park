@@ -19,17 +19,38 @@ export function useBounds(parkCode: string) {
     useEffect(() => {
         fetchBounds(parkCode)
             .then((response) => {
-                setPolygons(
-                    // TODO: Fix TS Error
-                    response?.features[0]?.geometry?.coordinates.map((coordsArray) =>
-                        coordsArray.map((arrOfLatLngs) =>
-                            arrOfLatLngs.map(([lng, lat]) => ({
-                                lat,
-                                lng
-                            }))
+                const geo = response?.features[0].geometry;
+
+                // TODO: Fix TS Errors
+                if (geo.type === 'MultiPolygon') {
+                    // handle [[[{lng, lat}]]]
+                    setPolygons(
+                        geo.coordinates.map((coordsArray) =>
+                            coordsArray.map((arrOfLatLngs) =>
+                                arrOfLatLngs.map(
+                                    ([lng, lat]: [number, number]) =>
+                                        new google.maps.LatLng({
+                                            lat,
+                                            lng
+                                        })
+                                )
+                            )
                         )
-                    )
-                );
+                    );
+                } else if (geo.type === 'MultiLineString') {
+                    // handle [[{lng, lat}]]
+                    setPolygons(
+                        geo.coordinates.map((coordsArray) =>
+                            coordsArray.map(
+                                ([lng, lat]: [number, number]) =>
+                                    new google.maps.LatLng({
+                                        lat,
+                                        lng
+                                    })
+                            )
+                        )
+                    );
+                }
             })
             .catch((err) => {
                 console.error(err);
@@ -51,7 +72,5 @@ export function useBounds(parkCode: string) {
 
             polygonShape.setMap(map);
         });
-
-        // Construct the polygon.
     }, [map, polygons]);
 }
