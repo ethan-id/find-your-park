@@ -191,3 +191,12 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
         </div>
     );
 };
+
+/*
+<div className='flex flex-col px-12 py-8'>
+    <p className='text-3xl font-bold pb-4 flex-none'>Articles</p>
+    <div className='overflow-auto flex-grow'>
+        <ArticleList />
+    </div>
+</div>
+ */

@@ -1,7 +1,7 @@
 'use client';
 
 import {FunctionComponent} from 'react';
-import {Map} from '@vis.gl/react-google-maps';
+import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
@@ -19,7 +19,7 @@ export const MyMap: FunctionComponent = () => {
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
     // TODO: Add <Switch/> map controls that toggle <Markers/> with other data from API
     return (
-        <div className='map-container h-[100vh] w-[70vw]'>
+        <div className='map-container h-[100vh] w-[65vw]'>
             <Map
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{
@@ -27,14 +27,17 @@ export const MyMap: FunctionComponent = () => {
                     lng: -94.8430405088294
                 }}
                 defaultTilt={30}
-                defaultZoom={4.35}
+                defaultZoom={5}
                 disableDefaultUI={true}
                 gestureHandling={'greedy'}
                 mapId={'17b67c316f835bbf'}
-                style={{position: 'sticky', right: '0', top: '0', width: '70vw', height: '100vh'}}
+                style={{position: 'sticky', right: '0', top: '0', width: '100vw', height: '100vh'}}
                 reuseMaps={true}
                 renderingType={'VECTOR'}
             >
+                <MapControl position={ControlPosition.TOP_LEFT}>
+                    <p className='m-6 p-12 text-6xl font-bold rounded-lg bg-[#05080b]'>Looking for a National Park?</p>
+                </MapControl>
                 <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} />
             </Map>
         </div>

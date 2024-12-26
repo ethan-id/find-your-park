@@ -3,8 +3,8 @@
 import {useState, useEffect} from 'react';
 import {articleResponseSchema, ArticlesAPIResponse, Article} from '@/types/articles-types';
 
-async function fetchArticles(): Promise<ArticlesAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/articles?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}`;
+async function fetchArticles(parkCode?: string): Promise<ArticlesAPIResponse> {
+    const url = `https://developer.nps.gov/api/v1/articles?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&parkCode=${parkCode ?? ''}`;
 
     const res = await fetch(url);
     const json = await res.json();
@@ -13,7 +13,7 @@ async function fetchArticles(): Promise<ArticlesAPIResponse> {
     return parsedData;
 }
 
-export function useArticles() {
+export function useArticles(parkCode?: string) {
     const [articles, setArticles] = useState<Article[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
@@ -22,7 +22,7 @@ export function useArticles() {
         let isMounted = true;
         setLoading(true);
 
-        fetchArticles()
+        fetchArticles(parkCode)
             .then((response) => {
                 setArticles(response?.data);
                 setLoading(false);

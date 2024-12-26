@@ -6,7 +6,11 @@ import {Card, CardBody, CardHeader, Skeleton} from '@nextui-org/react';
 import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-export const ArticleList: FunctionComponent = () => {
+interface ArticleListProps {
+    parkCode?: string;
+}
+
+export const ArticleList: FunctionComponent = ({parkCode}) => {
     const {articles, loading, error} = useArticles();
 
     if (loading) {
