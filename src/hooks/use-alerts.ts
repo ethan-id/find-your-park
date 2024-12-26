@@ -22,7 +22,6 @@ export function useAlerts(parkCode: string, filter?: (alerts: Alert[]) => Alert[
 
         fetchAlerts(parkCode)
             .then((response) => {
-                console.log('fetched alerts!');
                 setAlerts(response?.data);
                 setLoading(false);
             })

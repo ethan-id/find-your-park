@@ -21,7 +21,6 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const {parks, loading, error} = useParks(parkCode);
     // const {events} = useEvents(parkCode);
     const {people} = usePeople(parkCode);
-    console.log(people);
 
     const park = parks?.[0];
 

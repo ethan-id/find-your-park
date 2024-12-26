@@ -7,7 +7,6 @@ async function fetchCampgrounds(): Promise<any> {
 
     const res = await fetch(url);
     const json = await res.json();
-    console.log(json);
     //const parsedData = articleResponseSchema.parse(json);
     //return parsedData;
 }
@@ -23,7 +22,6 @@ export function useCampgrounds() {
 
         fetchCampgrounds()
             .then((response) => {
-                console.log('fetched campgrounds!');
                 setCampgrounds(response?.data);
                 setLoading(false);
             })

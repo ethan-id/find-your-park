@@ -22,7 +22,6 @@ export function useEvents(parkCode: string) {
 
         fetchEvents(parkCode)
             .then((response) => {
-                console.log('fetched events!');
                 setEvents(response?.data);
                 setLoading(false);
             })

@@ -24,7 +24,6 @@ export function useArticles() {
 
         fetchArticles()
             .then((response) => {
-                console.log('fetched articles!');
                 setArticles(response?.data);
                 setLoading(false);
             })
