@@ -1,19 +1,42 @@
 'use client';
 
-import {FunctionComponent} from 'react';
-import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
+import {FunctionComponent, useEffect} from 'react';
+import {ControlPosition, Map, MapControl, useMap} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
-import {useCampgrounds} from '@/hooks/use-campgrounds';
+// import {useCampgrounds} from '@/hooks/use-campgrounds';
 
 export const MyMap: FunctionComponent = () => {
     const {parks, loading: parksLoading} = useParks();
+    const map = useMap();
 
     // TODO: Add markers for campgrounds ??
     // const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);
+
+    useEffect(() => {
+        if (!map) return;
+
+        // TODO: Render shapes/polygons on the map here https://developers.google.com/maps/documentation/javascript/shapes
+        const flightPlanCoordinates = [
+            {lat: 37.772, lng: -122.214},
+            {lat: 21.291, lng: -157.821},
+            {lat: -18.142, lng: 178.431},
+            {lat: -27.467, lng: 153.027}
+        ];
+
+        const flightPath = new google.maps.Polyline({
+            path: flightPlanCoordinates,
+            geodesic: true,
+            strokeColor: '#FFF',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        flightPath.setMap(map);
+    }, [map]);
 
     // TODO: Implement <MapControl/> to refine visible markers
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
