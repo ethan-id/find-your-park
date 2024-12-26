@@ -7,6 +7,7 @@ async function fetchCampgrounds(): Promise<any> {
 
     const res = await fetch(url);
     const json = await res.json();
+    console.log('campgrounds', json);
     //const parsedData = articleResponseSchema.parse(json);
     //return parsedData;
 }

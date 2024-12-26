@@ -3,15 +3,16 @@
 import {FunctionComponent} from 'react';
 import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
+import Image from 'next/image';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
-// import {useCampgrounds} from '@/hooks/use-campgrounds';
+import {useCampgrounds} from '@/hooks/use-campgrounds';
 
 export const MyMap: FunctionComponent = () => {
     const {parks, loading: parksLoading} = useParks();
 
-    // TODO: Add markers for campgrounds ??
-    // const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
+    // TODO: Add markers for campgrounds ?
+    const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
 
     const {parkMarkers} = useMarkers(parks, parksLoading);
 
@@ -36,7 +37,18 @@ export const MyMap: FunctionComponent = () => {
                 renderingType={'VECTOR'}
             >
                 <MapControl position={ControlPosition.TOP_LEFT}>
-                    <p className='m-6 p-12 text-6xl font-bold rounded-lg bg-[#05080b]'>Looking for a National Park?</p>
+                    <div className='flex flex-col bg-[#8fffe2] text-black max-w-fit p-6 m-6 rounded-lg'>
+                        <p className='text-3xl font-semibold pb-2'>Legend</p>
+                        <div className='flex flex-row items-center text-lg gap-4'>
+                            <Image
+                                src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
+                                alt={'Cat'}
+                                width={30}
+                                height={30}
+                            />
+                            {'National Park'}
+                        </div>
+                    </div>
                 </MapControl>
                 <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} />
             </Map>

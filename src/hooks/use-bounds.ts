@@ -39,9 +39,21 @@ export function useBounds(parkCode: string) {
                             )
                         )
                     );
+                } else if (geo.type === 'Polygon') {
+                    setPolygons(
+                        geo.coordinates.map((coords) =>
+                            coords.map(
+                                ([lng, lat]: [number, number]) =>
+                                    new google.maps.LatLng({
+                                        lat,
+                                        lng
+                                    })
+                            )
+                        )
+                    );
                 } else if (geo.type === 'MultiLineString') {
-                    setWhich('polyline');
                     // handle [[{lng, lat}]]
+                    setWhich('polyline');
                     setPolylines(
                         geo.coordinates.map((coordsArray) =>
                             coordsArray.map(

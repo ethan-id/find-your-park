@@ -1,6 +1,5 @@
 import {FunctionComponent} from 'react';
 import {MyMap} from '@/components/my-map';
-import {ArticleList} from '@/components/article-list';
 
 const Home: FunctionComponent = () => {
     return (

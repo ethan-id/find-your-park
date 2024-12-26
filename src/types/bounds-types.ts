@@ -3,7 +3,7 @@ import {z} from 'zod';
 // Base schemas for common structures
 const CoordinateSchema = z.tuple([z.number(), z.number()]);
 const MultiPolygonCoordinatesSchema = z.array(z.array(z.array(CoordinateSchema)));
-const MultiLineStringCoordinatesSchema = z.array(z.array(CoordinateSchema));
+const SingleCoordinatesSchema = z.array(z.array(CoordinateSchema));
 
 // Designation schema
 const DesignationSchema = z.object({
@@ -23,8 +23,8 @@ const AliasSchema = z.object({
 
 // Geometry schema
 const GeometrySchema = z.object({
-    type: z.literal('MultiPolygon').or(z.literal('MultiLineString')),
-    coordinates: MultiPolygonCoordinatesSchema.or(MultiLineStringCoordinatesSchema)
+    type: z.literal('MultiPolygon').or(z.literal('MultiLineString')).or(z.literal('Polygon')),
+    coordinates: MultiPolygonCoordinatesSchema.or(SingleCoordinatesSchema)
 });
 
 // Feature schema

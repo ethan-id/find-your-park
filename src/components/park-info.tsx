@@ -136,6 +136,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                         <CardBody>
                             <p className='text-lg'>Phone Number(s)</p>
                             <ul className='pb-4'>
+                                {/* TODO: Format phone numbers with (123)-456-7890 */}
                                 {park.contacts.phoneNumbers.map((number) => (
                                     <li key={number.phoneNumber}>
                                         {number.type}
@@ -174,7 +175,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                                 key={`${location.name}-card-${location.description}`}
                             >
                                 <CardHeader>
-                                    <p className='text-2xl'>{location.name}</p>
+                                    <p className='text-2xl'>
+                                        {location.name}
+                                        {' Hours'}
+                                    </p>
                                 </CardHeader>
                                 <CardBody>
                                     <p className='pb-2'>{location.description}</p>

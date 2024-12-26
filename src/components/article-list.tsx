@@ -10,6 +10,7 @@ interface ArticleListProps {
     parkCode?: string;
 }
 
+// TODO: Re-use this in park-info.tsx
 export const ArticleList: FunctionComponent = ({parkCode}) => {
     const {articles, loading, error} = useArticles();
 
