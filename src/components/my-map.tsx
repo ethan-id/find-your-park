@@ -20,6 +20,7 @@ export const MyMap: FunctionComponent = () => {
         if (!map) return;
 
         // TODO: Render shapes/polygons on the map here https://developers.google.com/maps/documentation/javascript/shapes
+        // Example Polyline
         const flightPlanCoordinates = [
             {lat: 37.772, lng: -122.214},
             {lat: 21.291, lng: -157.821},

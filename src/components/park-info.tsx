@@ -1,8 +1,8 @@
 'use client';
 
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useEffect} from 'react';
 import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
-import {Map} from '@vis.gl/react-google-maps';
+import {Map, useMap} from '@vis.gl/react-google-maps';
 import Link from 'next/link';
 import {Markers} from '@/components/markers';
 import {ImageRow} from './image-row';
@@ -21,8 +21,37 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const {parks, loading, error} = useParks(parkCode);
     // const {events} = useEvents(parkCode);
     const {people} = usePeople(parkCode);
+    const map = useMap();
 
     const park = parks?.[0];
+
+    useEffect(() => {
+        if (!map) return;
+
+        // TODO: Write hook that fetches `/mapdata/parkboundaries/{parkCode}` coordinates and draws them on the map of each
+        // const parkBounds = useBoundaries(parkCode);
+
+        // Example Polygon
+        // Define the LatLng coordinates for the polygon's path.
+        const triangleCoords = [
+            {lat: 25.774, lng: -80.19},
+            {lat: 18.466, lng: -66.118},
+            {lat: 32.321, lng: -64.757},
+            {lat: 25.774, lng: -80.19}
+        ];
+
+        // Construct the polygon.
+        const bermudaTriangle = new google.maps.Polygon({
+            paths: triangleCoords,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+        });
+
+        bermudaTriangle.setMap(map);
+    }, [map]);
 
     if (loading) {
         return (
