@@ -9,12 +9,11 @@ interface MarkersProps {
     markers: MarkerData[];
 }
 
-// TODO: Update this so that it works for more than just park markers
 export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
     return (
         <>
-            {markers.map((marker) => (
-                <MarkerWithInfoWindow key={`${marker.park.fullName}${marker.park.id}`} markerData={marker} />
+            {markers.map((marker, i) => (
+                <MarkerWithInfoWindow key={`${marker.label}-${i}`} markerData={marker} />
             ))}
         </>
     );
@@ -24,7 +23,6 @@ interface MarkerWithInfoWindowProps {
     markerData: MarkerData;
 }
 
-// TODO: Render more info about marker in <InfoWindow/>
 const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({markerData}) => {
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [hoverRef, hovering] = useHover();
@@ -37,26 +35,36 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
         <>
             <AdvancedMarker
                 ref={markerRef}
-                key={`${markerData.park.latitude}${markerData.park.longitude}`}
+                key={`${markerData.location.lat}${markerData.location.lng}`}
                 position={markerData.location}
                 onClick={handleMarkerClick}
             >
-                <Link href={`/parks/${markerData.park.parkCode}`}>
+                {markerData.linkHref ? (
+                    <Link href={markerData.linkHref}>
+                        <Image
+                            ref={hoverRef}
+                            src={'https://utfs.io/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
+                            alt={'Tree Emoji'}
+                            width={25}
+                            height={25}
+                        />
+                    </Link>
+                ) : (
                     <Image
                         ref={hoverRef}
-                        src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
-                        alt={'Cat'}
-                        width={30}
-                        height={30}
+                        src={'https://utfs.io/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
+                        alt={'Tree Emoji'}
+                        width={25}
+                        height={25}
                     />
-                </Link>
+                )}
             </AdvancedMarker>
 
             {hovering && (
                 <div className='bg-slate-900'>
                     <InfoWindow anchor={marker} onClose={handleClose} headerDisabled={true}>
                         <div className='flex flex-col justify-center items-center text-black font-bold'>
-                            <h2>{markerData.park.fullName}</h2>
+                            <h2>{markerData.label}</h2>
                         </div>
                     </InfoWindow>
                 </div>

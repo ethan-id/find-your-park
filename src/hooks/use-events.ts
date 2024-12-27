@@ -1,5 +1,3 @@
-'use client';
-
 import {Event, EventAPIResponse, eventAPISchema} from '@/types/events-types';
 import {useState, useEffect} from 'react';
 

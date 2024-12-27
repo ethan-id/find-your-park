@@ -1,5 +1,3 @@
-'use client';
-
 import {BoundsAPIResponse, BoundsAPIResponseSchema} from '@/types/bounds-types';
 import {useMap} from '@vis.gl/react-google-maps';
 import {useState, useEffect} from 'react';

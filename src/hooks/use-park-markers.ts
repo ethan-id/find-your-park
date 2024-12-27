@@ -2,8 +2,7 @@ import {useEffect, useState} from 'react';
 import {MarkerData} from '@/types/location-types';
 import {Park} from '@/types/park-types';
 
-// TODO: Update to be able to use this for other types of markers as well that aren't markers for parks only
-export const useMarkers = (parks: Park[] | null, parksLoading: boolean) => {
+export const useParkMarkers = (parks: Park[] | null, parksLoading: boolean) => {
     const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
 
     useEffect(() => {
@@ -12,7 +11,8 @@ export const useMarkers = (parks: Park[] | null, parksLoading: boolean) => {
         if (parks && parks?.length > 0) {
             for (const park of parks) {
                 markers.push({
-                    park: park,
+                    label: park.fullName,
+                    linkHref: `/parks/${park.parkCode}`,
                     location: {lat: Number(park.latitude), lng: Number(park.longitude)}
                 });
             }

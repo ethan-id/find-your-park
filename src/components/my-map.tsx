@@ -5,7 +5,7 @@ import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import Image from 'next/image';
 import {useParks} from '@/hooks/use-parks';
-import {useMarkers} from '@/hooks/use-markers';
+import {useParkMarkers} from '@/hooks/use-park-markers';
 import {useCampgrounds} from '@/hooks/use-campgrounds';
 import {Button} from '@nextui-org/react';
 
@@ -15,7 +15,7 @@ export const MyMap: FunctionComponent = () => {
     // TODO: Add markers for campgrounds ?
     const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
 
-    const {parkMarkers} = useMarkers(parks, parksLoading);
+    const {parkMarkers} = useParkMarkers(parks, parksLoading);
 
     // TODO: Implement <MapControl/> to refine visible markers
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
@@ -38,8 +38,17 @@ export const MyMap: FunctionComponent = () => {
                 renderingType={'VECTOR'}
             >
                 <MapControl position={ControlPosition.TOP_LEFT}>
-                    <div className='flex flex-col bg-[#8fffe2] text-black max-w-fit p-6 m-6 rounded-lg'>
+                    <div className='flex flex-col bg-[#8fffe2] gap-2 text-black max-w-fit p-6 m-6 rounded-lg'>
                         <p className='text-3xl font-semibold pb-2'>Legend</p>
+                        <div className='flex flex-row items-center text-lg gap-4'>
+                            <Image
+                                src={'https://utfs.io/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
+                                alt={'Cat'}
+                                width={30}
+                                height={30}
+                            />
+                            {'National Park'}
+                        </div>
                         <div className='flex flex-row items-center text-lg gap-4'>
                             <Image
                                 src={'https://utfs.io/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
@@ -47,7 +56,7 @@ export const MyMap: FunctionComponent = () => {
                                 width={30}
                                 height={30}
                             />
-                            {'National Park'}
+                            {'Campgrounds (To Be Added)'}
                         </div>
                     </div>
                 </MapControl>

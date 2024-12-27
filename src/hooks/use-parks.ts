@@ -1,4 +1,3 @@
-'use client';
 import {useState, useEffect} from 'react';
 import {ParksAPIResponse, npsResponseSchema, Park} from '@/types/park-types';
 

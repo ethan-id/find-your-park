@@ -1,5 +1,3 @@
-'use client';
-
 import {Alert, AlertsAPIResponse, alertsAPISchema} from '@/types/alert-types';
 import {useState, useEffect} from 'react';
 

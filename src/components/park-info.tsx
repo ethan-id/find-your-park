@@ -18,6 +18,7 @@ interface ParkInfoProps {
     parkCode: string;
 }
 
+// TODO: Add parking lots markers to each park's map
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     useBounds(parkCode);
     const {parks, loading, error} = useParks(parkCode);

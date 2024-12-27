@@ -1,6 +1,5 @@
-import {Park} from '@/types/park-types';
-
 export interface MarkerData {
-    park: Park;
+    label: string;
+    linkHref?: string;
     location: google.maps.LatLngLiteral;
 }

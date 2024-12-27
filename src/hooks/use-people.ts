@@ -1,5 +1,3 @@
-'use client';
-
 import {PeopleAPIResponse, peopleAPISchema, Person} from '@/types/people-types';
 import {useState, useEffect} from 'react';
 

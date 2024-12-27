@@ -1,5 +1,3 @@
-'use client';
-
 import {useState, useEffect} from 'react';
 
 async function fetchCampgrounds(): Promise<any> {
