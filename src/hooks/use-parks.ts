@@ -34,7 +34,7 @@ export function useParks(parkCode?: string) {
 
                 while (currentCount < Number(initialResponse.total) && isMounted) {
                     await new Promise((resolve) => {
-                        timeoutId = setTimeout(resolve, 500);
+                        timeoutId = setTimeout(resolve, 50);
                     });
 
                     if (!isMounted) return;
