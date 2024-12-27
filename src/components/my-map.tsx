@@ -7,6 +7,7 @@ import Image from 'next/image';
 import {useParks} from '@/hooks/use-parks';
 import {useMarkers} from '@/hooks/use-markers';
 import {useCampgrounds} from '@/hooks/use-campgrounds';
+import {Button} from '@nextui-org/react';
 
 export const MyMap: FunctionComponent = () => {
     const {parks, loading: parksLoading} = useParks();
