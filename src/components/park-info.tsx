@@ -47,7 +47,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     }
 
     const parkMarker: MarkerData = {
-        park: park,
+        label: park.fullName,
         location: {
             lat: Number(park.latitude),
             lng: Number(park.longitude)
@@ -68,8 +68,8 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                             lat: Number(park.latitude),
                             lng: Number(park.longitude)
                         }}
-                        defaultTilt={30}
-                        defaultZoom={11}
+                        defaultTilt={60}
+                        defaultZoom={10}
                         mapId='DEMO_MAP_ID'
                         disableDefaultUI={true}
                         gestureHandling='greedy'

@@ -47,7 +47,7 @@ export const MyMap: FunctionComponent = () => {
                                 width={30}
                                 height={30}
                             />
-                            {'National Park'}
+                            {'National Parks'}
                         </div>
                         <div className='flex flex-row items-center text-lg gap-4'>
                             <Image
