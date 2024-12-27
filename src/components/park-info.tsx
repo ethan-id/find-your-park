@@ -68,7 +68,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                             lng: Number(park.longitude)
                         }}
                         defaultTilt={30}
-                        defaultZoom={8}
+                        defaultZoom={11}
                         mapId='DEMO_MAP_ID'
                         disableDefaultUI={true}
                         gestureHandling='greedy'
