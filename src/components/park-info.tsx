@@ -119,8 +119,8 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                             </CardHeader>
                             <CardBody>
                                 <ul className='space-y-8'>
-                                    {park.entranceFees.map((fee) => (
-                                        <li className='flex flex-col gap-2' key={fee.title}>
+                                    {park.entranceFees.map((fee, i) => (
+                                        <li className='flex flex-col gap-2' key={`${fee.title}-${i}`}>
                                             <p>{`${fee.title} (${fee.cost})`}</p>
                                             <p>{fee.description}</p>
                                         </li>
