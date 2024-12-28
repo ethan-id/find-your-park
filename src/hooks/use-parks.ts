@@ -1,8 +1,16 @@
 import {useState, useEffect} from 'react';
 import {ParksAPIResponse, npsResponseSchema, Park} from '@/types/park-types';
 
-async function fetchParks(parkCode?: string, start: number = 0): Promise<ParksAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&limit=50&start=${start}&parkCode=${parkCode ?? ''}`;
+const buildURL = (parkCode: string = '', start: number = 0): string => {
+    let url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&limit=50&start=${start}`;
+    if (parkCode) {
+        url += '&parkCode=' + parkCode;
+    }
+    return url;
+};
+
+async function fetchParks(parkCode: string = '', start: number = 0): Promise<ParksAPIResponse> {
+    const url = buildURL(parkCode, start);
     const res = await fetch(url);
     const json = await res.json();
     const parsedData = npsResponseSchema.parse(json);
