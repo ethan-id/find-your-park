@@ -1,8 +1,9 @@
-import {FunctionComponent, Suspense} from 'react';
-import SuspenseImage from '@/components/suspense-image';
+import {Suspense} from 'react';
 import {Skeleton} from '@nextui-org/react';
-import {ParkImage} from '@/types/park-types';
-import {PersonImage} from '@/types/people-types';
+import {SuspenseImage} from '@/components/suspense-image';
+import type {FunctionComponent} from 'react';
+import type {ParkImage} from '@/types/park-types';
+import type {PersonImage} from '@/types/people-types';
 
 interface ImageRow {
     images: (ParkImage | PersonImage)[];

@@ -1,18 +1,18 @@
 'use client';
 
-import {FunctionComponent} from 'react';
+import Link from 'next/link';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
 import {Map} from '@vis.gl/react-google-maps';
-import Link from 'next/link';
 import {Markers} from '@/components/markers';
-import {ImageRow} from './image-row';
 import {AlertList} from '@/components/alert-list';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import {ImageRow} from '@/components/image-row';
 // import {useEvents} from '@/hooks/use-events';
 import {useParks} from '@/hooks/use-parks';
 import {usePeople} from '@/hooks/use-people';
-import type {MarkerData} from '@/types/location-types';
 import {useBounds} from '@/hooks/use-bounds';
+import type {FunctionComponent} from 'react';
+import type {MarkerData} from '@/types/location-types';
 
 interface ParkInfoProps {
     parkCode: string;

@@ -1,6 +1,7 @@
+import {useState} from 'react';
 import {Alert} from '@/types/alert-types';
 import {Alert as AlertComponent} from '@nextui-org/react';
-import {FunctionComponent, useState} from 'react';
+import type {FunctionComponent} from 'react';
 
 interface ParkAlertProps {
     alert: Alert;

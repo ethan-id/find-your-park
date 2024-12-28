@@ -1,12 +1,12 @@
 'use client';
 
-import {FunctionComponent} from 'react';
 import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {Legend} from '@/components/legend';
 import {useParks} from '@/hooks/use-parks';
 import {useParkMarkers} from '@/hooks/use-park-markers';
 // import {useCampgrounds} from '@/hooks/use-campgrounds';
+import type {FunctionComponent} from 'react';
 
 export const MyMap: FunctionComponent = () => {
     // TODO: Store parks in sessionStorage so that it is saved per browser session

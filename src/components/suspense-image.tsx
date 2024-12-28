@@ -1,6 +1,6 @@
 'use client';
 
-import {FunctionComponent} from 'react';
+import type {FunctionComponent} from 'react';
 
 interface ImageState {
     success: boolean;
@@ -24,7 +24,7 @@ interface SuspenseImageProps {
     className?: string;
 }
 
-const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, className}) => {
+export const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, className}) => {
     const cached = imageCache.get(src);
 
     // If we have cached success, just render the image
@@ -48,5 +48,3 @@ const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, classNa
 
     throw promise;
 };
-
-export default SuspenseImage;

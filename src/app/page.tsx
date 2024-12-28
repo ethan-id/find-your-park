@@ -1,5 +1,5 @@
-import {FunctionComponent} from 'react';
 import {MyMap} from '@/components/my-map';
+import type {FunctionComponent} from 'react';
 
 const Home: FunctionComponent = () => {
     return (

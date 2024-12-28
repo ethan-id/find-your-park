@@ -1,9 +1,10 @@
 import {AdvancedMarker, InfoWindow, useAdvancedMarkerRef} from '@vis.gl/react-google-maps';
-import {FunctionComponent, useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type {MarkerData} from '@/types/location-types';
 import {useHover} from '@uidotdev/usehooks';
+import type {MarkerData} from '@/types/location-types';
+import type {FunctionComponent} from 'react';
 
 interface MarkersProps {
     markers: MarkerData[];

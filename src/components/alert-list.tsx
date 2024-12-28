@@ -1,7 +1,7 @@
-import {FunctionComponent} from 'react';
 import {useAlerts} from '@/hooks/use-alerts';
-import {Alert} from '@/types/alert-types';
-import {ParkAlert} from './park-alert';
+import {ParkAlert} from '@/components/park-alert';
+import type {Alert} from '@/types/alert-types';
+import type {FunctionComponent} from 'react';
 
 const filterAlerts = (alerts: Alert[]): Alert[] => {
     const sevenDaysAgo = new Date();

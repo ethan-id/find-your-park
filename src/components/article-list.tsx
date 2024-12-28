@@ -1,17 +1,18 @@
 'use client';
 
-import {FunctionComponent, Suspense} from 'react';
-import {useArticles} from '@/hooks/use-articles';
-import {Card, CardBody, CardHeader, Skeleton} from '@nextui-org/react';
-import SuspenseImage from '@/components/suspense-image';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import {Card, CardBody, CardHeader, Skeleton} from '@nextui-org/react';
+import {Suspense} from 'react';
+import {SuspenseImage} from '@/components/suspense-image';
+import {useArticles} from '@/hooks/use-articles';
+import type {FunctionComponent} from 'react';
 
 interface ArticleListProps {
     parkCode?: string;
 }
 
 // TODO: Re-use this in park-info.tsx
-export const ArticleList: FunctionComponent = ({parkCode}) => {
+export const ArticleList: FunctionComponent<ArticleListProps> = ({parkCode}) => {
     const {articles, loading, error} = useArticles();
 
     if (loading) {
