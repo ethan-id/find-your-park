@@ -9,6 +9,7 @@ import {useParkMarkers} from '@/hooks/use-park-markers';
 // import {useCampgrounds} from '@/hooks/use-campgrounds';
 
 export const MyMap: FunctionComponent = () => {
+    // TODO: Store parks in sessionStorage so that it is saved per browser session
     const {parks, loading: parksLoading} = useParks();
 
     // TODO: Add markers for campgrounds ?
@@ -17,6 +18,7 @@ export const MyMap: FunctionComponent = () => {
     const {parkMarkers} = useParkMarkers(parks, parksLoading);
 
     // TODO: Implement <MapControl/> to refine visible markers
+    // Render list of available activities/things to do for user's to search for parks (should hide/show specific markers)
     //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
     // TODO: Add <Switch/> map controls that toggle <Markers/> with other data from API
     return (
