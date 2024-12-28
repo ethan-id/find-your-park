@@ -17,6 +17,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [ ] Improve `/` root route
 - [ ] Add `/people/person` route
 - [ ] Add live webcams from `/webcams&pardCode=parkCode` to `/parks/parkCode` route
+- [ ] Look into server actions
 - [ ] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
 - [ ] Deploy it!
 - [ ] Add ability to select parks and plan a road trip!
