@@ -15,7 +15,6 @@ export function useAlerts(parkCode: string, filter?: (alerts: Alert[]) => Alert[
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        let isMounted = true;
         setLoading(true);
 
         fetchAlerts(parkCode)
@@ -27,10 +26,6 @@ export function useAlerts(parkCode: string, filter?: (alerts: Alert[]) => Alert[
                 setError(err);
                 setLoading(false);
             });
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
     if (filter) {

@@ -30,14 +30,20 @@ export const ArticleList: FunctionComponent<ArticleListProps> = ({parkCode}) => 
     }
 
     if (error) {
-        return <p>Uh oh! We couldn't fetch the articles ☹️</p>;
+        return <p>Uh oh! We couldn&apos;t fetch the articles ☹️</p>;
     }
 
     return (
         <ul>
             {articles?.map((article) => (
-                <li key={`${article.id}${article.title}`} className={'gap-2 py-2'}>
-                    <Card className='min-w-96 bg-[#18181b] p-4' radius='lg'>
+                <li
+                    key={`${article.id}${article.title}`}
+                    className={'gap-2 py-2'}
+                >
+                    <Card
+                        className='min-w-96 bg-[#18181b] p-4'
+                        radius='lg'
+                    >
                         <CardHeader className='flex flex-col gap-3'>
                             {article.listingImage.url !== '' ? (
                                 <div className='flex flex-row gap-4 justify-between max-h-56 snap-x snap-mandatory overflow-x-scroll'>
@@ -79,7 +85,10 @@ const ImgFallback = () => {
 
 const SkeletonArticle = () => {
     return (
-        <Card className='min-w-96 space-y-5 p-4' radius='lg'>
+        <Card
+            className='min-w-96 space-y-5 p-4'
+            radius='lg'
+        >
             <Skeleton className='rounded-lg'>
                 <div className='h-24 rounded-lg bg-default-300' />
             </Skeleton>

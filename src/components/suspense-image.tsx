@@ -16,7 +16,7 @@ const loadImage = (src: string) => {
     });
 };
 
-let imageCache = new Map<string, ImageState>();
+const imageCache = new Map<string, ImageState>();
 
 interface SuspenseImageProps {
     src: string;
@@ -29,7 +29,13 @@ export const SuspenseImage: FunctionComponent<SuspenseImageProps> = ({src, alt, 
 
     // If we have cached success, just render the image
     if (cached?.success) {
-        return <img src={src} alt={alt} className={className} />;
+        return (
+            <img
+                src={src}
+                alt={alt}
+                className={className}
+            />
+        );
     }
 
     // If we have cached failure, return a fallback without retrying

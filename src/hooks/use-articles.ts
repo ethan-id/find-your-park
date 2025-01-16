@@ -17,7 +17,6 @@ export function useArticles(parkCode?: string) {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        let isMounted = true;
         setLoading(true);
 
         fetchArticles(parkCode)
@@ -29,10 +28,6 @@ export function useArticles(parkCode?: string) {
                 setError(err);
                 setLoading(false);
             });
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
     return {articles, loading, error};

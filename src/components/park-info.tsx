@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
 import {Map} from '@vis.gl/react-google-maps';
+import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/react';
 import {Markers} from '@/components/markers';
 import {AlertList} from '@/components/alert-list';
 import {ImageRow} from '@/components/image-row';

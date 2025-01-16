@@ -16,7 +16,6 @@ export function useCampgrounds() {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        let isMounted = true;
         setLoading(true);
 
         fetchCampgrounds()
@@ -28,10 +27,6 @@ export function useCampgrounds() {
                 setError(err);
                 setLoading(false);
             });
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
     return {campgrounds, loading, error};

@@ -15,7 +15,6 @@ export function useEvents(parkCode: string) {
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() => {
-        let isMounted = true;
         setLoading(true);
 
         fetchEvents(parkCode)
@@ -27,10 +26,6 @@ export function useEvents(parkCode: string) {
                 setError(err);
                 setLoading(false);
             });
-
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
     return {events, loading, error};
