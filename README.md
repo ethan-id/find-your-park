@@ -19,6 +19,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - [ ] Add live webcams from `/webcams&pardCode=parkCode` to `/parks/parkCode` route
 - [ ] Look into server actions
 - [ ] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
-- [ ] Deploy it!
+- [x] Deploy it!
 - [ ] Add ability to select parks and plan a road trip!
 - [ ] Add feature to track which parks you've visited
