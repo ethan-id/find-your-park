@@ -6,8 +6,12 @@ import {useMap} from '@vis.gl/react-google-maps';
 import {useState, useEffect} from 'react';
 
 async function fetchBounds(parkCode: string): Promise<BoundsAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/mapdata/parkboundaries/${parkCode}?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}`;
-    const res = await fetch(url);
+    const res = await fetch(`/api/bounds/${parkCode}`);
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch boundaries for ${parkCode}`);
+    }
+
     const json = await res.json();
     return BoundsAPIResponseSchema.parse(json);
 }
