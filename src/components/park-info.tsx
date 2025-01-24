@@ -25,7 +25,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     const {people} = usePeople(parkCode);
     const {places} = usePlaces(parkCode);
 
-    let markers: MarkerData[];
+    let markers: MarkerData[] = [];
 
     const park = parks?.[0];
 
