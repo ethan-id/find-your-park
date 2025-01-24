@@ -14,7 +14,6 @@ import {usePlaces} from '@/hooks/use-places';
 import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
-import Image from 'next/image';
 
 interface ParkInfoProps {
     parkCode: string;

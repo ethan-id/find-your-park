@@ -13,7 +13,7 @@ interface ArticleListProps {
 
 // TODO: Re-use this in park-info.tsx
 export const ArticleList: FunctionComponent<ArticleListProps> = ({parkCode}) => {
-    const {articles, loading, error} = useArticles();
+    const {articles, loading, error} = useArticles(parkCode);
 
     if (loading) {
         return (
