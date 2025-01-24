@@ -10,10 +10,10 @@ import {ImageRow} from '@/components/image-row';
 import {useParks} from '@/hooks/use-parks';
 import {usePeople} from '@/hooks/use-people';
 import {useBounds} from '@/hooks/use-bounds';
+import {usePlaces} from '@/hooks/use-places';
 import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
-import {usePlaces} from '@/hooks/use-places';
 
 interface ParkInfoProps {
     parkCode: string;
@@ -98,30 +98,38 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                 </div>
 
                 {/* Title and Description */}
-                <div className='flex flex-col w-full md:w-2/3 text-left'>
-                    <a
-                        className='text-3xl font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2'
-                        target='_blank'
-                        href={park.url}
-                        rel='noreferrer'
-                    >
-                        {park.fullName}
-                        <OpenInNewIcon />
-                    </a>
-                    <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
-                        {park.activities.map((activity) => (
-                            <li key={`${park.name}-${activity.id}`}>
-                                <Chip
-                                    key={`${park.name}-${activity.id}`}
-                                    size={'sm'}
-                                >
-                                    {activity.name}
-                                </Chip>
-                            </li>
-                        ))}
-                    </ul>
-
-                    <p className='text-base leading-relaxed text-gray-700 dark:text-gray-200'>{park.description}</p>
+                <div className='relative flex flex-col w-full md:w-2/3 text-left min-h-[400px]'>
+                    <img
+                        src={park.images[0].url || '/placeholder.svg'}
+                        alt={park.images[0].altText ?? 'Image alt text'}
+                        className='absolute inset-0 w-full h-full object-cover rounded-lg'
+                    />
+                    <div className='relative mt-auto'>
+                        <div className='backdrop-blur-xs bg-black/90 dark:bg-gray-800/75 p-4 rounded-lg'>
+                            <a
+                                className='text-3xl font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2'
+                                target='_blank'
+                                href={park.url}
+                                rel='noreferrer'
+                            >
+                                {park.fullName}
+                                <OpenInNewIcon />
+                            </a>
+                            <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
+                                {park.activities.map((activity) => (
+                                    <li key={`${park.name}-${activity.id}`}>
+                                        <Chip
+                                            key={`${park.name}-${activity.id}`}
+                                            size={'sm'}
+                                        >
+                                            {activity.name}
+                                        </Chip>
+                                    </li>
+                                ))}
+                            </ul>
+                            <p className='text-base leading-relaxed text-gray-300'>{park.description}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
