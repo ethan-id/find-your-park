@@ -13,6 +13,7 @@ import {useBounds} from '@/hooks/use-bounds';
 import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
+import {usePlaces} from '@/hooks/use-places';
 
 interface ParkInfoProps {
     parkCode: string;
@@ -22,6 +23,9 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     useBounds(parkCode);
     const {parks, loading, error} = useParks(parkCode);
     const {people} = usePeople(parkCode);
+    const {places} = usePlaces(parkCode);
+
+    let markers: MarkerData[];
 
     const park = parks?.[0];
 
@@ -46,6 +50,16 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                 </div>
             </div>
         );
+    }
+
+    if (places) {
+        markers = places.map((place) => ({
+            label: place.title,
+            location: {
+                lat: Number(place.latitude),
+                lng: Number(place.longitude)
+            }
+        }));
     }
 
     const parkMarker: MarkerData = {
@@ -79,7 +93,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                         reuseMaps={true}
                         renderingType='VECTOR'
                     >
-                        <Markers markers={[parkMarker]} />
+                        <Markers markers={[parkMarker, ...markers]} />
                     </Map>
                 </div>
 
