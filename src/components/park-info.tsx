@@ -7,10 +7,10 @@ import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@nextui-org/reac
 import {Markers} from '@/components/markers';
 import {AlertList} from '@/components/alert-list';
 import {ImageRow} from '@/components/image-row';
-// import {useEvents} from '@/hooks/use-events';
 import {useParks} from '@/hooks/use-parks';
 import {usePeople} from '@/hooks/use-people';
 import {useBounds} from '@/hooks/use-bounds';
+import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
 
@@ -18,12 +18,9 @@ interface ParkInfoProps {
     parkCode: string;
 }
 
-// TODO: Add parking lots markers to each park's map
-// TODO: Add /multimedia/videos
 export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
     useBounds(parkCode);
     const {parks, loading, error} = useParks(parkCode);
-    // const {events} = useEvents(parkCode);
     const {people} = usePeople(parkCode);
 
     const park = parks?.[0];
@@ -40,7 +37,11 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
         return (
             <div className='flex justify-center items-center font-bold w-screen h-screen'>
                 <div className='flex flex-col justify-center items-center gap-4'>
-                    <Alert color={'danger'} title={"Couldn't load park information, sorry 😕"} variant={'solid'} />
+                    <Alert
+                        color={'danger'}
+                        title={"Couldn't load park information, sorry 😕"}
+                        variant={'solid'}
+                    />
                     <Link href={'/'}>Head back home</Link>
                 </div>
             </div>
@@ -62,7 +63,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
             {/* Map, Title, and Description */}
             <div className='flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-6xl'>
                 {/* Map */}
-                <div className='flex-shrink-0 w-full md:w-1/3 aspect-square bg-gray-100 rounded-lg overflow-hidden'>
+                <div className='flex-shrink-0 w-full md:w-1/3 aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden'>
                     <Map
                         colorScheme='FOLLOW_SYSTEM'
                         defaultCenter={{
@@ -85,9 +86,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                 {/* Title and Description */}
                 <div className='flex flex-col w-full md:w-2/3 text-left'>
                     <a
-                        className='text-3xl font-semibold text-blue-600 hover:underline flex items-center gap-2'
+                        className='text-3xl font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-2'
                         target='_blank'
                         href={park.url}
+                        rel='noreferrer'
                     >
                         {park.fullName}
                         <OpenInNewIcon />
@@ -95,116 +97,164 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
                         {park.activities.map((activity) => (
                             <li key={`${park.name}-${activity.id}`}>
-                                <Chip key={`${park.name}-${activity.id}`} size={'sm'}>
+                                <Chip
+                                    key={`${park.name}-${activity.id}`}
+                                    size={'sm'}
+                                >
                                     {activity.name}
                                 </Chip>
                             </li>
                         ))}
                     </ul>
 
-                    <p className='text-base leading-relaxed'>{park.description}</p>
+                    <p className='text-base leading-relaxed text-gray-700 dark:text-gray-200'>{park.description}</p>
                 </div>
             </div>
 
-            <ImageRow images={park.images} title={'Images'} />
+            <ImageRow
+                images={park.images}
+                title={'Images'}
+            />
             {people && people.length > 0 && (
-                <ImageRow images={people.map((person) => person.images[0])} title={'Related Figures'} />
+                <ImageRow
+                    images={people.map((person) => person.images[0])}
+                    title={'Related Figures'}
+                />
             )}
 
-            <div className='flex flex-col w-full md:w-2/3'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 justify-around'>
-                    {park.entranceFees && park.entranceFees.length > 0 && (
-                        <Card className='w-auto/12 bg-[#18181b] row-span-3'>
-                            <CardHeader>
-                                <p className='text-2xl'>Entrance Fees</p>
-                            </CardHeader>
-                            <CardBody>
-                                <ul className='space-y-8'>
-                                    {park.entranceFees.map((fee, i) => (
-                                        <li className='flex flex-col gap-2' key={`${fee.title}-${i}`}>
-                                            <p>{`${fee.title} (${fee.cost})`}</p>
-                                            <p>{fee.description}</p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardBody>
-                        </Card>
-                    )}
-
-                    <Card className='w-auto bg-[#18181b] row-span-1'>
-                        <CardHeader>
-                            <p className='text-2xl'>Contact Information</p>
-                        </CardHeader>
-                        <CardBody>
-                            <p className='text-lg'>Phone Number(s)</p>
-                            <ul className='pb-4'>
-                                {/* TODO: Format phone numbers with (123)-456-7890 */}
-                                {park.contacts.phoneNumbers.map((number) => (
-                                    <li key={number.phoneNumber}>
-                                        {number.type}
-                                        {': '}
-                                        {number.phoneNumber}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <p className='text-lg'>Email(s)</p>
-                            <ul>
-                                {park.contacts.emailAddresses.map((email) => (
-                                    <li key={email.emailAddress}>
-                                        {email.emailAddress}
-                                        {email.description ? `(${email.description})` : ''}
-                                    </li>
-                                ))}
-                            </ul>
-                        </CardBody>
-                    </Card>
-
-                    {park.weatherInfo && (
-                        <Card className='w-auto bg-[#18181b]'>
-                            <CardHeader>
-                                <p className='text-2xl'>Weather</p>
-                            </CardHeader>
-                            <CardBody>{park.weatherInfo}</CardBody>
-                        </Card>
-                    )}
-
+            <div className='flex flex-col w-full max-w-7xl mx-auto px-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto'>
                     {park.operatingHours &&
                         park.operatingHours.length > 0 &&
                         park.operatingHours.map((location) => (
                             <Card
-                                className='w-auto/12 bg-[#18181b]'
+                                className='w-full h-fit border-none bg-gradient-to-br from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-300'
                                 key={`${location.name}-card-${location.description}`}
                             >
-                                <CardHeader>
-                                    <p className='text-2xl'>
-                                        {location.name}
-                                        {' Hours'}
+                                <CardHeader className='flex gap-3'>
+                                    <Clock className='w-6 h-6 text-blue-400 dark:text-blue-300' />
+                                    <p className='text-xl font-semibold text-gray-800 dark:text-gray-100'>
+                                        {location.name} Hours
                                     </p>
                                 </CardHeader>
-                                <CardBody>
-                                    <p className='pb-2'>{location.description}</p>
-                                    <ul>
+                                <CardBody className='py-3'>
+                                    <p className='text-small text-gray-600 dark:text-gray-400 mb-4'>
+                                        {location.description}
+                                    </p>
+                                    <ul className='space-y-2'>
                                         {Object.entries(location.standardHours).map(([day, hours]) => (
-                                            <li key={`${park.name}-${location.name}-${day}-${hours}`}>
-                                                <p className='capitalize'>{`${day}: ${hours}`}</p>
+                                            <li
+                                                key={`${park.name}-${location.name}-${day}-${hours}`}
+                                                className='flex justify-between'
+                                            >
+                                                <span className='capitalize text-gray-700 dark:text-gray-200'>
+                                                    {day}
+                                                </span>
+                                                <span className='text-blue-600 dark:text-blue-400'>{hours}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </CardBody>
                             </Card>
                         ))}
+
+                    <Card className='w-full h-fit border-none bg-gradient-to-br from-green-500/10 to-teal-500/10 dark:from-green-500/20 dark:to-teal-500/20 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-300'>
+                        <CardHeader className='flex gap-3'>
+                            <Phone className='w-6 h-6 text-green-400 dark:text-green-300' />
+                            <p className='text-xl font-semibold text-gray-800 dark:text-gray-100'>
+                                Contact Information
+                            </p>
+                        </CardHeader>
+                        <CardBody className='py-3'>
+                            <div className='space-y-4'>
+                                <div>
+                                    <p className='text-medium font-medium text-gray-700 dark:text-gray-200 mb-2'>
+                                        Phone Numbers
+                                    </p>
+                                    <ul className='space-y-2'>
+                                        {park.contacts.phoneNumbers.map((number) => (
+                                            <li
+                                                key={number.phoneNumber}
+                                                className='flex items-center gap-2'
+                                            >
+                                                <span className='text-small text-gray-600 dark:text-gray-400'>
+                                                    {number.type}:
+                                                </span>
+                                                <a
+                                                    href={`tel:${number.phoneNumber}`}
+                                                    className='text-small text-blue-600 dark:text-blue-400 hover:underline'
+                                                >
+                                                    {number.phoneNumber}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                <div>
+                                    <p className='text-medium font-medium text-gray-700 dark:text-gray-200 mb-2'>
+                                        Email Addresses
+                                    </p>
+                                    <ul className='space-y-2'>
+                                        {park.contacts.emailAddresses.map((email) => (
+                                            <li
+                                                key={email.emailAddress}
+                                                className='flex items-center gap-2'
+                                            >
+                                                <Mail className='w-4 h-4 text-gray-600 dark:text-gray-400' />
+                                                <a
+                                                    href={`mailto:${email.emailAddress}`}
+                                                    className='text-small text-blue-600 dark:text-blue-400 hover:underline'
+                                                >
+                                                    {email.emailAddress}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </CardBody>
+                    </Card>
+
+                    {park.weatherInfo && (
+                        <Card className='w-full h-fit border-none bg-gradient-to-br from-orange-500/10 to-red-500/10 dark:from-orange-500/20 dark:to-red-500/20 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-300'>
+                            <CardHeader className='flex gap-3'>
+                                <Cloud className='w-6 h-6 text-orange-400 dark:text-orange-300' />
+                                <p className='text-xl font-semibold text-gray-800 dark:text-gray-100'>Weather</p>
+                            </CardHeader>
+                            <CardBody className='py-3'>
+                                <p className='text-gray-600 dark:text-gray-400 leading-relaxed'>{park.weatherInfo}</p>
+                            </CardBody>
+                        </Card>
+                    )}
+
+                    {park.entranceFees && park.entranceFees.length > 0 && (
+                        <Card className='w-full h-fit border-none bg-gradient-to-br from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 backdrop-blur-xl hover:scale-[1.02] transition-transform duration-300'>
+                            <CardHeader className='flex gap-3'>
+                                <Wallet className='w-6 h-6 text-purple-400 dark:text-purple-300' />
+                                <p className='text-xl font-semibold text-gray-800 dark:text-gray-100'>Entrance Fees</p>
+                            </CardHeader>
+                            <CardBody className='py-3'>
+                                <ul className='space-y-6'>
+                                    {park.entranceFees.map((fee, i) => (
+                                        <li
+                                            className='flex flex-col gap-2'
+                                            key={`${fee.title}-${i}`}
+                                        >
+                                            <p className='font-medium text-gray-700 dark:text-gray-200'>
+                                                {`${fee.title} `}
+                                                <span className='text-blue-600 dark:text-blue-400'>${fee.cost}</span>
+                                            </p>
+                                            <p className='text-small text-gray-600 dark:text-gray-400'>
+                                                {fee.description}
+                                            </p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardBody>
+                        </Card>
+                    )}
                 </div>
             </div>
         </div>
     );
 };
-
-/*
-<div className='flex flex-col px-12 py-8'>
-    <p className='text-3xl font-bold pb-4 flex-none'>Articles</p>
-    <div className='overflow-auto flex-grow'>
-        <ArticleList />
-    </div>
-</div>
- */
