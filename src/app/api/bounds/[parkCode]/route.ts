@@ -1,7 +1,7 @@
 import {NextResponse} from 'next/server';
 
-export async function GET(request: Request, {params}: {params: {parkCode: string}}) {
-    const {parkCode} = params;
+export async function GET(request: Request, {params}: {params: Promise<{parkCode: string}>}) {
+    const {parkCode} = await params;
 
     try {
         const apiKey = process.env.NEXT_PUBLIC_NPS_API_KEY;
