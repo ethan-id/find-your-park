@@ -37,7 +37,7 @@ export const ImageRow: FunctionComponent<ImageRow> = ({images, title, isPeople})
                                   />
                               }
                           >
-                              {isPeople ? (
+                              {isPeople && image.title ? (
                                   <Link href={`/people/${parkCode}/${toKebabCase(image.title ?? '')}`}>
                                       <SuspenseImage
                                           src={image.url}
