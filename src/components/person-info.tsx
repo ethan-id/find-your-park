@@ -22,7 +22,7 @@ export const PersonInfo: FC<PersonInfoProps> = ({parkCode, name}) => {
     }
 
     if (error) {
-        return <div className='text-center text-2xl text-red-500'>Couldn't find person information 🙁</div>;
+        return <div className='text-center text-2xl text-red-500'>Couldn&apos;t find person information 🙁</div>;
     }
 
     const person = people?.find((person) => toKebabCase(person.title) === name);
