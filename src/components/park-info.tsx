@@ -136,11 +136,13 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
             <ImageRow
                 images={park.images}
                 title={'Images'}
+                isPeople={false}
             />
             {people && people.length > 0 && (
                 <ImageRow
                     images={people.map((person) => person.images[0])}
                     title={'Related Figures'}
+                    isPeople
                 />
             )}
 

@@ -1,17 +1,27 @@
+'use client';
+
 import {Suspense} from 'react';
+import {usePathname} from 'next/navigation';
 import {Skeleton} from '@nextui-org/react';
 import {SuspenseImage} from '@/components/suspense-image';
+import {toKebabCase} from '@/utils/string-utils';
 import type {FunctionComponent} from 'react';
 import type {ParkImage} from '@/types/park-types';
 import type {PersonImage} from '@/types/people-types';
+import Link from 'next/link';
 
 interface ImageRow {
     images: (ParkImage | PersonImage)[];
+    isPeople: boolean;
     title: string;
 }
 
 // TODO: Make Image clickable for <Link href={`/people/person-name`}/>
-export const ImageRow: FunctionComponent<ImageRow> = ({images, title}) => {
+export const ImageRow: FunctionComponent<ImageRow> = ({images, title, isPeople}) => {
+    const path = usePathname();
+
+    const parkCode = path.slice(-4);
+
     return (
         <div className='flex flex-col justify-center text-xl gap-3'>
             {title}
@@ -27,12 +37,23 @@ export const ImageRow: FunctionComponent<ImageRow> = ({images, title}) => {
                                   />
                               }
                           >
-                              <SuspenseImage
-                                  src={image.url}
-                                  alt={image.altText ?? 'Park Image'}
-                                  className='rounded-xl object-cover snap-always snap-center w-[300px] aspect-square'
-                                  key={`${image.title}-${i}`}
-                              />
+                              {isPeople ? (
+                                  <Link href={`/people/${parkCode}/${toKebabCase(image.title ?? '')}`}>
+                                      <SuspenseImage
+                                          src={image.url}
+                                          alt={image.altText ?? 'Park Image'}
+                                          className='rounded-xl object-cover snap-always snap-center w-[300px] aspect-square hover:opacity-75'
+                                          key={`${image.title}-${i}`}
+                                      />
+                                  </Link>
+                              ) : (
+                                  <SuspenseImage
+                                      src={image.url}
+                                      alt={image.altText ?? 'Park Image'}
+                                      className='rounded-xl object-cover snap-always snap-center w-[300px] aspect-square'
+                                      key={`${image.title}-${i}`}
+                                  />
+                              )}
                           </Suspense>
                       ))
                     : null}
