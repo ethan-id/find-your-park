@@ -22,13 +22,23 @@ export const PersonInfo: FC<PersonInfoProps> = ({parkCode, name}) => {
     }
 
     if (error) {
-        return <div className='text-center text-2xl text-red-500'>Couldn&apos;t find person information 🙁</div>;
+        return (
+            <div className='flex justify-center items-center font-bold w-screen h-screen text-4xl'>
+                There was an error retrieving this page 🙁
+            </div>
+        );
     }
 
-    const person = people?.find((person) => toKebabCase(person.title) === name);
+    const person = people?.find((person) => {
+        return toKebabCase(person.images[0]?.title ?? '') === name;
+    });
 
     if (!person) {
-        return <div className='text-center text-2xl'>Person not found</div>;
+        return (
+            <div className='flex justify-center items-center font-bold w-screen h-screen text-4xl'>
+                We can&apos;t find this person&apos;s information 🙁
+            </div>
+        );
     }
 
     return (
