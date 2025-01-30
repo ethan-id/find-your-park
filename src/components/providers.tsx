@@ -1,6 +1,6 @@
 'use client';
 
-import {NextUIProvider} from '@nextui-org/react';
+import {HeroUIProvider} from "@heroui/react";
 import {APIProvider} from '@vis.gl/react-google-maps';
 
 export function Providers({children}: {children: React.ReactNode}) {
@@ -8,7 +8,7 @@ export function Providers({children}: {children: React.ReactNode}) {
 
     return (
         <APIProvider apiKey={API_KEY}>
-            <NextUIProvider>{children}</NextUIProvider>
+            <HeroUIProvider>{children}</HeroUIProvider>
         </APIProvider>
     );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from '@nextui-org/react';
+import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@heroui/react";
 import {SignInButton, SignedIn, SignedOut, UserButton} from '@clerk/nextjs';
 
 export const NavBar = () => {

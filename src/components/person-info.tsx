@@ -1,7 +1,7 @@
 'use client';
 
 import type {FC} from 'react';
-import {Spinner, Card, Image} from '@nextui-org/react';
+import {Spinner, Card, Image} from "@heroui/react";
 import {toKebabCase} from '@/utils/string-utils';
 import {usePeople} from '@/hooks/use-people';
 
