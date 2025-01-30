@@ -7,10 +7,13 @@ import {useParks} from '@/hooks/use-parks';
 import {useParkMarkers} from '@/hooks/use-park-markers';
 // import {useCampgrounds} from '@/hooks/use-campgrounds';
 import type {FunctionComponent} from 'react';
+import { useUser } from '@clerk/nextjs';
 
 export const MyMap: FunctionComponent = () => {
-    // TODO: Store parks in sessionStorage so that it is saved per browser session
     const {parks, loading: parksLoading} = useParks();
+    const {user} = useUser();
+
+    console.log(user);
 
     // TODO: Add markers for campgrounds ?
     // const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
