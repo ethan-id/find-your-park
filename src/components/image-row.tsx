@@ -2,7 +2,7 @@
 
 import {Suspense} from 'react';
 import {usePathname} from 'next/navigation';
-import {Skeleton} from '@nextui-org/react';
+import {Skeleton} from "@heroui/react";
 import {SuspenseImage} from '@/components/suspense-image';
 import {toKebabCase} from '@/utils/string-utils';
 import type {FunctionComponent} from 'react';
