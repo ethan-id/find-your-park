@@ -57,7 +57,7 @@ export default async function NationalParksPage({params}: {params: Promise<{user
                         />
                     )) : (
                         <div className='min-h-screen min-w-screen'>
-                            You haven't favorited or visited any parks!
+                            You haven&apos;t favorited or visited any parks!
                         </div>
                     )
                 }
