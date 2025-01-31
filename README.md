@@ -11,10 +11,13 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Improve `/` root route
 - [x] Add `/people/person` route
 - [ ] Add live webcams from `/webcams&pardCode=parkCode` to `/parks/parkCode` route
-- [ ] Look into server actions
 - [x] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
 - [x] Deploy it!
-- [x] Connect devl and prod supabase DBs
+- [x] Connect supabase DB
+- [ ] Look into server actions for supabase stuff so nothing DB related happens client side
 - [ ] Add ability to select parks and plan a road trip!
-- [ ] Add ability to favorite parks
+- [x] Add ability to favorite parks
 - [x] Add ability to track which parks you've visited
+- [x] Add user profile route to show user's info (visited parks for now)
+- [ ] Improve user profile route
+- [ ] Redo `/parks/[park]` route to server side render more stuff

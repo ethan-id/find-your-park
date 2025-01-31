@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
                 port: '',
                 pathname: '**',
                 search: ''
+            },
+            {
+                protocol: 'https',
+                hostname: 'www.nps.gov',
+                port: '',
+                pathname: '**',
+                search: ''
             }
         ]
     }

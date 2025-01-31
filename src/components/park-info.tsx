@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {Map} from '@vis.gl/react-google-maps';
-import {Alert, Card, CardHeader, CardBody, Chip, Spinner, Checkbox} from "@heroui/react";
+import {Alert, Card, CardHeader, CardBody, Chip, Spinner} from '@heroui/react';
 import {Markers} from '@/components/markers';
 import {AlertList} from '@/components/alert-list';
 import {ImageRow} from '@/components/image-row';
@@ -14,7 +14,8 @@ import {usePlaces} from '@/hooks/use-places';
 import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
-import { VisitedCheckbox } from './visited-checkbox';
+import {VisitedCheckbox} from './visited-checkbox';
+import {FavoritedCheckbox} from './favorite-checkbox';
 
 interface ParkInfoProps {
     parkCode: string;
@@ -135,7 +136,10 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     </div>
                 </div>
 
-                <VisitedCheckbox parkCode={parkCode}/>
+                <div className='flex gap-3'>
+                    <VisitedCheckbox parkCode={parkCode} />
+                    <FavoritedCheckbox parkCode={parkCode} />
+                </div>
             </div>
 
             <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
