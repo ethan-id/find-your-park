@@ -16,7 +16,6 @@ interface ImageRow {
     title: string;
 }
 
-// TODO: Make Image clickable for <Link href={`/people/person-name`}/>
 export const ImageRow: FunctionComponent<ImageRow> = ({images, title, isPeople}) => {
     const path = usePathname();
 

@@ -5,7 +5,7 @@ import {Checkbox, Tooltip} from '@heroui/react';
 import {useUser} from '@clerk/nextjs';
 import {supabase} from '@/lib/supabaseClient';
 
-const useVisited = (parkCode: string) => {
+const useFavorited = (parkCode: string) => {
     const {user} = useUser();
     const [visited, setVisited] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ const useVisited = (parkCode: string) => {
         setLoading(true);
         const fetchInitialRow = async () => {
             const {data} = await supabase
-                .from('visited_parks')
+                .from('favorite_parks')
                 .select('*')
                 .match({user_id: user?.id, park_id: parkCode});
 
@@ -27,14 +27,14 @@ const useVisited = (parkCode: string) => {
     return {visited, setVisited, loading};
 };
 
-interface VisitedCheckboxProps {
+interface FavoritedCheckboxProps {
     parkCode: string;
 }
 
-export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
+export const FavoritedCheckbox: FC<FavoritedCheckboxProps> = ({parkCode}) => {
     const {user, isSignedIn} = useUser();
 
-    const {visited, setVisited, loading} = useVisited(parkCode);
+    const {visited, setVisited, loading} = useFavorited(parkCode);
 
     const handleValueChange = async () => {
         const newVis = !visited;
@@ -42,7 +42,7 @@ export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
 
         if (newVis) {
             const {data, error} = await supabase
-                .from('visited_parks')
+                .from('favorite_parks')
                 .insert({user_id: user?.id, park_id: parkCode})
                 .select();
 
@@ -51,11 +51,11 @@ export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
                 // alert user of error
                 console.error(error);
             } else {
-                console.log('Updated visited parks:', data);
+                console.log('Updated favorite parks table:', data);
             }
         } else {
             const {data, error} = await supabase
-                .from('visited_parks')
+                .from('favorite_parks')
                 .delete()
                 .eq('park_id', parkCode)
                 .eq('user_id', user?.id)
@@ -66,7 +66,7 @@ export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
                 // alert user of error
                 console.error(error);
             } else {
-                console.log('Deleted visited info', data);
+                console.log('Deleted row from favorite parks table', data);
             }
         }
     };
@@ -77,7 +77,7 @@ export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
             isSelected={visited}
             onValueChange={() => handleValueChange()}
         >
-            Visited
+            Favorite
         </Checkbox>
     ) : (
         <Tooltip
@@ -90,7 +90,7 @@ export const VisitedCheckbox: FC<VisitedCheckboxProps> = ({parkCode}) => {
                 disabled
                 isSelected={false}
             >
-                <p>Visited</p>
+                <p>Favorite</p>
             </Checkbox>
         </Tooltip>
     );
