@@ -9,7 +9,6 @@ import {useParkMarkers} from '@/hooks/use-park-markers';
 import type {FunctionComponent} from 'react';
 
 export const MyMap: FunctionComponent = () => {
-    // TODO: Store parks in sessionStorage so that it is saved per browser session
     const {parks, loading: parksLoading} = useParks();
 
     // TODO: Add markers for campgrounds ?

@@ -17,6 +17,7 @@ async function fetchParks(parkCode: string = '', start: number = 0): Promise<Par
     return parsedData;
 }
 
+// TODO: Store parks in sessionStorage so that it is saved per browser session
 export function useParks(parkCode?: string) {
     const [parks, setParks] = useState<Park[]>([]);
     const [loading, setLoading] = useState(true);

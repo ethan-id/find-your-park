@@ -14,7 +14,7 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Look into server actions
 - [x] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
 - [x] Deploy it!
-- [ ] Connect devl and prod supabase DBs
+- [x] Connect devl and prod supabase DBs
 - [ ] Add ability to select parks and plan a road trip!
 - [ ] Add ability to favorite parks
-- [ ] Add ability to track which parks you've visited
+- [x] Add ability to track which parks you've visited

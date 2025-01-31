@@ -14,6 +14,7 @@ import {usePlaces} from '@/hooks/use-places';
 import {Clock, Phone, Mail, Cloud, Wallet} from 'lucide-react';
 import type {FunctionComponent} from 'react';
 import type {MarkerData} from '@/types/location-types';
+import { VisitedCheckbox } from './visited-checkbox';
 
 interface ParkInfoProps {
     parkCode: string;
@@ -134,9 +135,7 @@ export const ParkInfo: FunctionComponent<ParkInfoProps> = ({parkCode}) => {
                     </div>
                 </div>
 
-                <div className='self-start'>
-                    <Checkbox />
-                </div>
+                <VisitedCheckbox parkCode={parkCode}/>
             </div>
 
             <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
