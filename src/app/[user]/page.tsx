@@ -47,14 +47,20 @@ export default async function NationalParksPage({params}: {params: Promise<{user
             <h1 className='text-3xl font-bold mb-8'>My National Parks</h1>
 
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
-                {userData?.map((park, index) => (
-                    <ParkCard
-                        parkCode={park.park_id}
-                        favorite={park.favorite}
-                        visited={park.visited}
-                        key={`park-card-${park}-${index}`}
-                    />
-                ))}
+                {userData && userData.length > 0 ? 
+                    userData.map((park, index) => (
+                        <ParkCard
+                            parkCode={park.park_id}
+                            favorite={park.favorite}
+                            visited={park.visited}
+                            key={`park-card-${park}-${index}`}
+                        />
+                    )) : (
+                        <div className='min-h-screen min-w-screen'>
+                            You haven&apos;t favorited or visited any parks!
+                        </div>
+                    )
+                }
             </div>
         </div>
     );
