@@ -5,6 +5,7 @@ import {Chip} from '@heroui/chip';
 import {Skeleton} from '@heroui/skeleton';
 import {useParks} from '@/hooks/use-parks';
 import Image from 'next/image';
+import Link from 'next/link';
 import type {FC} from 'react';
 
 interface ParkCardProps {
@@ -35,25 +36,26 @@ export const ParkCard: FC<ParkCardProps> = ({parkCode, favorite, visited}) => {
                     <Skeleton className='h-6 w-3/4 rounded-lg' />
                 ) : (
                     <div className='flex min-w-full justify-between'>
-                        <h3 className='font-bold text-large'>{park?.name}</h3>
-                        {favorite && <Chip color={'success'}>{'Favorite'}</Chip> }
-                        {visited && <Chip color={'primary'}>{'Visited'}</Chip> }
+                        <Link className='text-md md:text-xl' href={`/parks/${park.parkCode}`}>{park?.name}</Link>
+                        <div className='flex gap-2'>
+                            {favorite && <Chip color={'success'}>{'Favorite'}</Chip>}
+                            {visited && <Chip color={'primary'}>{'Visited'}</Chip>}
+                        </div>
                     </div>
                 )}
             </CardHeader>
-            <CardBody className='flex items-center overflow-visible py-2'>
+            <CardBody className='flex items-center overflow-visible py-2 gap-2'>
                 {loading && park?.images?.length && park?.images?.length > 0 ? (
-                    <Skeleton className='h-[200px] w-[300px] rounded-xl' />
+                    <Skeleton className='h-[350px] w-[450px] rounded-xl' />
                 ) : (
                     <>
                         <Image
                             alt={park?.name || 'Park image'}
                             className='object-cover rounded-xl'
                             src={park?.images[0]?.url || '/placeholder.svg'}
-                            width={250}
-                            height={250}
+                            width={500}
+                            height={500}
                         />
-                        <p className='text-sm'>{park?.description}</p>
                     </>
                 )}
             </CardBody>

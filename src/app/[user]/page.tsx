@@ -1,6 +1,12 @@
 import {supabase} from '@/lib/supabaseClient';
 import {ParkCard} from '@/components/park-card';
 
+interface UserPark {
+    park_id: string;
+    favorite?: boolean;
+    visited?: boolean;
+}
+
 async function getUserParksData(userID: string) {
     const {data: visitedParks, error: visitedError} = await supabase
         .from('visited_parks')
@@ -12,55 +18,58 @@ async function getUserParksData(userID: string) {
         .select('park_id')
         .eq('user_id', userID);
 
-    interface UserPark {
-        park_id: string;
-        favorite?: boolean;
-        visited?: boolean;
-    }
+    const parks = new Map<string, UserPark>();
 
-    const parks: UserPark[] = [];
-
-    favoriteParks?.map((park: any) => {
-        park.favorite = true;
-        parks.push(park);
+    favoriteParks?.map(({park_id}: UserPark) => {
+        parks.set(park_id, {
+            park_id,
+            favorite: true
+        });
     });
-    visitedParks?.map((park: any) => {
-        park.visited = true;
-        parks.push(park);
+    visitedParks?.map(({park_id}: UserPark) => {
+        if (!parks.has(park_id)) {
+            parks.set(park_id, {
+                park_id,
+                visited: true
+            });
+        } else {
+            parks.set(park_id, {
+                ...(parks.get(park_id) as UserPark),
+                visited: true
+            });
+        }
     });
 
-    return parks;
+    return [...parks.values()];
 }
 
 export default async function NationalParksPage({params}: {params: Promise<{user: string}>}) {
     const userID = (await params).user;
 
     if (!userID) {
-        console.log(userID);
+        console.error(userID);
         return <p>Uh, oh!</p>;
     }
 
-    const userData = await getUserParksData(userID);
+    const userData: UserPark[] = await getUserParksData(userID);
 
     return (
-        <div className='container mx-auto px-4 py-8'>
+        <div className='container mx-auto px-4 py-8 min-h-screen'>
             <h1 className='text-3xl font-bold mb-8'>My National Parks</h1>
 
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
-                {userData && userData.length > 0 ? 
-                    userData.map((park, index) => (
+                {userData && userData.length > 0 ? (
+                    userData.map((park) => (
                         <ParkCard
                             parkCode={park.park_id}
                             favorite={park.favorite}
                             visited={park.visited}
-                            key={`park-card-${park}-${index}`}
+                            key={`park-card-${park}`}
                         />
-                    )) : (
-                        <div className='min-h-screen min-w-screen'>
-                            You haven&apos;t favorited or visited any parks!
-                        </div>
-                    )
-                }
+                    ))
+                ) : (
+                    <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
+                )}
             </div>
         </div>
     );
