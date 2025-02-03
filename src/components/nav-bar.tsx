@@ -18,7 +18,7 @@ export const NavBar = () => {
                                 src={'https://g9v4zenpq6.ufs.sh/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
                                 alt={'Tree Emoji'}
                             />
-                            <p className='font-bold text-xl'>Find Your Park</p>
+                            <p className='font-bold text-xl hidden sm:block'>Find Your Park</p>
                         </div>
                     </Link>
                 </NavbarBrand>
