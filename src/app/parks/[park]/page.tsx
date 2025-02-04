@@ -42,6 +42,8 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
 
             {/* Main content below */}
             <div className='flex flex-col items-center w-full max-w-7xl gap-12 py-12 px-4 mx-auto'>
+                <p className='text-base leading-relaxed text-gray-300'>{park.description}</p>
+
                 <ImageRow
                     images={park.images}
                     title={'Images'}

@@ -40,7 +40,6 @@ export const ParkBanner: FC<ParkBannerProps> = ({park}) => {
                             </li>
                         ))}
                     </ul>
-                    <p className='text-base leading-relaxed text-gray-300'>{park.description}</p>
                 </div>
             </div>
         </div>
