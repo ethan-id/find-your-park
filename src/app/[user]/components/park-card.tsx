@@ -16,9 +16,6 @@ export const ParkCard: FC<ParkCardProps> = async ({parkCode, favorite, visited})
     const {data: parks} = await fetchParksChunk(0, parkCode);
     const park = parks[0];
 
-    // TODO: Remove last usage of `use-parks.ts` hook
-    // const {parks, loading, error} = useParks(parkCode);
-
     return (
         <Card className='max-w-sm bg-stone-800'>
             <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
