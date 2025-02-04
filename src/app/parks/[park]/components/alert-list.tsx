@@ -1,7 +1,13 @@
-import {useAlerts} from '@/hooks/use-alerts';
-import {ParkAlert} from '@/components/park-alert';
-import type {Alert} from '@/types/alert-types';
+import {ParkAlert} from './park-alert';
+import {AlertsAPIResponse, alertsAPISchema, type Alert} from '@/types/alert-types';
 import type {FunctionComponent} from 'react';
+
+async function fetchAlerts(parkCode: string): Promise<AlertsAPIResponse> {
+    const url = `https://developer.nps.gov/api/v1/alerts?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&parkCode=${parkCode}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    return alertsAPISchema.parse(json);
+}
 
 const filterAlerts = (alerts: Alert[]): Alert[] => {
     const sevenDaysAgo = new Date();
@@ -18,8 +24,12 @@ interface AlertListProps {
 }
 
 // TODO: Figure out how to hide this if no alerts are visible (User closes them)
-export const AlertList: FunctionComponent<AlertListProps> = ({parkCode}) => {
-    const {alerts} = useAlerts(parkCode, filterAlerts);
+export const AlertList: FunctionComponent<AlertListProps> = async ({parkCode}) => {
+    const {data} = await fetchAlerts(parkCode);
+
+    const alerts = filterAlerts(data);
+    
+    console.log(alerts);
 
     return (
         alerts.length > 0 && (

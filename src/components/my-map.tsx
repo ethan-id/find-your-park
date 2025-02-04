@@ -1,8 +1,8 @@
 'use client';
 
 import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
-import {Markers} from '@/components/markers';
-import {Legend} from '@/components/legend';
+import {Markers} from './markers';
+import {Legend} from './legend';
 import {useParks} from '@/hooks/use-parks';
 import {useParkMarkers} from '@/hooks/use-park-markers';
 // import {useCampgrounds} from '@/hooks/use-campgrounds';

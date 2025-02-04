@@ -3,7 +3,7 @@
 import {Suspense} from 'react';
 import {usePathname} from 'next/navigation';
 import {Skeleton} from "@heroui/react";
-import {SuspenseImage} from '@/components/suspense-image';
+import {SuspenseImage} from './suspense-image';
 import {toKebabCase} from '@/utils/string-utils';
 import type {FunctionComponent} from 'react';
 import type {ParkImage} from '@/types/park-types';

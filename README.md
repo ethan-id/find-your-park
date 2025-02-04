@@ -21,3 +21,5 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Add user profile route to show user's info (visited parks for now)
 - [ ] Improve user profile route
 - [ ] Redo `/parks/[park]` route to server side render more stuff
+- [ ] Add `loading.tsx` to user's parks route
+- [ ] Make `/people/` route use SSR
