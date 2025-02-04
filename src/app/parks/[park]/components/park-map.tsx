@@ -1,3 +1,5 @@
+'use client';
+
 import {FC} from 'react';
 import {Map} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';

@@ -1,3 +1,5 @@
+'use client';
+
 import {Card, CardHeader, CardBody} from '@heroui/react';
 import {Phone, Mail} from 'lucide-react';
 import {Park} from '@/types/park-types';

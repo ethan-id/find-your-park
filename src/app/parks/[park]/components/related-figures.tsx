@@ -1,3 +1,5 @@
+'use client';
+
 import {usePeople} from '@/hooks/use-people';
 import {ImageRow} from './image-row';
 import { FC } from 'react';

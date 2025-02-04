@@ -1,3 +1,5 @@
+'use client';
+
 import {Park} from '@/types/park-types';
 import {Chip} from '@heroui/react';
 import {FC} from 'react';

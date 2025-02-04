@@ -1,3 +1,5 @@
+'use client';
+
 import {Park} from '@/types/park-types';
 import {FC} from 'react';
 import {Card, CardHeader, CardBody} from '@heroui/react';
