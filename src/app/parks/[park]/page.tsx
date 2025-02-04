@@ -11,13 +11,8 @@ import {FeesCard} from './components/fees-card';
 import {HoursCards} from './components/hours-cards';
 import {RelatedFigures} from './components/related-figures';
 
-const buildURL = (parkCode: string): string => {
-    let url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&limit=1&parkCode=${parkCode}`;
-    return url;
-};
-
 async function fetchPark(parkCode: string): Promise<ParksAPIResponse> {
-    const url = buildURL(parkCode);
+    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&limit=1&parkCode=${parkCode}`;
     const res = await fetch(url);
     const json = await res.json();
     const parsedData = npsResponseSchema.parse(json);
