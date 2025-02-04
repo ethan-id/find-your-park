@@ -1,14 +1,14 @@
-import React, {SetStateAction, Dispatch} from 'react';
+import React, {SetStateAction, Dispatch, FC} from 'react';
 import {useSwitch, VisuallyHidden, SwitchProps} from '@heroui/react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 interface EyeSwitchProps {
-    setFunc: Dispatch<SetStateAction<boolean>>;
+    setHandler: Dispatch<SetStateAction<boolean>>;
 }
 
-export const EyeSwitch = (props: SwitchProps & EyeSwitchProps) => {
-    const {setFunc} = props;
+export const EyeSwitch: FC<SwitchProps & EyeSwitchProps> = (props) => {
+    const {setHandler} = props;
     const {Component, slots, isSelected, getBaseProps, getInputProps, getWrapperProps} = useSwitch(props);
 
     return (
@@ -26,7 +26,7 @@ export const EyeSwitch = (props: SwitchProps & EyeSwitchProps) => {
                             'rounded-lg bg-default-100 hover:bg-default-200'
                         ]
                     })}
-                    onClick={() => setFunc((val: boolean) => !val)}
+                    onClick={() => setHandler((val: boolean) => !val)}
                 >
                     {!isSelected ? <VisibilityIcon /> : <VisibilityOffIcon />}
                 </div>

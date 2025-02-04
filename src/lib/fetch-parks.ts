@@ -5,7 +5,7 @@ const API_KEY = process.env.NEXT_PUBLIC_NPS_API_KEY; // or process.env.NPS_API_K
 const LIMIT = 50; // we'll fetch in increments of 50
 
 // Single request for a "page" of results:
-async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIResponse> {
+export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIResponse> {
     // Build URL
     const url = new URL('https://developer.nps.gov/api/v1/parks');
     url.searchParams.set('api_key', API_KEY || '');
@@ -21,7 +21,7 @@ async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIRespon
     }
     
     // Log out # of remaining requsts
-    console.log(`Requests remaining this hour: ${res.headers.get('X-Ratelimit-Remaining')}/${res.headers.get('X-Ratelimit-Limit')}`);
+    console.warn(`Requests remaining this hour: ${res.headers.get('X-Ratelimit-Remaining')}/${res.headers.get('X-Ratelimit-Limit')}`);
 
     const json = await res.json();
     const parsedData = npsResponseSchema.parse(json);

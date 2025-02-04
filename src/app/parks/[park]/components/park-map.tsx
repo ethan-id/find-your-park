@@ -14,6 +14,8 @@ interface ParkMapProps {
 
 export const ParkMap: FC<ParkMapProps> = ({park}) => {
     const {bounds} = useBounds(park.parkCode);
+
+    // TODO: Remove this usage of a hook, replace with fetch in `/parks/[park]/page.tsx`
     const {places} = usePlaces(park.parkCode);
 
     let markers: MarkerData[] = [];
