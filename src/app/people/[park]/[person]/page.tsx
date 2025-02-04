@@ -1,4 +1,4 @@
-import {PersonInfo} from '@/components/person-info';
+import {PersonInfo} from './components/person-info';
 
 export default async function Page({params}: {params: Promise<{park: string; person: string}>}) {
     const p = await params;

@@ -1,3 +1,5 @@
+'use client';
+
 import {useState} from 'react';
 import {Alert} from '@/types/alert-types';
 import {Alert as AlertComponent} from "@heroui/react";

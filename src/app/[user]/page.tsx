@@ -1,5 +1,5 @@
 import {supabase} from '@/lib/supabaseClient';
-import {ParkCard} from '@/components/park-card';
+import {ParkCard} from './components/park-card';
 
 interface UserPark {
     park_id: string;
