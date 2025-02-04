@@ -1,25 +1,26 @@
 import {useEffect, useState} from 'react';
 import {MarkerData} from '@/types/location-types';
 import {Park} from '@/types/park-types';
+import {Campground} from '@/types/campgrounds-types';
 
-export const useParkMarkers = (parks: Park[] | null, parksLoading: boolean) => {
-    const [parkMarkers, setParkMarkers] = useState<MarkerData[]>([]);
+export const useSiteMarkers = (sites: (Park | Campground)[] | null, loading: boolean) => {
+    const [markers, setMarkers] = useState<MarkerData[]>([]);
 
     useEffect(() => {
         const markers: MarkerData[] = [];
 
-        if (parks && parks?.length > 0) {
-            for (const park of parks) {
+        if (sites && sites?.length > 0) {
+            for (const site of sites) {
                 markers.push({
-                    label: park.fullName,
-                    linkHref: `/parks/${park.parkCode}`,
-                    location: {lat: Number(park.latitude), lng: Number(park.longitude)}
+                    label: site.name,
+                    linkHref: `/parks/${site.parkCode}`,
+                    location: {lat: Number(site.latitude), lng: Number(site.longitude)}
                 });
             }
         }
 
-        setParkMarkers(markers);
-    }, [parks, parksLoading]);
+        setMarkers(markers);
+    }, [sites, loading]);
 
-    return {parkMarkers};
+    return {markers};
 };

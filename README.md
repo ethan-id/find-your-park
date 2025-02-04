@@ -40,3 +40,4 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Add support for campgrounds
 - [ ] Add route for specific campgrounds
 - [ ] Add filtering to the homepage so only show specific markers
+- [ ] Add UI for showing related campgrounds and parks on their routes

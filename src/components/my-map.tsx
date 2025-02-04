@@ -4,17 +4,16 @@ import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from './markers';
 import {Legend} from './legend';
 import {useParks} from '@/hooks/use-parks';
-import {useParkMarkers} from '@/hooks/use-park-markers';
-// import {useCampgrounds} from '@/hooks/use-campgrounds';
+import {useSiteMarkers} from '@/hooks/use-park-markers';
+import {useCampgrounds} from '@/hooks/use-campgrounds';
 import type {FunctionComponent} from 'react';
 
 export const MyMap: FunctionComponent = () => {
-    const {parks, loading: parksLoading} = useParks();
+    const {parks, loading: parksLoading, progress: parkProgres} = useParks();
+    const {camps, loading: campsLoading, error: campsError, progress: campProgress} = useCampgrounds();
 
-    // TODO: Add markers for campgrounds ?
-    // const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
-
-    const {parkMarkers} = useParkMarkers(parks, parksLoading);
+    const {markers: parkMarkers} = useSiteMarkers(parks, parksLoading);
+    const {markers: campMarkers} = useSiteMarkers(camps, campsLoading);
 
     // TODO: Implement <MapControl/> to refine visible markers
     // Render list of available activities/things to do for user's to search for parks (should hide/show specific markers)
@@ -40,7 +39,8 @@ export const MyMap: FunctionComponent = () => {
                 <MapControl position={ControlPosition.TOP_LEFT}>
                     <Legend />
                 </MapControl>
-                <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} />
+                <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} type={'PARK'} />
+                <Markers markers={campMarkers && campMarkers.length > 0 ? [...campMarkers] : []} type={'CAMPGROUND'}  />
             </Map>
         </div>
     );
