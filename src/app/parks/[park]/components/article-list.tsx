@@ -3,7 +3,7 @@
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import {Card, CardBody, CardHeader, Skeleton} from "@heroui/react";
 import {Suspense} from 'react';
-import {SuspenseImage} from '@/components/suspense-image';
+import {SuspenseImage} from './suspense-image';
 import {useArticles} from '@/hooks/use-articles';
 import type {FunctionComponent} from 'react';
 
