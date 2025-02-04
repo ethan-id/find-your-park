@@ -24,3 +24,4 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Add `loading.tsx` to user's parks route
 - [x] Make `/people/` route use SSR
 - [ ] Fix visited/favoriting not working in Prod
+- [ ] Make `park-map.tsx` auto-zoom so that the entire park's boundaries are within view
