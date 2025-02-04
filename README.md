@@ -2,7 +2,7 @@
 
 This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](https://www.nps.gov/subjects/developer/api-documentation.htm#/thingstodo/getThingstodo) API to make National Park and other site information more accessible and available.
 
-## Big Goals
+## Big Goals / To Do's
 
 - [x] Replace list of parks with list from `/articles` endpoint
 - [x] Make `/park` route & page for specific parks to show all their info
@@ -25,3 +25,4 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Make `/people/` route use SSR
 - [ ] Fix visited/favoriting not working in Prod
 - [x] Make `park-map.tsx` auto-zoom so that the entire park's boundaries are within view
+- [ ] Convert `related-figures.tsx` to a server component

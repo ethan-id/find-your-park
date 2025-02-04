@@ -64,7 +64,7 @@ export default async function NationalParksPage({params}: {params: Promise<{user
                             parkCode={park.park_id}
                             favorite={park.favorite}
                             visited={park.visited}
-                            key={`park-card-${park}`}
+                            key={`park-card-${park.park_id}`}
                         />
                     ))
                 ) : (

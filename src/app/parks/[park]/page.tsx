@@ -21,31 +21,27 @@ async function fetchPark(parkCode: string): Promise<ParksAPIResponse> {
 
 export default async function Page({params}: {params: Promise<{park: string}>}) {
     const parkCode = (await params).park;
-
     const parks = await fetchPark(parkCode);
-
     const park = parks.data[0];
 
-    console.log(parks);
-
     return (
-        <div className='flex flex-col items-center min-h-screen py-12 px-4'>
+        <div className='flex flex-col items-center min-h-screen py-6 px-4'>
             <AlertList parkCode={park.parkCode} />
 
-            <div>
-                <div className='flex flex-col md:flex-row items-center md:items-start gap-8 w-full max-w-6xl'>
-                    <ParkMap park={park} />
-                    <ParkBanner park={park} />
-                </div>
-
-
-                <div className='flex gap-3'>
-                    <VisitedCheckbox parkCode={parkCode} />
-                    <FavoritedCheckbox parkCode={parkCode} />
-                </div>
+            {/* Container for Map + Banner */}
+            <div className='w-full max-w-6xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mt-4'>
+                <ParkMap park={park} />
+                <ParkBanner park={park} />
             </div>
 
-            <div className='flex flex-col max-w-6xl items-center min-h-screen gap-12 py-12 px-4'>
+            {/* Checkboxes */}
+            <div className='flex flex-wrap gap-3 mt-2'>
+                <VisitedCheckbox parkCode={parkCode} />
+                <FavoritedCheckbox parkCode={parkCode} />
+            </div>
+
+            {/* Main content below */}
+            <div className='flex flex-col items-center w-full max-w-7xl gap-12 py-12 px-4 mx-auto'>
                 <p className='text-base leading-relaxed text-gray-300'>{park.description}</p>
 
                 <ImageRow
@@ -55,7 +51,7 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
                 />
                 <RelatedFigures parkCode={parkCode} />
 
-                <div className='flex flex-col w-full max-w-7xl mx-auto px-4'>
+                <div className='flex flex-col w-full'>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto'>
                         {park.operatingHours && park.operatingHours.length > 0 && (
                             <HoursCards hours={park.operatingHours} />
