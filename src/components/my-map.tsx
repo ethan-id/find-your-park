@@ -1,33 +1,32 @@
 'use client';
 
+import {useState, type FC} from 'react';
 import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
 import {Markers} from './markers';
 import {Legend} from './legend';
-import {useParks} from '@/hooks/use-parks';
-import {useParkMarkers} from '@/hooks/use-park-markers';
-// import {useCampgrounds} from '@/hooks/use-campgrounds';
-import type {FunctionComponent} from 'react';
+import type {Park} from '@/types/park-types';
+import type {Campground} from '@/types/campgrounds-types';
+import {useSiteMarkers} from '@/hooks/use-park-markers';
 
-export const MyMap: FunctionComponent = () => {
-    const {parks, loading: parksLoading} = useParks();
+interface MyMapProps {
+    parks: Park[];
+    campgrounds: Campground[];
+}
 
-    // TODO: Add markers for campgrounds ?
-    // const {campgrounds, loading: campsLoading, error: campsError} = useCampgrounds();
+export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
+    const [seeParks, setSeeParks] = useState(true);
+    const [seeCamps, setSeeCamps] = useState(true);
 
-    const {parkMarkers} = useParkMarkers(parks, parksLoading);
+    console.log(seeParks, seeCamps);
 
-    // TODO: Implement <MapControl/> to refine visible markers
-    // Render list of available activities/things to do for user's to search for parks (should hide/show specific markers)
-    //<MapControl position={ControlPosition.TOP_LEFT}></MapControl>
-    // TODO: Add <Switch/> map controls that toggle <Markers/> with other data from API
+    const {markers: parkMarkers} = useSiteMarkers(parks, !parks.length);
+    const {markers: campMarkers} = useSiteMarkers(campgrounds, !campgrounds.length);
+
     return (
         <div className='map-container h-[100vh] w-[65vw]'>
             <Map
                 colorScheme={'FOLLOW_SYSTEM'}
-                defaultCenter={{
-                    lat: 38.68305259919395,
-                    lng: -94.8430405088294
-                }}
+                defaultCenter={{lat: 38.68305259919395, lng: -94.8430405088294}}
                 defaultTilt={30}
                 defaultZoom={5}
                 disableDefaultUI={true}
@@ -38,9 +37,16 @@ export const MyMap: FunctionComponent = () => {
                 renderingType={'VECTOR'}
             >
                 <MapControl position={ControlPosition.TOP_LEFT}>
-                    <Legend />
+                    <Legend setSeeParks={setSeeParks} setSeeCamps={setSeeCamps} />
                 </MapControl>
-                <Markers markers={parkMarkers && parkMarkers.length > 0 ? [...parkMarkers] : []} />
+                {seeParks && <Markers
+                    markers={parkMarkers}
+                    type={'PARK'}
+                />}
+                {seeCamps && <Markers
+                    markers={campMarkers}
+                    type={'CAMPGROUND'}
+                /> }
             </Map>
         </div>
     );

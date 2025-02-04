@@ -55,6 +55,7 @@ export const ParkMap: FC<ParkMapProps> = ({park}) => {
                 <Markers
                     markers={[parkMarker, ...markers]}
                     bounds={bounds}
+                    type='PARK'
                 />
             </Map>
         </div>

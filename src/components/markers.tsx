@@ -8,20 +8,22 @@ import type {FunctionComponent} from 'react';
 
 interface MarkersProps {
     markers: MarkerData[];
+    type: 'PARK' | 'CAMPGROUND';
     bounds?: google.maps.LatLngBounds | null;
 }
 
-export const Markers: FunctionComponent<MarkersProps> = ({markers, bounds}) => {
+export const Markers: FunctionComponent<MarkersProps> = ({markers, bounds, type}) => {
     const map = useMap();
 
     useEffect(() => {
         if (bounds && map) map.fitBounds(bounds);
-    }, [map, bounds])
+    }, [map, bounds]);
 
     return (
         <>
             {markers.map((marker, i) => (
                 <MarkerWithInfoWindow
+                    type={type}
                     key={`${marker.label}-${i}`}
                     markerData={marker}
                 />
@@ -32,9 +34,10 @@ export const Markers: FunctionComponent<MarkersProps> = ({markers, bounds}) => {
 
 interface MarkerWithInfoWindowProps {
     markerData: MarkerData;
+    type: 'PARK' | 'CAMPGROUND';
 }
 
-const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({markerData}) => {
+const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({markerData, type}) => {
     const [markerRef, marker] = useAdvancedMarkerRef();
     const [hoverRef, hovering] = useHover();
     const [_, setInfoWindowShown] = useState(false);
@@ -52,13 +55,24 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
             >
                 {markerData.linkHref ? (
                     <Link href={markerData.linkHref}>
-                        <Image
-                            ref={hoverRef}
-                            src={'https://utfs.io/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
-                            alt={'Tree Emoji'}
-                            width={25}
-                            height={25}
-                        />
+                        {type === 'PARK' ? (
+                            <Image
+                                ref={hoverRef}
+                                src={'https://utfs.io/f/vWKtdZl81f5UrT4qjo6nLMIxt1TywnjPu9HCBD7mA6OqEpXV'}
+                                alt={'Tree Emoji'}
+                                width={25}
+                                height={25}
+                            />
+                        ) : null}
+                        {type === 'CAMPGROUND' ? (
+                            <Image
+                                ref={hoverRef}
+                                src={'https://g9v4zenpq6.ufs.sh/f/vWKtdZl81f5UvjbDkE81f5URCm8dB0Y6kWywlsLzbPcIXEqZ'}
+                                alt={'Campground Emoji'}
+                                width={25}
+                                height={25}
+                            />
+                        ) : null}
                     </Link>
                 ) : (
                     <Image
