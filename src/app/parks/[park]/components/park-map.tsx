@@ -13,8 +13,7 @@ interface ParkMapProps {
 }
 
 export const ParkMap: FC<ParkMapProps> = ({park}) => {
-    useBounds(park.parkCode);
-
+    const {bounds} = useBounds(park.parkCode);
     const {places} = usePlaces(park.parkCode);
 
     let markers: MarkerData[] = [];
@@ -46,14 +45,14 @@ export const ParkMap: FC<ParkMapProps> = ({park}) => {
                 }}
                 defaultTilt={60}
                 defaultZoom={10}
-                mapId='DEMO_MAP_ID'
+                mapId='PARK_MAP'
                 disableDefaultUI={true}
                 gestureHandling='greedy'
                 style={{width: '100%', height: '100%'}}
                 reuseMaps={true}
                 renderingType='VECTOR'
             >
-                <Markers markers={[parkMarker, ...markers]} />
+                <Markers markers={[parkMarker, ...markers]} bounds={bounds} />
             </Map>
         </div>
     );

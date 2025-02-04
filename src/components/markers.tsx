@@ -1,5 +1,5 @@
-import {AdvancedMarker, InfoWindow, useAdvancedMarkerRef} from '@vis.gl/react-google-maps';
-import {useState, useCallback} from 'react';
+import {AdvancedMarker, InfoWindow, useAdvancedMarkerRef, useMap} from '@vis.gl/react-google-maps';
+import {useState, useCallback, useEffect} from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import {useHover} from '@uidotdev/usehooks';
@@ -8,13 +8,23 @@ import type {FunctionComponent} from 'react';
 
 interface MarkersProps {
     markers: MarkerData[];
+    bounds?: google.maps.LatLngBounds | null;
 }
 
-export const Markers: FunctionComponent<MarkersProps> = ({markers}) => {
+export const Markers: FunctionComponent<MarkersProps> = ({markers, bounds}) => {
+    const map = useMap();
+
+    useEffect(() => {
+        if (bounds && map) map.fitBounds(bounds);
+    }, [map, bounds])
+
     return (
         <>
             {markers.map((marker, i) => (
-                <MarkerWithInfoWindow key={`${marker.label}-${i}`} markerData={marker} />
+                <MarkerWithInfoWindow
+                    key={`${marker.label}-${i}`}
+                    markerData={marker}
+                />
             ))}
         </>
     );
@@ -63,7 +73,11 @@ const MarkerWithInfoWindow: FunctionComponent<MarkerWithInfoWindowProps> = ({mar
 
             {hovering && (
                 <div className='bg-slate-900'>
-                    <InfoWindow anchor={marker} onClose={handleClose} headerDisabled={true}>
+                    <InfoWindow
+                        anchor={marker}
+                        onClose={handleClose}
+                        headerDisabled={true}
+                    >
                         <div className='flex flex-col justify-center items-center text-black font-bold'>
                             <h2>{markerData.label}</h2>
                         </div>
