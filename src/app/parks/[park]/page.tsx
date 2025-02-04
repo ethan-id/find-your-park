@@ -38,13 +38,16 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
                     <ParkBanner park={park} />
                 </div>
 
+
                 <div className='flex gap-3'>
                     <VisitedCheckbox parkCode={parkCode} />
                     <FavoritedCheckbox parkCode={parkCode} />
                 </div>
             </div>
 
-            <div className='flex flex-col items-center min-h-screen gap-12 py-12 px-4'>
+            <div className='flex flex-col max-w-6xl items-center min-h-screen gap-12 py-12 px-4'>
+                <p className='text-base leading-relaxed text-gray-300'>{park.description}</p>
+
                 <ImageRow
                     images={park.images}
                     title={'Images'}
