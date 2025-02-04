@@ -11,7 +11,7 @@ interface ParkBannerProps {
 
 export const ParkBanner: FC<ParkBannerProps> = ({park}) => {
     return (
-        <div className='relative flex flex-col w-full md:w-2/3 text-left min-h-[400px]'>
+        <div className='relative flex flex-col w-full md:w-2/3 text-left min-h-[300px] md:min-h-[400px] mt-4 md:mt-0 rounded-lg overflow-hidden'>
             <img
                 src={park.images[0].url || '/placeholder.svg'}
                 alt={park.images[0].altText ?? 'Image alt text'}
@@ -33,7 +33,7 @@ export const ParkBanner: FC<ParkBannerProps> = ({park}) => {
                             <li key={`${park.name}-${activity.id}`}>
                                 <Chip
                                     key={`${park.name}-${activity.id}`}
-                                    size={'sm'}
+                                    size='sm'
                                 >
                                     {activity.name}
                                 </Chip>

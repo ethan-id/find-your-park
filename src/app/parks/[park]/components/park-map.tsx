@@ -36,7 +36,7 @@ export const ParkMap: FC<ParkMapProps> = ({park}) => {
     };
 
     return (
-        <div className='flex-shrink-0 w-full md:w-1/3 aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden'>
+        <div className='w-full sm:w-[90vw] md:w-1/3 md:aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden h-64 sm:h-auto'>
             <Map
                 colorScheme='FOLLOW_SYSTEM'
                 defaultCenter={{
@@ -52,7 +52,10 @@ export const ParkMap: FC<ParkMapProps> = ({park}) => {
                 reuseMaps={true}
                 renderingType='VECTOR'
             >
-                <Markers markers={[parkMarker, ...markers]} bounds={bounds} />
+                <Markers
+                    markers={[parkMarker, ...markers]}
+                    bounds={bounds}
+                />
             </Map>
         </div>
     );
