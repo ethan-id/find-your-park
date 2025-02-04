@@ -1,5 +1,6 @@
 import {supabase} from '@/lib/supabaseClient';
-import {ParkCard} from './components/park-card';
+import {ParkCard, ParkCardSkeleton} from './components/park-card';
+import {Suspense} from 'react';
 
 interface UserPark {
     park_id: string;
@@ -60,12 +61,17 @@ export default async function NationalParksPage({params}: {params: Promise<{user
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
                 {userData && userData.length > 0 ? (
                     userData.map((park) => (
-                        <ParkCard
-                            parkCode={park.park_id}
-                            favorite={park.favorite}
-                            visited={park.visited}
-                            key={`park-card-${park.park_id}`}
-                        />
+                        <Suspense 
+                            fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
+                            key={`park-card-${park.park_id}-suspense`}
+                        >
+                            <ParkCard
+                                parkCode={park.park_id}
+                                favorite={park.favorite}
+                                visited={park.visited}
+                                key={`park-card-${park.park_id}`}
+                            />
+                        </Suspense>
                     ))
                 ) : (
                     <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
