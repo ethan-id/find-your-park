@@ -8,7 +8,7 @@ import type {FunctionComponent} from 'react';
 
 interface MarkersProps {
     markers: MarkerData[];
-    bounds: google.maps.LatLngBounds | null;
+    bounds?: google.maps.LatLngBounds | null;
 }
 
 export const Markers: FunctionComponent<MarkersProps> = ({markers, bounds}) => {
