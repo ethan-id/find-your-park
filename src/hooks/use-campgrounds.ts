@@ -1,4 +1,4 @@
-import { CampgroundsResponse, campgroundsResponseSchema } from '@/types/campgrounds-types';
+import {CampgroundsResponse, campgroundsResponseSchema} from '@/types/campgrounds-types';
 import {useState, useEffect} from 'react';
 
 const buildURL = (start: number = 0): string => {
