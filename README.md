@@ -42,3 +42,4 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Add filtering to the homepage so only show specific markers
 - [ ] Add UI for showing related campgrounds and parks on their routes
 - [ ] Look into switching to BetterAuth instead of Clerk
+- [ ] Add map on `/user` route to show their visited parks

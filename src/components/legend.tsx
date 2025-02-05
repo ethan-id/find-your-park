@@ -19,7 +19,7 @@ export const Legend: FC<LegendProps> = ({setSeeParks, setSeeCamps}) => {
                     width={30}
                     height={30}
                 />
-                {'National Parks'}
+                {'Parks'}
             </div>
             <div className='flex flex-row items-center text-lg gap-4'>
                 <Switch defaultSelected={false} onValueChange={setSeeCamps} />
