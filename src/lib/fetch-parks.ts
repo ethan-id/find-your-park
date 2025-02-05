@@ -1,8 +1,8 @@
 import {ParksAPIResponse, Park, npsResponseSchema} from '@/types/park-types';
 
-const API_KEY = process.env.NEXT_PUBLIC_NPS_API_KEY; // or process.env.NPS_API_KEY if you want it server-only
+const API_KEY = process.env.NPS_API_KEY; // or process.env.NPS_API_KEY if you want it server-only
 
-const LIMIT = 50; // we'll fetch in increments of 50
+const LIMIT = 50;
 
 // Single request for a "page" of results:
 export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIResponse> {

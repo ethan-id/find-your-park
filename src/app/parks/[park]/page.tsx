@@ -10,9 +10,18 @@ import {WeatherCard} from './components/weather-card';
 import {FeesCard} from './components/fees-card';
 import {HoursCards} from './components/hours-cards';
 import {RelatedFigures} from './components/related-figures';
+import {PlacesResponse, placesResponseSchema} from '@/types/places-types';
+
+async function fetchPlaces(parkCode: string): Promise<PlacesResponse> {
+    const url = `https://developer.nps.gov/api/v1/places?api_key=${process.env.NPS_API_KEY}&parkCode=${parkCode}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    const parsedData = placesResponseSchema.parse(json);
+    return parsedData;
+}
 
 async function fetchPark(parkCode: string): Promise<ParksAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&limit=1&parkCode=${parkCode}`;
+    const url = `https://developer.nps.gov/api/v1/parks?api_key=${process.env.NPS_API_KEY}&limit=1&parkCode=${parkCode}`;
     const res = await fetch(url);
     const json = await res.json();
     const parsedData = npsResponseSchema.parse(json);
@@ -22,6 +31,7 @@ async function fetchPark(parkCode: string): Promise<ParksAPIResponse> {
 export default async function Page({params}: {params: Promise<{park: string}>}) {
     const parkCode = (await params).park;
     const parks = await fetchPark(parkCode);
+    const {data: places} = await fetchPlaces(parkCode);
     const park = parks.data[0];
 
     return (
@@ -30,7 +40,7 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
 
             {/* Container for Map + Banner */}
             <div className='w-full max-w-6xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mt-4'>
-                <ParkMap park={park} />
+                <ParkMap park={park} places={places} />
                 <ParkBanner park={park} />
             </div>
 

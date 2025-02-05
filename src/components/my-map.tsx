@@ -6,7 +6,7 @@ import {Markers} from './markers';
 import {Legend} from './legend';
 import type {Park} from '@/types/park-types';
 import type {Campground} from '@/types/campgrounds-types';
-import {useSiteMarkers} from '@/hooks/use-park-markers';
+import {convertSitesToMarkers} from '@/utils/markers';
 
 interface MyMapProps {
     parks: Park[];
@@ -15,12 +15,12 @@ interface MyMapProps {
 
 export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
     const [seeParks, setSeeParks] = useState(true);
-    const [seeCamps, setSeeCamps] = useState(true);
+    const [seeCamps, setSeeCamps] = useState(false);
 
     console.log(seeParks, seeCamps);
 
-    const {markers: parkMarkers} = useSiteMarkers(parks, !parks.length);
-    const {markers: campMarkers} = useSiteMarkers(campgrounds, !campgrounds.length);
+    const {markers: parkMarkers} = convertSitesToMarkers(parks);
+    const {markers: campMarkers} = convertSitesToMarkers(campgrounds);
 
     return (
         <div className='map-container h-[100vh] w-[65vw]'>
@@ -37,16 +37,23 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
                 renderingType={'VECTOR'}
             >
                 <MapControl position={ControlPosition.TOP_LEFT}>
-                    <Legend setSeeParks={setSeeParks} setSeeCamps={setSeeCamps} />
+                    <Legend
+                        setSeeParks={setSeeParks}
+                        setSeeCamps={setSeeCamps}
+                    />
                 </MapControl>
-                {seeParks && <Markers
-                    markers={parkMarkers}
-                    type={'PARK'}
-                />}
-                {seeCamps && <Markers
-                    markers={campMarkers}
-                    type={'CAMPGROUND'}
-                /> }
+                {seeParks && (
+                    <Markers
+                        markers={parkMarkers}
+                        type={'PARK'}
+                    />
+                )}
+                {seeCamps && (
+                    <Markers
+                        markers={campMarkers}
+                        type={'CAMPGROUND'}
+                    />
+                )}
             </Map>
         </div>
     );

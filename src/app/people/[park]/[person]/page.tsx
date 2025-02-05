@@ -3,7 +3,7 @@ import Image from 'next/image';
 import {toKebabCase} from '@/utils/string-utils';
 
 async function fetchPeople(parkCode?: string): Promise<PeopleAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/people?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&parkCode=${parkCode ?? ''}`;
+    const url = `https://developer.nps.gov/api/v1/people?api_key=${process.env.NPS_API_KEY}&parkCode=${parkCode ?? ''}`;
     const res = await fetch(url);
     const json = await res.json();
     return peopleAPISchema.parse(json);
