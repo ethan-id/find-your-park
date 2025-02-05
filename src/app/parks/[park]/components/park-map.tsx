@@ -4,19 +4,17 @@ import {FC} from 'react';
 import {Map} from '@vis.gl/react-google-maps';
 import {Markers} from '@/components/markers';
 import {Park} from '@/types/park-types';
-import {usePlaces} from '@/hooks/use-places';
 import {useBounds} from '@/hooks/use-bounds';
 import {MarkerData} from '@/types/location-types';
+import {PlaceItem} from '@/types/places-types';
 
 interface ParkMapProps {
     park: Park;
+    places: PlaceItem[];
 }
 
-export const ParkMap: FC<ParkMapProps> = ({park}) => {
+export const ParkMap: FC<ParkMapProps> = ({park, places}) => {
     const {bounds} = useBounds(park.parkCode);
-
-    // TODO: Remove this usage of a hook, replace with fetch in `/parks/[park]/page.tsx`
-    const {places} = usePlaces(park.parkCode);
 
     let markers: MarkerData[] = [];
     if (places) {

@@ -4,7 +4,7 @@ export async function GET(request: Request, {params}: {params: Promise<{parkCode
     const {parkCode} = await params;
 
     try {
-        const apiKey = process.env.NEXT_PUBLIC_NPS_API_KEY;
+        const apiKey = process.env.NPS_API_KEY;
 
         const response = await fetch(
             `https://developer.nps.gov/api/v1/mapdata/parkboundaries/${parkCode}?api_key=${apiKey}`

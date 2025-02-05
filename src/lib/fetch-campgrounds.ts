@@ -1,6 +1,6 @@
 import {CampgroundsResponse, Campground, campgroundsResponseSchema} from '@/types/campgrounds-types';
 
-const API_KEY = process.env.NEXT_PUBLIC_NPS_API_KEY; // or process.env.NPS_API_KEY if you want it server-only
+const API_KEY = process.env.NPS_API_KEY;
 const LIMIT = 50;
 
 async function fetchCampgroundsChunk(start = 0): Promise<CampgroundsResponse> {

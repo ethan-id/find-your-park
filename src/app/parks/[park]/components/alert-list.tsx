@@ -3,7 +3,7 @@ import {AlertsAPIResponse, alertsAPISchema, type Alert} from '@/types/alert-type
 import type {FunctionComponent} from 'react';
 
 async function fetchAlerts(parkCode: string): Promise<AlertsAPIResponse> {
-    const url = `https://developer.nps.gov/api/v1/alerts?api_key=${process.env.NEXT_PUBLIC_NPS_API_KEY}&parkCode=${parkCode}`;
+    const url = `https://developer.nps.gov/api/v1/alerts?api_key=${process.env.NPS_API_KEY}&parkCode=${parkCode}`;
     const res = await fetch(url);
     const json = await res.json();
     return alertsAPISchema.parse(json);
