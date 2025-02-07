@@ -36,7 +36,7 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Fix visited/favoriting not working in Prod
 - [x] Make `park-map.tsx` auto-zoom so that the entire park's boundaries are within view
 - [x] Convert `related-figures.tsx` to a server component
-- [ ] Add some SEO metadata
+- [x] Add some SEO metadata
 - [x] Add support for campgrounds
 - [ ] Add route for specific campgrounds
 - [x] Add filtering to the homepage so only show specific markers
