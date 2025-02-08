@@ -21,7 +21,7 @@ export const ImageRow: FunctionComponent<ImageRow> = ({images, title, isPeople})
     const parkCode = path.slice(-4);
 
     return (
-        <div className='flex flex-col justify-center text-xl gap-3'>
+        <div className='flex flex-col justify-center text-xl gap-3 max-w-[90vw] overflow-x-scroll'>
             {title}
             <div className='flex flex-row gap-4 w-full max-w-6xl overflow-x-auto snap-x snap-mandatory'>
                 {images && images.length > 0
