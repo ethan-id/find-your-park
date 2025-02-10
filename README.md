@@ -43,3 +43,6 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Add UI for showing related campgrounds and parks on their routes
 - [ ] Look into switching to BetterAuth instead of Clerk
 - [ ] Add map on `/user` route to show their visited parks
+- [ ] Keep track of each park's page visits
+- [ ] "Random Park" button that takes a viewer to a random parks page
+- [ ] Page to search for parks via tags or other properties
