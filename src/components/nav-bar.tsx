@@ -8,7 +8,7 @@ export const NavBar = () => {
     const {user} = useUser();
 
     return (
-        <Navbar>
+        <Navbar className='h-[8vh]'>
             <NavbarContent justify='end'>
                 <NavbarBrand>
                     <Link href='/'>

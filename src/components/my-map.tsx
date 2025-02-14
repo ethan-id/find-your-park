@@ -23,7 +23,7 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
     const {markers: campMarkers} = convertSitesToMarkers(campgrounds);
 
     return (
-        <div className='map-container h-[100vh] w-[65vw]'>
+        <div className='map-container'>
             <Map
                 colorScheme={'FOLLOW_SYSTEM'}
                 defaultCenter={{lat: 38.68305259919395, lng: -94.8430405088294}}
@@ -32,7 +32,7 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
                 disableDefaultUI={true}
                 gestureHandling={'greedy'}
                 mapId={'17b67c316f835bbf'}
-                style={{position: 'sticky', right: '0', top: '0', width: '100vw', height: '100vh'}}
+                style={{position: 'sticky', right: '0', top: '0', width: '100vw', height: '92vh'}}
                 reuseMaps={true}
                 renderingType={'VECTOR'}
             >
