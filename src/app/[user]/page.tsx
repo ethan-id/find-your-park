@@ -1,6 +1,9 @@
 import {supabase} from '@/lib/supabaseClient';
 import {ParkCard, ParkCardSkeleton} from './components/park-card';
 import {Suspense} from 'react';
+import {UserMap} from './components/user-map';
+import {fetchParksChunk} from '@/lib/fetch-parks';
+import {Park, ParksAPIResponse} from '@/types/park-types';
 
 interface UserPark {
     park_id: string;
@@ -44,6 +47,21 @@ async function getUserParksData(userID: string) {
     return [...parks.values()];
 }
 
+async function fetchUserParksLocations(parks: string[]) {
+    const sites: Park[] = [];
+
+    const promises = parks.map((park) => fetchParksChunk(0, park));
+    const responses = await Promise.allSettled(promises);
+
+    responses.map((response) => {
+        const {data} = (response as PromiseFulfilledResult<ParksAPIResponse>).value;
+        const park = data[0];
+        sites.push(park);
+    });
+
+    return sites;
+}
+
 export default async function NationalParksPage({params}: {params: Promise<{user: string}>}) {
     const userID = (await params).user;
 
@@ -54,28 +72,32 @@ export default async function NationalParksPage({params}: {params: Promise<{user
 
     const userData: UserPark[] = await getUserParksData(userID);
 
+    const pins = await fetchUserParksLocations(userData.map((park) => park.park_id));
+
     return (
         <div className='container mx-auto px-4 py-8 min-h-screen'>
             <h1 className='text-3xl font-bold mb-8'>My National Parks</h1>
-
-            <div className='grid grid-cols-1 lg:grid-cols-4 gap-8'>
-                {userData && userData.length > 0 ? (
-                    userData.map((park) => (
-                        <Suspense 
-                            fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
-                            key={`park-card-${park.park_id}-suspense`}
-                        >
-                            <ParkCard
-                                parkCode={park.park_id}
-                                favorite={park.favorite}
-                                visited={park.visited}
-                                key={`park-card-${park.park_id}`}
-                            />
-                        </Suspense>
-                    ))
-                ) : (
-                    <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
-                )}
+            <div className='flex flex-col lg:flex-row justify-center gap-12'>
+                <UserMap parks={pins} />
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+                    {userData && userData.length > 0 ? (
+                        userData.map((park) => (
+                            <Suspense
+                                fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
+                                key={`park-card-${park.park_id}-suspense`}
+                            >
+                                <ParkCard
+                                    parkCode={park.park_id}
+                                    favorite={park.favorite}
+                                    visited={park.visited}
+                                    key={`park-card-${park.park_id}`}
+                                />
+                            </Suspense>
+                        ))
+                    ) : (
+                        <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
+                    )}
+                </div>
             </div>
         </div>
     );
