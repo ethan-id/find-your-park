@@ -1,5 +1,5 @@
 import {Card, CardHeader, CardBody} from '@heroui/card';
-import {Chip} from '@heroui/chip';
+import {Star, Flag} from 'lucide-react';
 import {Skeleton} from '@heroui/skeleton';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ export const ParkCard: FC<ParkCardProps> = async ({parkCode, favorite, visited})
     const park = parks[0];
 
     return (
-        <Card className='max-w-sm bg-stone-800'>
+        <Card className='bg-stone-800'>
             <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
                 <div className='flex min-w-full justify-between'>
                     <Link
@@ -27,16 +27,16 @@ export const ParkCard: FC<ParkCardProps> = async ({parkCode, favorite, visited})
                         {park?.name}
                     </Link>
                     <div className='flex gap-2'>
-                        {favorite && <Chip color={'success'}>{'Favorite'}</Chip>}
-                        {visited && <Chip color={'primary'}>{'Visited'}</Chip>}
+                        {favorite && <Star color={'gold'}/>}
+                        {visited && <Flag color={'green'} />}
                     </div>
                 </div>
             </CardHeader>
-            <CardBody className='flex items-center overflow-visible py-2 gap-2'>
+            <CardBody className='flex items-center overflow-visible gap-2'>
                 <>
                     <Image
                         alt={park?.name || 'Park image'}
-                        className='object-cover rounded-xl'
+                        className='rounded-xl'
                         src={park?.images[0]?.url || '/placeholder.svg'}
                         width={500}
                         height={500}

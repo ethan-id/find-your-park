@@ -26,7 +26,7 @@ export const UserMap: FC<ParkMapProps> = ({parks}) => {
     const bounds = getUserBounds(markers);
 
     return (
-        <div className='w-full sm:w-[90vw] md:w-1/3 md:aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden h-64 sm:h-auto'>
+        <div className='md:col-span-2 row-span-2 w-full md:aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden h-64 sm:h-auto'>
             <Map
                 colorScheme='FOLLOW_SYSTEM'
                 defaultCenter={{
