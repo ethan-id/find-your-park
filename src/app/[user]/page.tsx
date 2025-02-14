@@ -77,27 +77,25 @@ export default async function NationalParksPage({params}: {params: Promise<{user
     return (
         <div className='container mx-auto px-4 py-8 min-h-screen'>
             <h1 className='text-3xl font-bold mb-8'>My National Parks</h1>
-            <div className='flex flex-col lg:flex-row justify-center gap-12'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12'>
                 <UserMap parks={pins} />
-                <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                    {userData && userData.length > 0 ? (
-                        userData.map((park) => (
-                            <Suspense
-                                fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
-                                key={`park-card-${park.park_id}-suspense`}
-                            >
-                                <ParkCard
-                                    parkCode={park.park_id}
-                                    favorite={park.favorite}
-                                    visited={park.visited}
-                                    key={`park-card-${park.park_id}`}
-                                />
-                            </Suspense>
-                        ))
-                    ) : (
-                        <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
-                    )}
-                </div>
+                {userData && userData.length > 0 ? (
+                    userData.map((park) => (
+                        <Suspense
+                            fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
+                            key={`park-card-${park.park_id}-suspense`}
+                        >
+                            <ParkCard
+                                parkCode={park.park_id}
+                                favorite={park.favorite}
+                                visited={park.visited}
+                                key={`park-card-${park.park_id}`}
+                            />
+                        </Suspense>
+                    ))
+                ) : (
+                    <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
+                )}
             </div>
         </div>
     );
