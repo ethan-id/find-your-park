@@ -5,12 +5,9 @@ import {VisitedCheckbox} from './components/visited-checkbox';
 import {FavoritedCheckbox} from './components/favorite-checkbox';
 import {ParkMap} from './components/park-map';
 import {ParkBanner} from './components/park-banner';
-import {ContactCard} from './components/contact-card';
-import {WeatherCard} from './components/weather-card';
-import {FeesCard} from './components/fees-card';
-import {HoursCards} from './components/hours-cards';
 import {RelatedFigures} from './components/related-figures';
 import {PlacesResponse, placesResponseSchema} from '@/types/places-types';
+import {InfoCards} from './components/info-cards';
 
 async function fetchPlaces(parkCode: string): Promise<PlacesResponse> {
     const url = `https://developer.nps.gov/api/v1/places?api_key=${process.env.NPS_API_KEY}&parkCode=${parkCode}`;
@@ -40,7 +37,10 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
 
             {/* Container for Map + Banner */}
             <div className='w-full max-w-6xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 mt-4'>
-                <ParkMap park={park} places={places} />
+                <ParkMap
+                    park={park}
+                    places={places}
+                />
                 <ParkBanner park={park} />
             </div>
 
@@ -61,23 +61,7 @@ export default async function Page({params}: {params: Promise<{park: string}>}) 
                 />
                 <RelatedFigures parkCode={parkCode} />
 
-                <div className='flex flex-col w-full'>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto'>
-                        {park.operatingHours && park.operatingHours.length > 0 && (
-                            <HoursCards hours={park.operatingHours} />
-                        )}
-
-                        <ContactCard park={park} />
-
-                        {park.weatherInfo && <WeatherCard park={park} />}
-
-                        {park.entranceFees && park.entranceFees.length > 0 && <FeesCard fees={park.entranceFees} />}
-
-                        {park.entrancePasses && park.entrancePasses.length > 0 && (
-                            <FeesCard fees={park.entrancePasses} />
-                        )}
-                    </div>
-                </div>
+                <InfoCards park={park} />
             </div>
         </div>
     );
