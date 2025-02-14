@@ -46,4 +46,5 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Keep track of each park's page visits
 - [x] "Random Park" button that takes a viewer to a random parks page
 - [ ] Page to search for parks via tags or other properties
-- [ ] User different icons for user map
+- [ ] Use different icons for user map
+- [x] Use MUI's Masonry component for park route
