@@ -1,12 +1,17 @@
 'use client';
 
 import {useState, type FC} from 'react';
+import {useRouter} from 'next/navigation';
 import {ControlPosition, Map, MapControl} from '@vis.gl/react-google-maps';
+import {Button} from '@heroui/react';
 import {Markers} from './markers';
 import {Legend} from './legend';
 import type {Park} from '@/types/park-types';
 import type {Campground} from '@/types/campgrounds-types';
 import {convertSitesToMarkers} from '@/utils/markers';
+import {Dice6} from 'lucide-react';
+
+const pickRandomPark = (max: number) => Math.abs(Math.floor((Math.random() * (0 - max - 1 + 1))));
 
 interface MyMapProps {
     parks: Park[];
@@ -14,10 +19,10 @@ interface MyMapProps {
 }
 
 export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
+    const router = useRouter();
+
     const [seeParks, setSeeParks] = useState(true);
     const [seeCamps, setSeeCamps] = useState(false);
-
-    console.log(seeParks, seeCamps);
 
     const {markers: parkMarkers} = convertSitesToMarkers(parks);
     const {markers: campMarkers} = convertSitesToMarkers(campgrounds);
@@ -41,6 +46,16 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
                         setSeeParks={setSeeParks}
                         setSeeCamps={setSeeCamps}
                     />
+                </MapControl>
+                <MapControl position={ControlPosition.BOTTOM_LEFT}>
+                    <Button
+                        className='py-6 px-4 m-6'
+                        color='primary'
+                        onClick={() => router.push(`/parks/${parks[pickRandomPark(parks.length)].parkCode}`)}
+                        variant='shadow'
+                    >
+                        <Dice6 size={32} />
+                    </Button>
                 </MapControl>
                 {seeParks && (
                     <Markers
