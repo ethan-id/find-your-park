@@ -29,7 +29,7 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Add ability to favorite parks
 - [x] Add ability to track which parks you've visited
 - [x] Add user profile route to show user's info (visited parks for now)
-- [ ] Improve user profile route
+- [x] Improve user profile route
 - [x] Redo `/parks/[park]` route to server side render more stuff
 - [x] Add `loading.tsx` to user's parks route
 - [x] Make `/people/` route use SSR
@@ -42,7 +42,7 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Add filtering to the homepage so only show specific markers
 - [ ] Add UI for showing related campgrounds and parks on their routes
 - [ ] Look into switching to BetterAuth instead of Clerk
-- [ ] Add map on `/user` route to show their visited parks
+- [x] Add map on `/user` route to show their visited parks
 - [ ] Keep track of each park's page visits
 - [ ] "Random Park" button that takes a viewer to a random parks page
 - [ ] Page to search for parks via tags or other properties

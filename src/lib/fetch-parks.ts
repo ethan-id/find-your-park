@@ -1,12 +1,11 @@
 import {ParksAPIResponse, Park, npsResponseSchema} from '@/types/park-types';
 
-const API_KEY = process.env.NPS_API_KEY; // or process.env.NPS_API_KEY if you want it server-only
+const API_KEY = process.env.NPS_API_KEY;
 
 const LIMIT = 50;
 
 // Single request for a "page" of results:
 export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIResponse> {
-    // Build URL
     const url = new URL('https://developer.nps.gov/api/v1/parks');
     url.searchParams.set('api_key', API_KEY || '');
     url.searchParams.set('limit', String(LIMIT));
@@ -20,7 +19,6 @@ export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAP
         throw new Error(`Failed to fetch parks. Status: ${res.status}`);
     }
     
-    // Log out # of remaining requsts
     console.warn(`Requests remaining this hour: ${res.headers.get('X-Ratelimit-Remaining')}/${res.headers.get('X-Ratelimit-Limit')}`);
 
     const json = await res.json();
