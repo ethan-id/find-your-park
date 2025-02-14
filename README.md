@@ -1,6 +1,6 @@
 # Find Your Park
 
-This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](https://www.nps.gov/subjects/developer/api-documentation.htm#/thingstodo/getThingstodo) API to make National Park and other site information more accessible and available.
+This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](https://www.nps.gov/subjects/developer/api-documentation.htm#/thingstodo/getThingstodo) API.
 
 ## Tech Stack
 - NextJS as the framework
