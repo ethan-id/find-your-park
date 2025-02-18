@@ -20,11 +20,10 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [x] Improve `/parks/parkCode` route
 - [ ] Improve `/` root route
 - [x] Add `/people/person` route
-- [ ] Add live webcams from `/webcams&pardCode=parkCode` to `/parks/parkCode` route
+- [ ] Add live webcams from `/webcams&parkCode=parkCode` to `/parks/parkCode` route
 - [x] Add [clerk](https://clerk.com/docs/quickstarts/nextjs) for user authentication/sign-up/sign-in
 - [x] Deploy it!
-- [x] Connect supabase DB
-- [ ] Look into server actions for supabase stuff so nothing DB related happens client side
+- [x] Connect supabase DB- [ ] Look into server actions for supabase stuff so nothing DB related happens client side
 - [ ] Add ability to select parks and plan a road trip!
 - [x] Add ability to favorite parks
 - [x] Add ability to track which parks you've visited
@@ -48,3 +47,6 @@ This is a NextJS project using `@vis.gl/react-google-maps` and the [`NPS.gov`](h
 - [ ] Page to search for parks via tags or other properties
 - [ ] Use different icons for user map
 - [x] Use MUI's Masonry component for park route
+- [ ] Use places data on park route
+- [x] Speed up `/` route's load time [(Sped up 50%)](https://github.com/ethan-id/find-your-park/pull/44)
+
