@@ -26,7 +26,7 @@ export const UserMap: FC<ParkMapProps> = ({parks}) => {
     const bounds = getUserBounds(markers);
 
     return (
-        <div className='md:col-span-2 row-span-2 w-full md:aspect-square bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden h-64 sm:h-auto'>
+        <div className='w-full dark:bg-gray-800 rounded-xl overflow-hidden'>
             <Map
                 colorScheme='FOLLOW_SYSTEM'
                 defaultCenter={{
@@ -38,7 +38,7 @@ export const UserMap: FC<ParkMapProps> = ({parks}) => {
                 mapId='PARK_MAP'
                 disableDefaultUI={true}
                 gestureHandling='greedy'
-                style={{width: '100%', height: '100%'}}
+                style={{width: '100%', height: '50vh'}}
                 reuseMaps={true}
                 renderingType='VECTOR'
             >
