@@ -29,7 +29,7 @@ export async function fetchAllParks(): Promise<Park[]> {
     // Hard-coded starts for known number of parks that the API responds with so that 
     // I can use Promise.allSettled to fire all the fetches at once
     const starts = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 474];
-    let allParks: Park[] = [];
+    const allParks: Park[] = [];
 
     const promises = starts.map((start) => fetchParksChunk(start));
 
