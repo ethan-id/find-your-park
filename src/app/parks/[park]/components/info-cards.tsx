@@ -12,17 +12,35 @@ interface InfoCardsProps {
 
 export const InfoCards: FC<InfoCardsProps> = ({park}) => {
     return (
-        <div className='flex flex-col w-full'>
-            <Masonry
-                columns={3}
-                spacing={4}
-            >
-                {park.entranceFees && park.entranceFees.length > 0 && <FeesCard fees={park.entranceFees} />}
-                {park.operatingHours && park.operatingHours.length > 0 && <HoursCards hours={park.operatingHours} />}
-                <ContactCard park={park} />
-                {park.weatherInfo && <WeatherCard park={park} />}
-                {park.entrancePasses && park.entrancePasses.length > 0 && <FeesCard fees={park.entrancePasses} />}
-            </Masonry>
+        <div className='flex flex-col justify-center w-full'>
+            <div className='hidden md:block'>
+                <Masonry
+                    columns={3}
+                    spacing={4}
+                >
+                    {park.entranceFees && park.entranceFees.length > 0 && <FeesCard fees={park.entranceFees} />}
+                    {park.operatingHours && park.operatingHours.length > 0 && (
+                        <HoursCards hours={park.operatingHours} />
+                    )}
+                    <ContactCard park={park} />
+                    {park.weatherInfo && <WeatherCard park={park} />}
+                    {park.entrancePasses && park.entrancePasses.length > 0 && <FeesCard fees={park.entrancePasses} />}
+                </Masonry>
+            </div>
+            <div className='block md:hidden'>
+                <Masonry
+                    columns={1}
+                    spacing={4}
+                >
+                    {park.entranceFees && park.entranceFees.length > 0 && <FeesCard fees={park.entranceFees} />}
+                    {park.operatingHours && park.operatingHours.length > 0 && (
+                        <HoursCards hours={park.operatingHours} />
+                    )}
+                    <ContactCard park={park} />
+                    {park.weatherInfo && <WeatherCard park={park} />}
+                    {park.entrancePasses && park.entrancePasses.length > 0 && <FeesCard fees={park.entrancePasses} />}
+                </Masonry>
+            </div>
         </div>
     );
 };
