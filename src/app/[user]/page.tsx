@@ -4,6 +4,7 @@ import {Suspense} from 'react';
 import {UserMap} from './components/user-map';
 import {fetchParksChunk} from '@/lib/fetch-parks';
 import {Park, ParksAPIResponse} from '@/types/park-types';
+import {Masonry} from '@mui/lab';
 
 interface UserPark {
     park_id: string;
@@ -77,26 +78,45 @@ export default async function NationalParksPage({params}: {params: Promise<{user
     return (
         <div className='container mx-auto px-4 py-8 min-h-screen'>
             <h1 className='text-3xl font-bold mb-8'>My National Parks</h1>
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12'>
+            <div className='flex flex-col gap-12'>
                 <UserMap parks={pins} />
-                {userData && userData.length > 0 ? (
-                    userData.map((park) => (
-                        <Suspense
-                            fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
-                            key={`park-card-${park.park_id}-suspense`}
-                        >
-                            <ParkCard
-                                parkCode={park.park_id}
-                                favorite={park.favorite}
-                                visited={park.visited}
-                                key={`park-card-${park.park_id}`}
-                            />
-                        </Suspense>
-                    ))
-                ) : (
-                    <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
-                )}
+                <div className='hidden md:flex justify-center items-center'>
+                    <Masonry
+                        columns={4}
+                        spacing={2}
+                    >
+                        <MasonryInner userData={userData} />
+                    </Masonry>
+                </div>
+                <div className='flex justify-center items-center md:hidden'>
+                    <Masonry
+                        columns={1}
+                        spacing={4}
+                    >
+                        <MasonryInner userData={userData} />
+                    </Masonry>
+                </div>
             </div>
         </div>
     );
 }
+
+const MasonryInner = ({userData}: {userData: UserPark[]}) => {
+    return userData && userData.length > 0 ? (
+        userData.map((park) => (
+            <Suspense
+                fallback={<ParkCardSkeleton key={`park-card-${park.park_id}-skeleton`} />}
+                key={`park-card-${park.park_id}-suspense`}
+            >
+                <ParkCard
+                    parkCode={park.park_id}
+                    favorite={park.favorite}
+                    visited={park.visited}
+                    key={`park-card-${park.park_id}`}
+                />
+            </Suspense>
+        ))
+    ) : (
+        <div className='min-h-screen min-w-screen'>You haven&apos;t favorited or visited any parks!</div>
+    );
+};
