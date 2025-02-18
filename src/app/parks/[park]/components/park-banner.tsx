@@ -17,6 +17,7 @@ export const ParkBanner: FC<ParkBannerProps> = ({park}) => {
                 alt={park.images[0].altText ?? 'Image alt text'}
                 className='absolute inset-0 w-full h-full object-cover rounded-lg'
             />
+
             <div className='relative mt-auto'>
                 <div className='backdrop-blur-xs bg-black/90 dark:bg-gray-800/75 p-4 rounded-lg'>
                     <a
@@ -28,6 +29,7 @@ export const ParkBanner: FC<ParkBannerProps> = ({park}) => {
                         {park.fullName}
                         <OpenInNewIcon />
                     </a>
+
                     <ul className='flex flex-row gap-4 py-4 w-full overflow-x-auto snap-x snap-mandatory'>
                         {park.activities.map((activity) => (
                             <li key={`${park.name}-${activity.id}`}>
