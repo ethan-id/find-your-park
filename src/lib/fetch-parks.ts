@@ -4,7 +4,6 @@ const API_KEY = process.env.NPS_API_KEY;
 
 const LIMIT = 50;
 
-// Single request for a "page" of results:
 export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAPIResponse> {
     const url = new URL('https://developer.nps.gov/api/v1/parks');
     url.searchParams.set('api_key', API_KEY || '');
@@ -26,23 +25,20 @@ export async function fetchParksChunk(start = 0, parkCode = ''): Promise<ParksAP
     return parsedData;
 }
 
-/**
- * Fetch *all* parks by iterating over multiple pages.
- * Usually done server-side in Next.js to avoid many client requests.
- */
-export async function fetchAllParks(parkCode = ''): Promise<Park[]> {
+export async function fetchAllParks(): Promise<Park[]> {
+    // Hard-coded starts for known number of parks that the API responds with so that 
+    // I can use Promise.allSettled to fire all the fetches at once
+    const starts = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 474];
     let allParks: Park[] = [];
-    let start = 0;
-    let total = Infinity;
 
-    while (allParks.length < total) {
-        const {data, total: totalCount} = await fetchParksChunk(start, parkCode);
-        if (data.length === 0) break; // no more data
+    const promises = starts.map((start) => fetchParksChunk(start));
 
-        allParks = [...allParks, ...data];
-        total = Number(totalCount);
-        start += data.length;
-    }
+    const responses = await Promise.allSettled(promises);
+    responses.map((res) => {
+        const {data} = (res as PromiseFulfilledResult<ParksAPIResponse>).value;
+        const park = data;
+        allParks.push(...park);
+    });
 
     return allParks;
 }

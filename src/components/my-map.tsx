@@ -43,6 +43,8 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
             >
                 <MapControl position={ControlPosition.TOP_LEFT}>
                     <Legend
+                        seeParks={seeParks}
+                        seeCamps={seeCamps}
                         setSeeParks={setSeeParks}
                         setSeeCamps={setSeeCamps}
                     />
@@ -51,7 +53,7 @@ export const MyMap: FC<MyMapProps> = ({parks, campgrounds}) => {
                     <Button
                         className='py-6 px-4 m-6'
                         color='primary'
-                        onClick={() => router.push(`/parks/${parks[pickRandomPark(parks.length)].parkCode}`)}
+                        onPress={() => router.push(`/parks/${parks[pickRandomPark(parks.length)].parkCode}`)}
                         variant='shadow'
                     >
                         <Dice6 size={32} />
